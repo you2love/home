@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冰箱 - 家用电器维修指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .appliance-detail {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .appliance-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        .appliance-detail h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .appliance-detail h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.1rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .principle-box h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .principle-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .principle-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshoot {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .troubleshoot h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot ul, .troubleshoot ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #d4edda;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .flowchart {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .flowchart .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart .step-number {
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电维修指南</h1>
+                <p>专业、易懂的家电维修知识库</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电器名称或故障..." onkeypress="handleSearch(event)">
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link active">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="appliance-detail">
+                    <h2>❄️ 冰箱运行原理与故障修复</h2>
+                    
+                    <h3>运行原理</h3>
+                    <div class="principle-box">
+                        <h3>制冷循环原理</h3>
+                        <p>冰箱通过<strong>蒸汽压缩式制冷循环</strong>实现制冷，主要包含以下四个过程：</p>
+                        <ol>
+                            <li><strong>压缩</strong>：压缩机将低温低压的制冷剂气体压缩成高温高压气体</li>
+                            <li><strong>冷凝</strong>：高温高压气体在冷凝器中散热，变成高压液体</li>
+                            <li><strong>节流</strong>：高压液体经过膨胀阀降压，变成低温低压液体</li>
+                            <li><strong>蒸发</strong>：低温低压液体在蒸发器中吸收热量，实现制冷</li>
+                        </ol>
+                    </div>
+
+                    <h3>主要部件</h3>
+                    <ul>
+                        <li><strong>压缩机</strong>：制冷系统的心脏，提供动力</li>
+                        <li><strong>冷凝器</strong>：散热部件，将热量释放到空气中</li>
+                        <li><strong>蒸发器</strong>：吸热部件，实现冰箱内部制冷</li>
+                        <li><strong>膨胀阀/毛细管</strong>：控制制冷剂流量</li>
+                        <li><strong>温控器</strong>：调节冰箱内部温度</li>
+                    </ul>
+
+                    <h3>常见故障及修复</h3>
+                    
+                    <div class="troubleshoot">
+                        <h4>故障1：冰箱不制冷</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>电源问题：检查电源线和插座</li>
+                            <li>压缩机故障：听是否有运行声音</li>
+                            <li>制冷剂泄漏：检查是否有油渍</li>
+                            <li>温控器设置不当</li>
+                        </ul>
+                        <p><strong>排查步骤：</strong></p>
+                        <div class="flowchart">
+                            <div class="step">
+                                <span class="step-number">1</span>
+                                <div>检查电源：确认插座有电，电源线完好</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">2</span>
+                                <div>检查温控器：确保温度设置正确（通常2-8℃）</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">3</span>
+                                <div>听压缩机声音：应有轻微运转声</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <div>检查冷凝器：清理背面灰尘</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障2：冰箱结霜严重</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>门封条老化或损坏</li>
+                            <li>频繁开门或开门时间过长</li>
+                            <li>温控器故障</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>用吹风机加热门封条，使其恢复弹性</li>
+                            <li>更换老化的门封条</li>
+                            <li>减少开门次数和时间</li>
+                            <li>检查并调整温控器设置</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障3：冰箱噪音过大</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>放置不平稳</li>
+                            <li>压缩机减震垫老化</li>
+                            <li>内部零件松动</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>调整冰箱底脚，确保水平放置</li>
+                            <li>检查并更换减震垫</li>
+                            <li>紧固内部松动的部件</li>
+                        </ol>
+                    </div>
+
+                    <h3>维护建议</h3>
+                    <div class="tip">
+                        <strong>定期清洁：</strong>每3-6个月清洁一次冷凝器和冷凝器风扇
+                    </div>
+                    <div class="tip">
+                        <strong>检查门封：</strong>定期检查门封条是否严密，可用纸片测试
+                    </div>
+                    <div class="tip">
+                        <strong>温度设置：</strong>冷藏室2-8℃，冷冻室-18℃左右
+                    </div>
+                    <div class="warning">
+                        <strong>安全注意：</strong>清洁前请拔掉电源，涉及制冷剂维修请专业人员处理
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const appliances = [
+                    { name: '冰箱', file: 'refrigerator.html' },
+                    { name: '洗衣机', file: 'washing-machine.html' },
+                    { name: '空调', file: 'air-conditioner.html' },
+                    { name: '微波炉', file: 'microwave.html' },
+                    { name: '电视', file: 'television.html' },
+                    { name: '热水器', file: 'water-heater.html' },
+                    { name: '洗碗机', file: 'dishwasher.html' },
+                    { name: '吸尘器', file: 'vacuum.html' }
+                ];
+
+                let found = false;
+                for (const appliance of appliances) {
+                    if (appliance.name.toLowerCase().includes(searchTerm)) {
+                        window.location.href = appliance.file;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found && searchTerm) {
+                    alert('未找到相关内容，请尝试其他关键词');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

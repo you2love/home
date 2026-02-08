@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吸尘器 - 家用电器维修指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .appliance-detail {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .appliance-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        .appliance-detail h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .appliance-detail h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.1rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .principle-box h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .principle-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .principle-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshoot {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .troubleshoot h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot ul, .troubleshoot ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #d4edda;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .flowchart {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .flowchart .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart .step-number {
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电维修指南</h1>
+                <p>专业、易懂的家电维修知识库</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电器名称或故障..." onkeypress="handleSearch(event)">
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link active">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="appliance-detail">
+                    <h2>🧹 吸尘器运行原理与故障修复</h2>
+                    
+                    <h3>运行原理</h3>
+                    <div class="principle-box">
+                        <h3>吸尘器吸尘原理</h3>
+                        <p>吸尘器通过<strong>气流产生压差</strong>实现吸尘：</p>
+                        <ol>
+                            <li><strong>电机转动</strong>：电机带动风扇叶轮高速旋转</li>
+                            <li><strong>产生负压</strong>：叶轮将空气从吸尘口排出，形成负压</li>
+                            <li><strong>吸入灰尘</strong>：外界空气携带灰尘进入吸尘口</li>
+                            <li><strong>过滤分离</strong>：灰尘被滤网/尘袋收集，干净空气排出</li>
+                            <li><strong>持续循环</strong>：电机持续运转，保持吸力</li>
+                        </ol>
+                    </div>
+
+                    <h3>主要部件</h3>
+                    <ul>
+                        <li><strong>电机</strong>：提供动力，带动风扇旋转</li>
+                        <li><strong>风扇叶轮</strong>：产生气流和吸力</li>
+                        <li><strong>过滤系统</strong>：HEPA滤网、尘袋等</li>
+                        <li><strong>吸尘软管</strong>：传输气流</li>
+                        <li><strong>地刷/吸头</strong>：接触地面，吸入灰尘</li>
+                        <li><strong>集尘盒/尘袋</strong>：收集灰尘</li>
+                    </ul>
+
+                    <h3>常见故障及修复</h3>
+                    
+                    <div class="troubleshoot">
+                        <h4>故障1：吸尘器吸力下降</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>滤网/尘袋堵塞</li>
+                            <li>吸尘管堵塞</li>
+                            <li>电机碳刷磨损</li>
+                            <li>密封不良</li>
+                        </ul>
+                        <p><strong>排查步骤：</strong></p>
+                        <div class="flowchart">
+                            <div class="step">
+                                <span class="step-number">1</span>
+                                <div>清理或更换滤网/尘袋</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">2</span>
+                                <div>检查并清理吸尘管和软管</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">3</span>
+                                <div>检查各连接处密封</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <div>检查电机碳刷，必要时更换</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障2：吸尘器不运转</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>电源问题</li>
+                            <li>电机故障</li>
+                            <li>过热保护</li>
+                            <li>开关故障</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>检查电源线和插座</li>
+                            <li>检查电源开关是否正常</li>
+                            <li>让电机冷却后再试</li>
+                            <li>检查电机绕组是否烧毁</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障3：吸尘器有异味</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>尘袋/集尘盒过满</li>
+                            <li>滤网长期未清洁</li>
+                            <li>吸入潮湿物品</li>
+                            <li>电机过热烧焦</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>清理或更换尘袋</li>
+                            <li>清洁或更换滤网</li>
+                            <li>确保吸入物干燥</li>
+                            <li>检查电机，必要时更换</li>
+                        </ol>
+                    </div>
+
+                    <h3>维护建议</h3>
+                    <div class="tip">
+                        <strong>定期清洁：</strong>每次使用后清理集尘盒/尘袋
+                    </div>
+                    <div class="tip">
+                        <strong>清洁滤网：</strong>每月清洗一次滤网，完全干燥后再使用
+                    </div>
+                    <div class="tip">
+                        <strong>检查管道：</strong>定期检查吸尘管是否有堵塞
+                    </div>
+                    <div class="warning">
+                        <strong>安全注意：</strong>不要吸入易燃物品，不要在潮湿地面使用普通吸尘器
+                    </div>
+                </section>
+
+                <footer>
+                    <h3>🔧 家用电器维修指南</h3>
+                    <p>本指南仅供学习参考，涉及高压电和制冷剂的维修请专业人员处理</p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const appliances = [
+                    { name: '冰箱', file: 'refrigerator.html' },
+                    { name: '洗衣机', file: 'washing-machine.html' },
+                    { name: '空调', file: 'air-conditioner.html' },
+                    { name: '微波炉', file: 'microwave.html' },
+                    { name: '电视', file: 'television.html' },
+                    { name: '热水器', file: 'water-heater.html' },
+                    { name: '洗碗机', file: 'dishwasher.html' },
+                    { name: '吸尘器', file: 'vacuum.html' }
+                ];
+
+                let found = false;
+                for (const appliance of appliances) {
+                    if (appliance.name.toLowerCase().includes(searchTerm)) {
+                        window.location.href = appliance.file;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found && searchTerm) {
+                    alert('未找到相关内容，请尝试其他关键词');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

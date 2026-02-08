@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>室内布线 - 家用电器维修指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-box {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .appliance-detail {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .appliance-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        .appliance-detail h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .appliance-detail h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.1rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .principle-box h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .principle-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .principle-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshoot {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .troubleshoot h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot ul, .troubleshoot ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #d4edda;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .flowchart {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .flowchart .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart .step-number {
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+        }
+
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 8px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .wire-live {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .wire-neutral {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .wire-ground {
+            stroke: #27ae60;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .annotation {
+            font-size: 7px;
+            fill: #666;
+        }
+
+        .room-label {
+            font-size: 10px;
+            fill: #2c3e50;
+            font-weight: bold;
+        }
+
+        .circuit-label {
+            font-size: 8px;
+            fill: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .appliance-detail {
+                padding: 1.5rem;
+            }
+
+            .appliance-detail h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电常识</h1>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电器名称或故障..." onkeypress="handleSearch(event)">
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link active">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="appliance-detail">
+                    <h2>📐 室内布线图与电路规划</h2>
+                    
+                    <h3>家庭电路基本结构</h3>
+                    <div class="principle-box">
+                        <h3>配电系统组成</h3>
+                        <p>家庭电路从配电箱开始，分配到各个用电区域：</p>
+                        <ol>
+                            <li><strong>入户线</strong>：从电表到配电箱的主电源线，通常为10mm²铜线</li>
+                            <li><strong>配电箱</strong>：安装断路器和漏电保护器，分配和控制各回路</li>
+                            <li><strong>照明回路</strong>：专门供给灯具照明用电</li>
+                            <li><strong>普通插座回路</strong>：供给一般电器用电</li>
+                            <li><strong>专用回路</strong>：大功率电器单独回路（空调、电热水器等）</li>
+                            <li><strong>弱电系统</strong>：网络、电话、电视等信号线路</li>
+                        </ol>
+                    </div>
+
+                    <h3>主要部件与材料</h3>
+                    <ul>
+                        <li><strong>配电箱</strong>：家庭电路的总控制中心</li>
+                        <li><strong>断路器</strong>：过载和短路保护，分空气开关和漏电保护器</li>
+                        <li><strong>电线</strong>：1.5mm²（照明）、2.5mm²（普通插座）、4mm²（大功率）</li>
+                        <li><strong>线管</strong>：PVC阻燃线管，保护电线</li>
+                        <li><strong>底盒</strong>：86型接线底盒，用于开关插座</li>
+                        <li><strong>弱电箱</strong>：集中管理网络、电视、电话等弱电线路</li>
+                    </ul>
+
+                    <h3>家庭布线图</h3>
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <h4>两室一厅标准布线图</h4>
+                            <svg class="diagram-svg" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                                <!-- 配电箱 -->
+                                <rect x="20" y="20" width="40" height="50" class="component" rx="3"/>
+                                <text x="40" y="45" class="component-label">配电</text>
+                                <text x="40" y="58" class="component-label">箱</text>
+                                
+                                <!-- 主线路 -->
+                                <line x1="60" y1="45" x2="100" y2="45" class="power-line"/>
+                                
+                                <!-- 客厅 -->
+                                <rect x="100" y="20" width="140" height="100" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="170" y="38" class="room-label">客厅</text>
+                                
+                                <!-- 客厅照明回路 -->
+                                <circle cx="120" y="55" r="5" fill="#f1c40f"/>
+                                <text x="120" y="68" class="annotation照明</text>
+                                
+                                <!-- 客厅插座回路 -->
+">                                <rect x="130" y="48" width="20" height="12" fill="#27ae60"/>
+                                <text x="140" y="57" class="component-label" font-size="5">插座</text>
+                                
+                                <!-- 客厅空调 -->
+                                <rect x="160" y="48" width="20" height="12" fill="#e74c3c"/>
+                                <text x="170" y="57" class="component-label" font-size="5">空调</text>
+                                
+                                <!-- 主卧 -->
+                                <rect x="250" y="20" width="130" height="90" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="315" y="38" class="room-label">主卧</text>
+                                
+                                <!-- 主卧照明 -->
+                                <circle cx="270" y="55" r="5" fill="#f1c40f"/>
+                                <text x="270" y="68" class="annotation">照明</text>
+                                
+                                <!-- 主卧插座 -->
+                                <rect x="280" y="48" width="20" height="12" fill="#27ae60"/>
+                                <text x="290" y="57" class="component-label" font-size="5">插座</text>
+                                
+                                <!-- 主卧空调 -->
+                                <rect x="310" y="48" width="20" height="12" fill="#e74c3c"/>
+                                <text x="320" y="57" class="component-label" font-size="5">空调</text>
+                                
+                                <!-- 次卧 -->
+                                <rect x="100" y="130" width="130" height="90" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="165" y="148" class="room-label">次卧</text>
+                                
+                                <!-- 次卧照明 -->
+                                <circle cx="120" y="165" r="5" fill="#f1c40f"/>
+                                <text x="120" y="178" class="annotation">照明</text>
+                                
+                                <!-- 次卧插座 -->
+                                <rect x="130" y="158" width="20" height="12" fill="#27ae60"/>
+                                <text x="140" y="167" class="component-label" font-size="5">插座</text>
+                                
+                                <!-- 厨房 -->
+                                <rect x="250" y="120" width="130" height="100" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="315" y="138" class="room-label">厨房</text>
+                                
+                                <!-- 厨房专用回路 -->
+                                <rect x="265" y="148" width="25" height="15" fill="#9b59b6"/>
+                                <text x="277" y="159" class="component-label" font-size="5">厨房</text>
+                                <text x="277" y="170" class="component-label" font-size="5">专用</text>
+                                
+                                <!-- 卫生间 -->
+                                <rect x="250" y="230" width="130" height="90" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="315" y="248" class="room-label">卫生间</text>
+                                
+                                <!-- 卫生间专用回路 -->
+                                <rect x="265" y="258" width="25" height="15" fill="#9b59b6"/>
+                                <text x="277" y="269" class="component-label" font-size="5">卫生间</text>
+                                
+                                <!-- 餐厅 -->
+                                <rect x="100" y="230" width="140" height="90" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="170" y="248" class="room-label">餐厅</text>
+                                
+                                <!-- 餐厅照明 -->
+                                <circle cx="120" y="265" r="5" fill="#f1c40f"/>
+                                <text x="120" y="278" class="annotation">照明</text>
+                                
+                                <!-- 餐厅插座 -->
+                                <rect x="130" y="258" width="20" height="12" fill="#27ae60"/>
+                                <text x="140" y="267" class="component-label" font-size="5">插座</text>
+                                
+                                <!-- 回路标注 -->
+                                <rect x="20" y="260" width="70" height="80" fill="#f8f9fa" rx="5"/>
+                                <text x="55" y="280" class="circuit-label">回路分配</text>
+                                <text x="55" y="298" class="annotation">照明1路</text>
+                                <text x="55" y="312" class="annotation">插座2路</text>
+                                <text x="55" y="326" class="annotation">空调2路</text>
+                                
+                                <!-- 主线路到各房间 -->
+                                <line x1="100" y1="45" x2="100" y2="20" class="power-line"/>
+                                <line x1="100" y1="20" x2="100" y2="80" class="power-line"/>
+                                <line x1="100" y1="80" x2="100" y2="165" class="power-line"/>
+                                <line x1="100" y1="80" x2="170" y2="80" class="power-line"/>
+                                <line x1="170" y1="80" x2="250" y2="80" class="power-line"/>
+                                <line x1="250" y1="80" x2="250" y2="165" class="power-line"/>
+                                <line x1="250" y1="165" x2="250" y2="230" class="power-line"/>
+                                <line x1="250" y1="230" x2="100" y2="230" class="power-line"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="diagram-box">
+                            <h4>配电箱内部接线图</h4>
+                            <svg class="diagram-svg" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                                <!-- 配电箱外壳 -->
+                                <rect x="50" y="10" width="200" height="300" class="component" rx="5"/>
+                                <text x="150" y="30" class="component-label">配电箱</text>
+                                
+                                <!-- 进线端子排 -->
+                                <rect x="70" y="45" width="40" height="80" fill="#95a5a6" rx="2"/>
+                                <text x="90" y="85" class="component-label" fill="white">进线</text>
+                                <text x="90" y="100" class="component-label" fill="white">端子</text>
+                                
+                                <!-- 火线L进线 -->
+                                <line x1="110" y1="60" x2="130" y2="60" class="wire-live"/>
+                                <text x="115" y="55" class="annotation">L</text>
+                                
+                                <!-- 零线N进线 -->
+                                <line x1="110" y1="100" x2="130" y2="100" class="wire-neutral"/>
+                                <text x="115" y="95" class="annotation">N</text>
+                                
+                                <!-- 地线PE进线 -->
+                                <line x1="110" y1="140" x2="130" y2="140" class="wire-ground"/>
+                                <text x="115" y="135" class="annotation">PE</text>
+                                
+                                <!-- 总开关 -->
+                                <rect x="140" y="40" width="50" height="40" class="component" rx="3"/>
+                                <text x="165" y="65" class="component-label">总开关</text>
+                                <text x="165" y="78" class="component-label" font-size="6">63A</text>
+                                
+                                <!-- 分路断路器1 - 照明 -->
+                                <rect x="140" y="90" width="50" height="25" class="component" rx="2"/>
+                                <text x="165" y="106" class="component-label">照明</text>
+                                <text x="180" y="108" class="annotation" font-size="6">16A</text>
+                                
+                                <!-- 分路断路器2 - 普通插座 -->
+                                <rect x="140" y="125" width="50" height="25" class="component" rx="2"/>
+                                <text x="165" y="141" class="component-label">插座</text>
+                                <text x="180" y="143" class="annotation" font-size="6">20A</text>
+                                
+                                <!-- 分路断路器3 - 空调1 -->
+                                <rect x="140" y="160" width="50" height="25" class="component" rx="2"/>
+                                <text x="165" y="176" class="component-label">空调1</text>
+                                <text x="180" y="178" class="annotation" font-size="6">25A</text>
+                                
+                                <!-- 分路断路器4 - 空调2 -->
+                                <rect x="140" y="195" width="50" height="25" class="component" rx="2"/>
+                                <text x="165" y="211" class="component-label">空调2</text>
+                                <text x="180" y="213" class="annotation" font-size="6">25A</text>
+                                
+                                <!-- 漏电保护器 - 厨房卫生间 -->
+                                <rect x="140" y="230" width="50" height="35" class="component" rx="2" stroke="#e74c3c" stroke-width="2"/>
+                                <text x="165" y="252" class="component-label">漏保</text>
+                                <text x="165" y="265" class="component-label" font-size="6">32A</text>
+                                
+                                <!-- 出线端子排 -->
+                                <rect x="200" y="45" width="40" height="220" fill="#95a5a6" rx="2"/>
+                                <text x="220" y="155" class="component-label" fill="white" transform="rotate(-90, 220, 155)">出线端子</text>
+                                
+                                <!-- 照明回路出线 -->
+                                <line x1="190" y1="102" x2="200" y2="102" class="wire-live"/>
+                                <line x1="200" y1="102" x2="240" y2="102" class="power-line"/>
+                                
+                                <!-- 插座回路出线 -->
+                                <line x1="190" y1="137" x2="200" y2="137" class="wire-live"/>
+                                <line x1="200" y1="137" x2="240" y2="137" class="power-line"/>
+                                
+                                <!-- 空调1回路出线 -->
+                                <line x1="190" y1="172" x2="200" y2="172" class="wire-live"/>
+                                <line x1="200" y1="172" x2="240" y2="172" class="power-line"/>
+                                
+                                <!-- 空调2回路出线 -->
+                                <line x1="190" y1="207" x2="200" y2="207" class="wire-live"/>
+                                <line x1="200" y1="207" x2="240" y2="207" class="power-line"/>
+                                
+                                <!-- 漏保回路出线 -->
+                                <line x1="190" y1="247" x2="200" y2="247" class="wire-live"/>
+                                <line x1="200" y1="247" x2="240" y2="247" class="power-line"/>
+                                
+                                <!-- 零线排 -->
+                                <rect x="60" y="200" width="30" height="80" fill="#95a5a6" rx="2"/>
+                                <text x="75" y="240" class="component-label" fill="white" transform="rotate(-90, 75, 240)">N排</text>
+                                
+                                <!-- 地线排 -->
+                                <rect x="60" y="120" width="30" height="70" fill="#27ae60" rx="2"/>
+                                <text x="75" y="155" class="component-label" fill="white" transform="rotate(-90, 75, 155)">PE排</text>
+                                
+                                <!-- 说明 -->
+                                <rect x="260" y="50" width="120" height="250" fill="#f8f9fa" rx="5"/>
+                                <text x="320" y="80" class="circuit-label">回路说明</text>
+                                <text x="280" y="105" class="annotation">总开关：63A</text>
+                                <text x="280" y="125" class="annotation">照明：16A 1.5mm²</text>
+                                <text x="280" y="145" class="annotation">插座：20A 2.5mm²</text>
+                                <text x="280" y="165" class="annotation">空调：25A 4mm²</text>
+                                <text x="280" y="185" class="annotation">厨房：32A 4mm²</text>
+                                <text x="280" y="205" class="annotation">卫生间：32A 4mm²</text>
+                                <text x="280" y="230" class="warning" font-size="8">⚠️ 所有回路</text>
+                                <text x="280" y="245" class="warning" font-size="8">需安装漏保</text>
+                                <text x="280" y="265" class="annotation">铜线规格：</text>
+                                <text x="280" y="285" class="annotation">BV-1.5（照明）</text>
+                                <text x="280" y="300" class="annotation">BV-2.5（插座）</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h3>各房间布线要点</h3>
+                    
+                    <div class="tip">
+                        <strong>💡 客厅布线要点：</strong>
+                        <ul>
+                            <li>照明回路：1-2路，控制主灯、灯带、射灯等</li>
+                            <li>普通插座回路：2-3路，每路插座不超过10个</li>
+                            <li>空调回路：每台空调单独一路16A或20A</li>
+                            <li>电视墙：预留4-5个插座，高度距地30-50cm</li>
+                            <li>沙发两侧：预留插座方便充电</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 厨房布线要点：</strong>
+                        <ul>
+                            <li>专用回路：必须单独一路4mm²铜线</li>
+                            <li>大功率电器：冰箱、油烟机、消毒柜单独回路</li>
+                            <li>操作台上方：预留3-4个带开关插座</li>
+                            <li>所有插座需带开关，减少插拔次数</li>
+                            <li>建议安装漏电保护器</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 卧室布线要点：</strong>
+                        <ul>
+                            <li>照明回路：1路控制主灯和辅助灯</li>
+                            <li>插座回路：床头两侧各2个插座+USB口</li>
+                            <li>空调回路：单独一路16A或20A</li>
+                            <li>书桌下方：预留3-4个插座</li>
+                            <li>弱电：网口位置预留准确</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 卫生间布线要点：</strong>
+                        <ul>
+                            <li>专用回路：必须单独一路4mm²铜线</li>
+                            <li>必须安装漏电保护器</li>
+                            <li>照明和排风扇：1路控制</li>
+                            <li>插座：距水源1米外，选用防水型</li>
+                            <li>智能马桶、电热水器单独预留插座</li>
+                        </ul>
+                    </div>
+
+                    <h3>常见布线问题与解决方案</h3>
+                    
+                    <div class="troubleshoot">
+                        <h4>🚫 问题一：跳闸频繁</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>断路器选型过小</li>
+                            <li>同一回路接入过多电器</li>
+                            <li>线路短路或漏电</li>
+                            <li>断路器老化损坏</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>计算回路负载功率，选择合适的断路器</li>
+                            <li>将大功率电器分配到不同回路</li>
+                            <li>用摇表检测线路绝缘电阻</li>
+                            <li>更换新的断路器测试</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>💡 问题二：部分插座没电</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>接线端子松动</li>
+                            <li>线路中间断路</li>
+                            <li>插座故障</li>
+                            <li>回路断路器跳闸</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查配电箱对应断路器是否跳闸</li>
+                            <li>拆开插座面板检查接线</li>
+                            <li>用万用表测量线路通断</li>
+                            <li>逐个排查各插座连接点</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>🔥 问题三：线路发热</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>电线规格过细</li>
+                            <li>接线端子松动</li>
+                            <li>线路老化绝缘下降</li>
+                            <li>负载超过设计容量</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查电线规格是否符合负载要求</li>
+                            <li>紧固所有接线端子</li>
+                            <li>测量线路电流是否超过额定值</li>
+                            <li>必要时更换大规格电线</li>
+                        </ol>
+                    </div>
+
+                    <h3>布线施工规范</h3>
+                    
+                    <div class="warning">
+                        <strong>⚠️ 安全施工规范：</strong>
+                        <ul>
+                            <li>所有线路必须穿管保护，禁止明线敷设</li>
+                            <li>电线接头必须在接线盒内，禁止埋入墙内</li>
+                            <li>强弱电间距不小于30cm，避免干扰</li>
+                            <li>线管弯曲半径不小于线管直径的6倍</li>
+                            <li>每根线管内电线不超过6根，占线管面积不超过40%</li>
+                            <li>左零右火上地线，颜色区分清楚</li>
+                            <li>施工完成后必须测试验收</li>
+                        </ul>
+                    </div>
+
+                    <h3>电线规格选择</h3>
+                    <ul>
+                        <li><strong>照明回路</strong>：BV-1.5mm²铜线，16A断路器，负载不超过2000W</li>
+                        <li><strong>普通插座回路</strong>：BV-2.5mm²铜线，20A断路器，负载不超过3500W</li>
+                        <li><strong>空调回路</strong>：BV-4mm²铜线，25A断路器，负载不超过5000W</li>
+                        <li><strong>厨房专用回路</strong>：BV-4mm²铜线，32A断路器，负载不超过6000W</li>
+                        <li><strong>电热水器回路</strong>：BV-4mm²铜线，32A断路器，需单独回路</li>
+                        <li><strong>进户主线</strong>：BV-10mm²铜线，63A总开关</li>
+                    </ul>
+
+                    <h3>房间插孔不够怎么办</h3>
+                    
+                    <div class="tip">
+                        <strong>💡 方案一：更换插座面板</strong>
+                        <ul>
+                            <li>将普通五孔插座更换为斜五孔或七孔插座</li>
+                            <li>斜五孔设计两个插孔错开位置，同时使用更方便</li>
+                            <li>带USB插座可以减少充电器占用空间</li>
+                            <li>操作简单，无需改变线路，成本最低</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 方案二：增加插座数量</strong>
+                        <ul>
+                            <li>在原有插座附近新增一个插座</li>
+                            <li>从原有插座接线，采用"并联"方式</li>
+                            <li>需要撬开原有面板，从底盒接线</li>
+                            <li>注意不要超过原回路的负载能力</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 方案三：使用插排（接线板）</strong>
+                        <ul>
+                            <li>选择带过载保护和独立开关的插排</li>
+                            <li>注意插排的总功率不超过2500W</li>
+                            <li>不要串接使用多个插排</li>
+                            <li>插排应放置在通风干燥处，远离易燃物</li>
+                            <li>这是最简便的临时解决方案</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 方案四：轨道插座</strong>
+                        <ul>
+                            <li>安装轨道插座，可自由移动插孔位置</li>
+                            <li>适用于厨房操作台、书桌等电器密集区域</li>
+                            <li>美观整洁，可根据需要增减插座模块</li>
+                            <li>需要专业人员安装，替换原有插座</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 方案五：重新布线</strong>
+                        <ul>
+                            <li>装修时进行全面电路规划</li>
+                            <li>增加专用回路或插座回路数量</li>
+                            <li>根据家具布局预留足够插座</li>
+                            <li>成本较高，需要专业电工施工</li>
+                            <li>建议一次性规划到位，避免后续改造</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning">
+                        <strong>⚠️ 注意事项：</strong>
+                        <ul>
+                            <li>任何电路改造必须断电操作</li>
+                            <li>并联接线时确保接线牢固，避免虚接</li>
+                            <li>不要在一个插座上接入过多大功率电器</li>
+                            <li>厨房、卫生间等潮湿区域需用防水插座</li>
+                            <li>不确定时请教专业电工，不要自行改造电路</li>
+                        </ul>
+                    </div>
+
+                    <h3>各房间插座数量建议</h3>
+                    <ul>
+                        <li><strong>客厅电视墙</strong>：4-6个插座，满足电视、机顶盒、路由器、游戏机等</li>
+                        <li><strong>客厅沙发区</strong>：每侧2个插座+USB，方便充电和落地灯</li>
+                        <li><strong>卧室床头</strong>：每侧2个插座+USB，共4-6个</li>
+                        <li><strong>书桌下方</strong>：3-4个插座，满足电脑、打印机等</li>
+                        <li><strong>厨房操作台</strong>：3-5个带开关插座</li>
+                        <li><strong>卫生间洗手台</strong>：1-2个防水插座</li>
+                        <li><strong>阳台</strong>：1-2个插座，用于洗衣机、晾衣机等</li>
+                    </ul>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    const pages = [
+                        'refrigerator.html', 'washing-machine.html', 'air-conditioner.html',
+                        'air-purifier.html', 'range-hood.html', 'electric-fan.html',
+                        'water-dispenser.html', 'rice-cooker.html', 'induction-cooker.html',
+                        'microwave.html', 'television.html', 'water-heater.html',
+                        'dishwasher.html', 'vacuum.html', 'electric-bicycle.html',
+                        'wall-switch.html', 'wall-outlet.html', 'wiring-diagram.html'
+                    ];
+                    
+                    for (let page of pages) {
+                        window.location.href = page;
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

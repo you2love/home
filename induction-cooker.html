@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微波炉 - 家用电器维修指南</title>
+    <title>电磁炉 - 家用电器维修指南</title>
     <style>
         * {
             margin: 0;
@@ -431,36 +431,6 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="microwave.html" class="nav-link active">
-                        <span class="icon">📡</span>
-                        <span class="text">微波炉</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="television.html" class="nav-link">
-                        <span class="icon">📺</span>
-                        <span class="text">电视</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="water-heater.html" class="nav-link">
-                        <span class="icon">🚿</span>
-                        <span class="text">热水器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="dishwasher.html" class="nav-link">
-                        <span class="icon">🍽️</span>
-                        <span class="text">洗碗机</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="vacuum.html" class="nav-link">
-                        <span class="icon">🧹</span>
-                        <span class="text">吸尘器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
                     <a href="air-purifier.html" class="nav-link">
                         <span class="icon">🌬️</span>
                         <span class="text">空气净化器</span>
@@ -532,150 +502,176 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <section class="appliance-detail">
-                    <h2>📡 微波炉运行原理与故障修复</h2>
+                    <h2>🍳 电磁炉运行原理与故障修复</h2>
                     
                     <h3>运行原理</h3>
                     <div class="principle-box">
-                        <h3>微波加热原理</h3>
-                        <p>微波炉通过<strong>微波使水分子振动</strong>产生热量：</p>
+                        <h3>电磁感应加热原理</h3>
+                        <p>电磁炉利用电磁感应原理加热：</p>
                         <ol>
-                            <li><strong>产生微波</strong>：磁控管将电能转换为2450MHz微波</li>
-                            <li><strong>传输微波</strong>：波导将微波传输到炉腔</li>
-                            <li><strong>加热食物</strong>：微波使食物中的水分子高速振动，产生热量</li>
-                            <li><strong>均匀加热</strong>：转盘或搅拌器使微波均匀分布</li>
+                            <li><strong>电磁感应</strong>：高频电流通过线圈产生交变磁场</li>
+                            <li><strong>涡流效应</strong>：交变磁场在铁磁性锅具底部产生涡流</li>
+                            <li><strong>焦耳热</strong>：涡流在锅具电阻上产生热量，实现加热</li>
+                            <li><strong>精准控制</strong>：通过调节电流频率和功率实现温度控制</li>
                         </ol>
                     </div>
 
                     <h3>主要部件</h3>
                     <ul>
-                        <li><strong>磁控管</strong>：产生微波的核心部件</li>
-                        <li><strong>高压变压器</strong>：为磁控管提供高压电</li>
-                        <li><strong>波导</strong>：传输微波到炉腔</li>
-                        <li><strong>转盘电机</strong>：带动转盘旋转</li>
-                        <li><strong>门开关</strong>：安全保护装置</li>
-                        <li><strong>控制板</strong>：设置时间和功率</li>
+                        <li><strong>加热线圈盘</strong>：产生交变磁场的核心部件</li>
+                        <li><strong>IGBT管</strong>：大功率开关器件，控制加热功率</li>
+                        <li><strong>整流桥</strong>：将交流电转换为直流电</li>
+                        <li><strong>滤波电容</strong>：平滑直流电压</li>
+                        <li><strong>控制面板</strong>：设置功率、温度、功能等</li>
+                        <li><strong>温度传感器</strong>：检测炉面温度和锅具温度</li>
+                        <li><strong>散热风扇</strong>：为IGBT和线圈盘散热</li>
+                        <li><strong>锅具检测传感器</strong>：检测是否有合适的锅具</li>
                     </ul>
 
                     <div class="diagram-section">
                         <h3>原理图及装配图</h3>
                         <div class="diagram-container">
                             <div class="diagram-box">
-                                <h4>微波产生原理图</h4>
+                                <h4>电磁感应原理图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <marker id="arrowhead-micro" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <marker id="arrowhead-induction" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                                             <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
                                         </marker>
                                     </defs>
                                     <!-- 电源输入 -->
-                                    <rect x="20" y="30" width="50" height="30" class="component" rx="5"/>
-                                    <text x="45" y="50" class="component-label">电源</text>
+                                    <rect x="20" y="40" width="50" height="30" class="component" rx="5"/>
+                                    <text x="45" y="60" class="component-label">AC电源</text>
                                     
-                                    <!-- 高压变压器 -->
-                                    <rect x="100" y="20" width="80" height="60" class="component" rx="5"/>
-                                    <text x="140" y="55" class="component-label">高压变压器</text>
+                                    <!-- 整流桥 -->
+                                    <rect x="100" y="35" width="60" height="40" class="component" rx="5"/>
+                                    <text x="130" y="60" class="component-label">整流桥</text>
                                     
-                                    <!-- 高压电容 -->
-                                    <rect x="220" y="30" width="40" height="30" class="component" rx="3"/>
-                                    <text x="240" y="50" class="component-label">电容</text>
+                                    <!-- 滤波电容 -->
+                                    <rect x="190" y="30" width="50" height="50" class="component" rx="3"/>
+                                    <text x="215" y="60" class="component-label">滤波电容</text>
                                     
-                                    <!-- 高压保险丝 -->
-                                    <rect x="220" y="80" width="40" height="20" class="component" rx="3"/>
-                                    <text x="240" y="93" class="component-label">保险</text>
+                                    <!-- IGBT模块 -->
+                                    <rect x="270" y="40" width="70" height="50" class="component-highlight" rx="5" style="fill:#e74c3c"/>
+                                    <text x="305" y="70" class="component-label">IGBT</text>
                                     
-                                    <!-- 磁控管 -->
-                                    <rect x="300" y="40" width="70" height="50" class="component" rx="5"/>
-                                    <text x="335" y="70" class="component-label">磁控管</text>
+                                    <!-- 加热线圈 -->
+                                    <circle cx="200" cy="150" r="70" class="component" fill="none" stroke-width="4"/>
+                                    <circle cx="200" cy="150" r="50" class="component" fill="none" stroke-width="3"/>
+                                    <text x="200" y="155" class="component-label">加热线圈</text>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="280" y="100" width="90" height="15" class="component" rx="3"/>
-                                    <text x="325" y="110" class="component-label">波导</text>
-                                    
-                                    <!-- 炉腔 -->
-                                    <rect x="80" y="150" width="200" height="120" class="component" rx="10"/>
-                                    <text x="180" y="215" class="component-label">微波炉腔</text>
-                                    
-                                    <!-- 转盘 -->
-                                    <circle cx="180" cy="210" r="50" class="component" fill="none" stroke-width="2"/>
-                                    <text x="180" y="215" class="component-label">转盘</text>
-                                    
-                                    <!-- 转盘电机 -->
-                                    <rect x="160" y="275" width="40" height="20" class="component" rx="3"/>
-                                    <text x="180" y="288" class="component-label">转盘电机</text>
+                                    <!-- 锅具 -->
+                                    <ellipse cx="200" cy="250" rx="60" ry="30" class="component-highlight" style="fill:#f39c12"/>
+                                    <text x="200" y="255" class="component-label">铁磁锅具</text>
                                     
                                     <!-- 控制板 -->
-                                    <rect x="300" y="180" width="80" height="50" class="component" rx="5"/>
-                                    <text x="340" y="210" class="component-label">控制板</text>
+                                    <rect x="50" y="200" width="80" height="50" class="component" rx="5"/>
+                                    <text x="90" y="230" class="component-label">控制板</text>
                                     
-                                    <!-- 门开关 -->
-                                    <circle cx="80" cy="140" r="15" class="component-highlight" style="fill:#e74c3c"/>
-                                    <text x="80" y="145" class="component-label">门开关</text>
+                                    <!-- 温度传感器 -->
+                                    <rect x="270" y="200" width="40" height="30" class="component" rx="3"/>
+                                    <text x="290" y="220" class="component-label">温度</text>
+                                    
+                                    <!-- 散热风扇 -->
+                                    <rect x="320" y="130" width="50" height="40" class="component" rx="5"/>
+                                    <text x="345" y="155" class="component-label">风扇</text>
+                                    
+                                    <!-- 锅具检测 -->
+                                    <rect x="150" y="180" width="40" height="25" class="component" rx="3"/>
+                                    <text x="170" y="197" class="component-label">锅具检测</text>
                                     
                                     <!-- 电路连接 -->
-                                    <line x1="70" y1="45" x2="100" y2="45" class="power-line"/>
-                                    <line x1="180" y1="50" x2="220" y2="45" class="power-line"/>
-                                    <line x1="240" y1="60" x2="300" y2="65" class="power-line"/>
-                                    <line x1="325" y1="108" x2="325" y2="150" class="power-line"/>
+                                    <line x1="70" y1="55" x2="100" y2="55" class="power-line"/>
+                                    <line x1="160" y1="55" x2="190" y2="55" class="power-line"/>
+                                    <line x1="240" y1="55" x2="270" y2="65" class="power-line"/>
+                                    <line x1="305" y1="90" x2="305" y2="120" class="power-line"/>
                                     
-                                    <!-- 微波发射方向 -->
-                                    <path d="M280,140 L180,140 L180,160" class="signal-flow" marker-end="url(#arrowhead-micro)"/>
+                                    <!-- 线圈驱动 -->
+                                    <line x1="305" y1="120" x2="250" y2="120" class="power-line"/>
+                                    <line x1="250" y1="120" x2="130" y2="120" class="power-line"/>
+                                    <line x1="130" y1="120" x2="130" y2="150" class="power-line"/>
+                                    <line x1="270" y1="120" x2="270" y2="150" class="power-line"/>
+                                    
+                                    <!-- 磁场示意 -->
+                                    <path d="M200,80 Q200,100 200,110" class="signal-flow" marker-end="url(#arrowhead-induction)"/>
+                                    <path d="M160,80 Q140,100 140,130" class="signal-flow" stroke-opacity="0.5"/>
+                                    <path d="M240,80 Q260,100 260,130" class="signal-flow" stroke-opacity="0.5"/>
+                                    
+                                    <!-- 涡流示意 -->
+                                    <ellipse cx="200" cy="240" rx="30" ry="15" class="signal-flow" fill="none" stroke-opacity="0.5"/>
+                                    
+                                    <!-- 热量产生 -->
+                                    <text x="180" y="240" class="annotation" fill="#e74c3c">涡流加热</text>
                                 </svg>
                             </div>
                             
                             <div class="diagram-box">
-                                <h4>微波炉内部装配图</h4>
+                                <h4>电磁炉装配图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- 炉腔外壳 -->
-                                    <rect x="60" y="40" width="280" height="200" class="assembly-part" rx="15"/>
+                                    <!-- 外壳 -->
+                                    <rect x="80" y="40" width="240" height="220" class="assembly-part" rx="15"/>
                                     
-                                    <!-- 门框 -->
-                                    <rect x="50" y="35" width="40" height="210" class="assembly-part" rx="5"/>
+                                    <!-- 炉面陶瓷板 -->
+                                    <rect x="95" y="55" width="210" height="150" class="assembly-part-highlight" rx="5"/>
+                                    <rect x="100" y="60" width="200" height="140" class="assembly-part" fill="none" stroke-width="1"/>
                                     
-                                    <!-- 观察窗 -->
-                                    <rect x="55" y="50" width="30" height="100" class="assembly-part" fill="#bdc3c7" stroke-width="2"/>
+                                    <!-- 加热线圈位置 -->
+                                    <circle cx="200" cy="130" r="80" class="assembly-part" fill="none" stroke-width="2" stroke-dasharray="5,5"/>
+                                    <circle cx="200" cy="130" r="60" class="assembly-part" fill="none" stroke-width="1"/>
+                                    <circle cx="200" cy="130" r="40" class="assembly-part" fill="none" stroke-width="1"/>
                                     
-                                    <!-- 磁控管位置 -->
-                                    <rect x="250" y="60" width="60" height="50" class="assembly-part-highlight" rx="5"/>
-                                    <text x="280" y="90" class="assembly-label">磁控管</text>
+                                    <!-- 线圈绕组 -->
+                                    <circle cx="200" cy="130" r="75" class="assembly-part" fill="none" stroke-width="4"/>
+                                    <circle cx="200" cy="130" r="55" class="assembly-part" fill="none" stroke-width="3"/>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="200" y="70" width="60" height="20" class="assembly-part" rx="3"/>
-                                    <text x="230" y="85" class="assembly-label">波导</text>
+                                    <!-- 锅具检测线圈 -->
+                                    <circle cx="200" cy="130" r="20" class="assembly-part-highlight" opacity="0.5"/>
                                     
-                                    <!-- 搅拌器/天线 -->
-                                    <circle cx="200" cy="140" r="30" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <line x1="200" y1="110" x2="200" y2="170" class="assembly-part"/>
-                                    <line x1="170" y1="140" x2="230" y2="140" class="assembly-part"/>
+                                    <!-- 温度传感器 -->
+                                    <circle cx="200" cy="70" r="12" class="assembly-part-highlight"/>
+                                    <text x="200" y="73" class="assembly-label" style="font-size:7px">传感器</text>
                                     
-                                    <!-- 转盘 -->
-                                    <circle cx="200" cy="180" r="60" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <circle cx="200" cy="180" r="40" class="assembly-part" fill="none"/>
+                                    <!-- 控制面板区域 -->
+                                    <rect x="100" y="215" width="200" height="35" class="assembly-part" rx="5"/>
                                     
-                                    <!-- 转盘电机 -->
-                                    <rect x="180" y="245" width="40" height="25" class="assembly-part-highlight" rx="3"/>
-                                    <text x="200" y="262" class="assembly-label">电机</text>
+                                    <!-- 电源按钮 -->
+                                    <circle cx="120" cy="232" r="12" class="assembly-part-highlight" style="fill:#2ecc71"/>
+                                    <text x="120" y="235" class="assembly-label" style="font-size:7px">电源</text>
                                     
-                                    <!-- 烧烤管（带烧烤功能） -->
-                                    <rect x="80" y="50" width="80" height="15" class="assembly-part" rx="3"/>
-                                    <text x="120" y="62" class="assembly-label">烧烤管</text>
+                                    <!-- 功能按钮 -->
+                                    <circle cx="155" cy="232" r="10" class="assembly-part"/>
+                                    <circle cx="185" cy="232" r="10" class="assembly-part"/>
+                                    <circle cx="215" cy="232" r="10" class="assembly-part"/>
+                                    <circle cx="245" cy="232" r="10" class="assembly-part"/>
                                     
-                                    <!-- 腔体涂层 -->
-                                    <rect x="70" y="70" width="150" height="150" class="assembly-part" fill="none" stroke-width="1"/>
+                                    <!-- 显示区 -->
+                                    <rect x="270" y="222" width="25" height="20" class="assembly-part-highlight" rx="2"/>
                                     
-                                    <!-- 底部平台 -->
-                                    <rect x="150" y="240" width="100" height="10" class="assembly-part"/>
+                                    <!-- 功率/温度显示 -->
+                                    <text x="282" y="238" class="assembly-label" style="font-size:8px">2000W</text>
                                     
-                                    <!-- 散热格栅 -->
-                                    <rect x="280" y="120" width="50" height="100" class="assembly-part" fill="#ecf0f1" stroke-width="1"/>
-                                    <line x1="290" y1="130" x2="320" y2="130" class="assembly-dimension"/>
-                                    <line x1="290" y1="150" x2="320" y2="150" class="assembly-dimension"/>
-                                    <line x1="290" y1="170" x2="320" y2="170" class="assembly-dimension"/>
+                                    <!-- 散热风扇位置 -->
+                                    <rect x="300" y="100" width="30" height="50" class="assembly-part" rx="3"/>
+                                    <circle cx="315" cy="115" r="8" class="assembly-part"/>
+                                    <circle cx="315" cy="135" r="8" class="assembly-part"/>
+                                    <circle cx="315" cy="100" r="8" class="assembly-part"/>
+                                    <circle cx="315" cy="120" r="8" class="assembly-part"/>
                                     
-                                    <!-- 控制面板 -->
-                                    <rect x="300" y="220" width="70" height="50" class="assembly-part" rx="5"/>
-                                    <circle cx="315" cy="235" r="8" class="assembly-part-highlight"/>
-                                    <circle cx="340" cy="235" r="8" class="assembly-part"/>
-                                    <rect x="325" y="250" width="30" height="10" class="assembly-part"/>
+                                    <!-- 通风口 -->
+                                    <rect x="305" y="160" width="20" height="80" class="assembly-part" fill="#bdc3c7"/>
+                                    <line x1="310" y1="170" x2="320" y2="170" class="assembly-dimension"/>
+                                    <line x1="310" y1="190" x2="320" y2="190" class="assembly-dimension"/>
+                                    <line x1="310" y1="210" x2="320" y2="210" class="assembly-dimension"/>
+                                    
+                                    <!-- 铭牌 -->
+                                    <rect x="95" y="260" width="60" height="15" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 脚垫 -->
+                                    <rect x="100" y="258" width="15" height="8" class="assembly-part"/>
+                                    <rect x="285" y="258" width="15" height="8" class="assembly-part"/>
+                                    
+                                    <!-- 电源线 -->
+                                    <path d="M200,280 Q200,290 230,295" class="power-line" fill="none"/>
                                 </svg>
                             </div>
                         </div>
@@ -684,13 +680,13 @@
                     <h3>常见故障及修复</h3>
                     
                     <div class="troubleshoot">
-                        <h4>故障1：微波炉不加热</h4>
+                        <h4>故障1：电磁炉不工作/不通电</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>电源问题</li>
-                            <li>高压保险丝烧断</li>
-                            <li>磁控管损坏</li>
-                            <li>门开关故障</li>
+                            <li>电源问题：检查电源线和插座</li>
+                            <li>保险丝烧断</li>
+                            <li>IGBT管击穿</li>
+                            <li>控制板故障</li>
                         </ul>
                         <p><strong>排查步骤：</strong></p>
                         <div class="flowchart">
@@ -700,88 +696,116 @@
                             </div>
                             <div class="step">
                                 <span class="step-number">2</span>
-                                <div>检查保险丝：断电后检查高压保险丝是否烧断</div>
+                                <div>检查保险丝：打开底盖查看是否熔断</div>
                             </div>
                             <div class="step">
                                 <span class="step-number">3</span>
-                                <div>检查门开关：开门时炉灯应亮，关门时应有"咔嗒"声</div>
+                                <div>检查锅具：确认使用铁磁性锅具（如铁锅、不锈钢锅）</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <div>清洁锅底：确保锅底平整、干净、无异物</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障2：微波炉转盘不转</h4>
+                        <h4>故障2：加热不稳定/时停时热</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>转盘轨道脱落</li>
-                            <li>转盘电机故障</li>
-                            <li>连接齿轮损坏</li>
+                            <li>锅具不合适：底部不平或非铁磁性材料</li>
+                            <li>锅具过小：未能覆盖感应区域</li>
+                            <li>温度传感器故障</li>
+                            <li>散热不良</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>重新安装转盘轨道</li>
-                            <li>检查转盘电机供电</li>
-                            <li>更换损坏的齿轮</li>
-                            <li>必要时更换转盘电机</li>
+                            <li>更换合适的铁磁性平底锅</li>
+                            <li>清洁炉面油污</li>
+                            <li>清理散热风扇和通风口</li>
+                            <li>检查温度传感器接线</li>
                         </ol>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障3：微波炉有火花</h4>
-                        <p><strong>可能原因：</strong></p>
+                        <h4>故障3：显示错误代码</h4>
+                        <p><strong>常见代码含义：</strong></p>
                         <ul>
-                            <li>使用金属容器</li>
-                            <li>炉腔内有金属异物</li>
-                            <li>磁控管天线损坏</li>
-                            <li>云母挡板脏污</li>
+                            <li>E0：无锅或锅具不合适</li>
+                            <li>E1：锅具干烧/过热保护</li>
+                            <li>E2：炉面温度过高</li>
+                            <li>E3：电压过高/过低</li>
+                            <li>E4：锅具传感器故障</li>
+                            <li>E5：IGBT过温保护</li>
+                            <li>E6：炉面传感器故障</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>立即停止使用，检查炉腔</li>
-                            <li>取出所有金属物品</li>
-                            <li>清洁云母挡板</li>
-                            <li>检查磁控管，必要时更换</li>
+                            <li>E0：更换合适的锅具</li>
+                            <li>E1/E2：让机器冷却，减少加热功率</li>
+                            <li>E3：等待电压稳定</li>
+                            <li>E4/E6：检查传感器或联系售后</li>
+                            <li>E5：清理散热风扇</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障4：风扇不转/噪音大</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>风扇电机损坏</li>
+                            <li>风扇叶片沾油或异物</li>
+                            <li>轴承缺油或磨损</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>清洁风扇叶片</li>
+                            <li>检查风扇供电</li>
+                            <li>更换风扇电机</li>
                         </ol>
                     </div>
 
                     <h3>最佳使用实践</h3>
                     <div class="tip">
-                        <strong>选择合适的容器：</strong>使用玻璃、陶瓷（无金属装饰）、微波专用塑料容器，避免金属容器产生火花
+                        <strong>选择合适的锅具：</strong>必须使用铁磁性锅具（铁锅、不锈钢锅），锅底直径12-22cm为宜
                     </div>
                     <div class="tip">
-                        <strong>覆盖食物：</strong>加热液体或易飞溅食物时使用微波炉盖，防止溅出污染炉腔
+                        <strong>保持锅底平整干净：</strong>使用前擦干锅底，确保锅底与炉面完全贴合，提高加热效率
                     </div>
                     <div class="tip">
-                        <strong>分散堆叠食物：</strong>食物堆积过厚会受热不均，大块食物应切小块或薄片，确保均匀加热
+                        <strong>善用不同功率档：</strong>大火爆炒用高档，小火慢炖用低档，合理使用功率既省电又保护机器
                     </div>
                     <div class="tip">
-                        <strong>中途搅拌：</strong>加热液体或浓稠食物时，中途取出搅拌一次，使热量分布更均匀
+                        <strong>避免空锅干烧：</strong>空锅通电会触发过热保护，长期干烧会损坏炉面和内部元件
                     </div>
                     <div class="tip">
-                        <strong>掌握加热时间：</strong>从最短时间开始，不够再加，过度加热会导致食物变硬或爆炸
+                        <strong>及时关闭电源：</strong>烹饪结束后先关电源再移开锅具，利用余热可完成最后加热
                     </div>
                     <div class="tip">
-                        <strong>带壳食物需戳孔：</strong>鸡蛋、板栗等带壳食物必须戳几个小孔，否则内部压力会导致爆炸
+                        <strong>使用配套锅具：</strong>锅底过小会导致炉面传感器检测不到，锅底过大加热不均匀
                     </div>
                     <div class="tip">
-                        <strong>不要加热密封容器：</strong>密封的饭盒、罐头、塑料袋会因压力膨胀而爆炸，应打开盖子加热
+                        <strong>保持炉面干燥清洁：</strong>油污和水渍会影响触摸屏灵敏度，使用后及时擦拭干净
                     </div>
                     <div class="tip">
-                        <strong>清洁云母挡板：</strong>保持炉腔右侧云母挡板清洁干燥，油污会导致打火或损坏磁控管
+                        <strong>避免电磁炉上放杂物：</strong>不要在电磁炉上放置金属物品、小物件，防止误操作启动加热
                     </div>
 
-                    <h3>安全使用提示</h3>
-                    <div class="warning">
-                        <strong>禁止使用金属容器：</strong>铝箔、金属碗、叉子等会产生火花
-                    </div>
-                    <div class="warning">
-                        <strong>注意密封容器：</strong>密闭容器可能因压力过大而爆炸
+                    <h3>维护建议</h3>
+                    <div class="tip">
+                        <strong>保持炉面清洁</strong>：使用后及时清洁，勿用钢丝球
                     </div>
                     <div class="tip">
-                        <strong>适用容器：</strong>玻璃、陶瓷（无金属装饰）、塑料（微波专用）
+                        <strong>使用合适锅具</strong>：必须使用铁磁性平底锅，锅底直径12-22cm为宜
+                    </div>
+                    <div class="tip">
+                        <strong>避免干烧</strong>：空锅不要长时间通电，防止过热保护
+                    </div>
+                    <div class="tip">
+                        <strong>定期清理风扇</strong>：每季度清理风扇叶片和通风口灰尘
                     </div>
                     <div class="warning">
-                        <strong>高压危险：</strong>断电后电容仍可能带电，非专业人员请勿打开机壳
+                        <strong>安全注意</strong>：使用时远离水源和易燃物，不要用金属物品触碰炉面
                     </div>
                 </section>
 

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>墙上开关 - 家用电器维修指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-box {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .appliance-detail {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .appliance-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        .appliance-detail h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .appliance-detail h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.1rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .principle-box h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .principle-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .principle-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshoot {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .troubleshoot h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot ul, .troubleshoot ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #d4edda;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .flowchart {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .flowchart .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart .step-number {
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 8px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .annotation {
+            font-size: 7px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 7px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .assembly-connector {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .appliance-detail {
+                padding: 1.5rem;
+            }
+
+            .appliance-detail h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电常识</h1>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电器名称或故障..." onkeypress="handleSearch(event)">
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link active">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="appliance-detail">
+                    <h2>🔌 墙上开关安装与维修</h2>
+                    
+                    <h3>开关类型介绍</h3>
+                    <div class="principle-box">
+                        <h3>常见开关类型</h3>
+                        <p>墙上开关是家庭电路控制的核心部件，主要有以下几种类型：</p>
+                        <ol>
+                            <li><strong>单控开关</strong>：最常见的开关类型，在一个位置控制一盏灯</li>
+                            <li><strong>双控开关</strong>：两个开关控制同一盏灯，方便不同位置操作</li>
+                            <li><strong>三控开关</strong>：三个开关控制同一盏灯，适用于大空间</li>
+                            <li><strong>调光开关</strong>：可调节灯光亮度的开关</li>
+                            <li><strong>带插座开关</strong>：开关与插座一体化设计</li>
+                            <li><strong>触摸开关</strong>：电容式触摸感应控制</li>
+                            <li><strong>智能开关</strong>：支持手机APP、语音控制的智能开关</li>
+                        </ol>
+                    </div>
+
+                    <h3>主要部件</h3>
+                    <ul>
+                        <li><strong>开关面板</strong>：外部可见的塑料面板，保护内部结构</li>
+                        <li><strong>开关模块</strong>：核心机械或电子开关部件</li>
+                        <li><strong>接线端子</strong>：连接电源线和负载线的金属端子</li>
+                        <li><strong>底盒</strong>：安装在墙内的塑料或金属盒子</li>
+                        <li><strong>弹簧机构</strong>：机械开关的复位弹簧</li>
+                        <li><strong>触点</strong>：开关闭合时接通电流的金属触点</li>
+                    </ul>
+
+                    <h3>电路原理图及安装图</h3>
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <h4>单控开关接线原理图</h4>
+                            <svg class="diagram-svg" viewBox="0 0 350 280" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                                    </marker>
+                                </defs>
+                                
+                                <!-- 配电箱 -->
+                                <rect x="20" y="30" width="60" height="40" class="component" rx="3"/>
+                                <text x="50" y="55" class="component-label">配电箱</text>
+                                
+                                <!-- 火线L -->
+                                <line x1="80" y1="45" x2="120" y2="45" class="power-line"/>
+                                <text x="95" y="38" class="annotation">L</text>
+                                
+                                <!-- 零线N -->
+                                <line x1="80" y1="95" x2="120" y2="95" class="power-line"/>
+                                <text x="95" y="105" class="annotation">N</text>
+                                
+                                <!-- 地线PE -->
+                                <line x1="80" y1="155" x2="120" y2="155" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                <text x="95" y="148" class="annotation">PE</text>
+                                
+                                <!-- 开关底盒 -->
+                                <rect x="150" y="20" width="70" height="80" class="assembly-part" rx="3"/>
+                                <text x="185" y="35" class="component-label">开关底盒</text>
+                                
+                                <!-- 开关模块 -->
+                                <rect x="165" y="45" width="40" height="30" class="assembly-part-highlight" rx="2"/>
+                                <text x="185" y="65" class="component-label">开关</text>
+                                
+                                <!-- 开关触点示意 -->
+                                <line x1="170" y1="55" x2="180" y2="55" class="component"/>
+                                <circle cx="190" cy="55" r="3" fill="#e74c3c"/>
+                                <circle cx="200" cy="55" r="3" fill="#e74c3c"/>
+                                
+                                <!-- 进线接线端子 -->
+                                <rect x="150" y="50" width="15" height="15" class="component" rx="2"/>
+                                <text x="157" y="61" class="component-label">L</text>
+                                
+                                <!-- 出线接线端子 -->
+                                <rect x="205" y="50" width="15" height="15" class="component" rx="2"/>
+                                <text x="212" y="61" class="component-label">L1</text>
+                                
+                                <!-- 开关到灯具线 -->
+                                <line x1="220" y1="60" x2="250" y2="60" class="power-line"/>
+                                <text x="230" y="52" class="annotation">L</text>
+                                
+                                <!-- 灯具 -->
+                                <circle cx="290" y="60" r="25" class="component"/>
+                                <text x="290" y="65" class="component-label">灯具</text>
+                                <line x1="265" y1="60" x2="265" y2="40" class="wire"/>
+                                <line x1="315" y1="60" x2="315" y2="40" class="wire"/>
+                                
+                                <!-- 灯具零线 -->
+                                <line x1="265" y1="40" x2="265" y2="95" class="power-line"/>
+                                <line x1="265" y1="95" x2="140" y2="95" class="power-line"/>
+                                
+                                <!-- 灯具地线 -->
+                                <line x1="290" y1="35" x2="290" y2="20" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                <line x1="290" y1="20" x2="140" y2="20" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                <line x1="140" y1="20" x2="140" y2="155" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                
+                                <!-- 开关控制线说明 -->
+                                <rect x="150" y="110" width="80" height="50" fill="#fff3cd" rx="5"/>
+                                <text x="190" y="130" class="annotation" fill="#856404">开关控制火线</text>
+                                <text x="190" y="145" class="annotation" fill="#856404">断开开关，灯具</text>
+                                <text x="190" y="158" class="annotation" fill="#856404">无电压更安全</text>
+                                
+                                <!-- 86型底盒尺寸 -->
+                                <rect x="280" y="130" width="60" height="40" fill="none" stroke="#95a5a6" stroke-width="1" stroke-dasharray="3,3"/>
+                                <text x="310" y="155" class="annotation">86型底盒</text>
+                            </svg>
+                        </div>
+                        
+                        <div class="diagram-box">
+                            <h4>双控开关接线原理图</h4>
+                            <svg class="diagram-svg" viewBox="0 0 350 280" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                                    </marker>
+                                </defs>
+                                
+                                <!-- 配电箱 -->
+                                <rect x="20" y="30" width="60" height="40" class="component" rx="3"/>
+                                <text x="50" y="55" class="component-label">配电箱</text>
+                                
+                                <!-- 火线L -->
+                                <line x1="80" y1="45" x2="110" y2="45" class="power-line"/>
+                                <text x="90" y="38" class="annotation">L</text>
+                                
+                                <!-- 第一个双控开关 -->
+                                <rect x="115" y="20" width="50" height="70" class="assembly-part" rx="3"/>
+                                <text x="140" y="35" class="component-label">开关1</text>
+                                <text x="140" y="48" class="annotation" font-size="6">双控</text>
+                                
+                                <!-- 开关1接线端子 -->
+                                <rect x="120" y="50" width="12" height="10" class="component" rx="1"/>
+                                <text x="126" y="58" class="component-label">L</text>
+                                <rect x="120" y="65" width="12" height="10" class="component" rx="1"/>
+                                <text x="126" y="73" class="component-label">L1</text>
+                                <rect x="140" y="65" width="12" height="10" class="component" rx="1"/>
+                                <text x="146" y="73" class="component-label">L2</text>
+                                
+                                <!-- 控制线1 -->
+                                <line x1="152" y1="58" x2="180" y2="58" class="signal-flow" marker-end="url(#arrowhead2)"/>
+                                <line x1="180" y1="58" x2="200" y2="58" class="signal-flow"/>
+                                
+                                <!-- 控制线2 -->
+                                <line x1="152" y1="70" x2="180" y2="70" class="signal-flow" marker-end="url(#arrowhead2)"/>
+                                <line x1="180" y1="70" x2="200" y2="70" class="signal-flow"/>
+                                
+                                <!-- 第二个双控开关 -->
+                                <rect x="205" y="20" width="50" height="70" class="assembly-part" rx="3"/>
+                                <text x="230" y="35" class="component-label">开关2</text>
+                                <text x="230" y="48" class="annotation" font-size="6">双控</text>
+                                
+                                <!-- 开关2接线端子 -->
+                                <rect x="210" y="50" width="12" height="10" class="component" rx="1"/>
+                                <text x="216" y="58" class="component-label">L</text>
+                                <rect x="210" y="65" width="12" height="10" class="component" rx="1"/>
+                                <text x="216" y="73" class="component-label">L1</text>
+                                <rect x="230" y="65" width="12" height="10" class="component" rx="1"/>
+                                <text x="236" y="73" class="component-label">L2</text>
+                                
+                                <!-- 开关2到灯具 -->
+                                <line x1="255" y1="58" x2="280" y2="58" class="power-line"/>
+                                
+                                <!-- 灯具 -->
+                                <circle cx="310" y="58" r="20" class="component"/>
+                                <text x="310" y="63" class="component-label">灯具</text>
+                                
+                                <!-- 零线 -->
+                                <line x1="80" y1="95" x2="140" y2="95" class="power-line"/>
+                                <line x1="140" y1="95" x2="140" y2="160" class="power-line"/>
+                                <line x1="140" y1="160" x2="310" y2="160" class="power-line"/>
+                                <line x1="310" y1="160" x2="310" y2="95" class="power-line"/>
+                                <line x1="310" y1="78" x2="310" y2="95" class="power-line"/>
+                                
+                                <!-- 控制线连接说明 -->
+                                <text x="185" y="100" class="annotation">控制线1</text>
+                                <text x="185" y="115" class="annotation">控制线2</text>
+                                
+                                <!-- 切换说明 -->
+                                <rect x="140" y="120" width="80" height="45" fill="#d4edda" rx="5"/>
+                                <text x="180" y="140" class="annotation" fill="#28a745">双控接线原理</text>
+                                <text x="180" y="155" class="annotation" fill="#28a745">L1-L2交叉连通</text>
+                                <text x="180" y="168" class="annotation" fill="#28a745">实现异地控制</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h3>常见故障与解决方案</h3>
+                    
+                    <div class="troubleshoot">
+                        <h4>🚫 故障一：开关无法控制灯具</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>开关内部触点烧蚀或氧化</li>
+                            <li>接线端子松动或脱落</li>
+                            <li>控制线断路</li>
+                            <li>开关机械结构损坏</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>切断电源，用万用表测量开关两端电阻</li>
+                            <li>按下开关时电阻应为0Ω，松开时应为无穷大</li>
+                            <li>检查接线端子是否紧固，必要时重新接线</li>
+                            <li>拆开开关面板，检查内部触点是否有烧蚀痕迹</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>💡 故障二：开关发热</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>负载功率超过开关额定功率</li>
+                            <li>接线端子接触不良</li>
+                            <li>开关老化，触点电阻增大</li>
+                            <li>线路短路边缘性故障</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查所接灯具功率，更换为额定功率更高的开关</li>
+                            <li>切断电源，检查并紧固所有接线端子</li>
+                            <li>触摸开关外壳温度，异常发热时及时更换</li>
+                            <li>检查线路绝缘情况，排除短路隐患</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>🔌 故障三：开关面板松动</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>底盒安装不牢固</li>
+                            <li>开关面板螺丝松动</li>
+                            <li>底盒损坏或变形</li>
+                            <li>墙面开裂导致固定不牢</li>
+                        </ol>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>切断电源，拆下面板</li>
+                            <li>检查底盒固定螺丝，必要时用墙塞重新固定</li>
+                            <li>如底盒损坏，更换86型标准底盒</li>
+                            <li>用腻子修补墙面裂缝，待干燥后重新安装</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>⚡ 故障四：双控开关失灵</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>控制线连接错误</li>
+                            <li>其中一个开关损坏</li>
+                            <li>控制线中间断路</li>
+                            <li>接线端子氧化接触不良</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查两个开关的接线是否正确，L1-L2交叉连通</li>
+                            <li>用万用表分别测试每个开关的通断</li>
+                            <li>检查控制线是否有断路，特别是接头处</li>
+                            <li>清洁接线端子氧化层，重新紧固</li>
+                        </ol>
+                    </div>
+
+                    <h3>安装步骤详解</h3>
+                    
+                    <div class="flowchart">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>切断电源</strong>
+                                <p>在配电箱中切断对应回路的空气开关，并使用测电笔确认无电</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>准备工具和材料</strong>
+                                <p>准备螺丝刀、剥线钳、测电笔、86型底盒、电线（1.5mm²铜线）</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>安装底盒</strong>
+                                <p>将86型底盒嵌入墙内，用水平仪校准，用螺丝或墙塞固定</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div>
+                                <strong>预留电线</strong>
+                                <p>从底盒中预留10-15cm电线，用剥线钳剥除端部绝缘层约1cm</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div>
+                                <strong>接线</strong>
+                                <p>火线接L端子，负载线接L1（或COM）端子，确保接线牢固</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div>
+                                <strong>固定开关</strong>
+                                <p>将开关模块推入底盒，用水平仪校准，用螺丝固定</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">7</div>
+                            <div>
+                                <strong>安装面板</strong>
+                                <p>扣上面板，确保卡扣到位，检查开关是否平整</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">8</div>
+                            <div>
+                                <strong>测试验收</strong>
+                                <p>合闸测试开关功能，检查灯具控制是否正常</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>日常维护保养</h3>
+                    
+                    <div class="tip">
+                        <strong>💡 开关保养要点：</strong>
+                        <ul>
+                            <li>定期清洁开关面板，用干布或微湿布擦拭，避免使用腐蚀性清洁剂</li>
+                            <li>不要用力过猛按压开关，轻按即可</li>
+                            <li>厨房、卫生间等潮湿环境的开关应选用防水型</li>
+                            <li>发现开关有异常发热、异响时及时更换</li>
+                            <li>每半年检查一次接线端子是否松动</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 安全用电须知：</strong>
+                        <ul>
+                            <li>任何电路维修前必须切断电源</li>
+                            <li>使用测电笔确认无电后再操作</li>
+                            <li>选择符合国家标准的开关产品（3C认证）</li>
+                            <li>不要超负荷使用开关，关注额定功率</li>
+                            <li>发现开关损坏或老化应及时更换</li>
+                            <li>非专业人员不建议自行改造电路</li>
+                        </ul>
+                    </div>
+
+                    <h3>选购建议</h3>
+                    <ul>
+                        <li><strong>看品牌</strong>：选择知名品牌，质量更有保障</li>
+                        <li><strong>看材质</strong>：面板选用阻燃PC料，内部铜件选用锡磷青铜</li>
+                        <li><strong>看认证</strong>：必须要有3C强制性认证标志</li>
+                        <li><strong>看手感</strong>：开关按下干脆利落，无卡顿感</li>
+                        <li><strong>看重量</strong>：优质开关手感沉重，内部铜件用量足</li>
+                        <li><strong>看功率</strong>：根据实际负载选择合适额定功率的开关</li>
+                    </ul>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    const pages = [
+                        'refrigerator.html', 'washing-machine.html', 'air-conditioner.html',
+                        'air-purifier.html', 'range-hood.html', 'electric-fan.html',
+                        'water-dispenser.html', 'rice-cooker.html', 'induction-cooker.html',
+                        'microwave.html', 'television.html', 'water-heater.html',
+                        'dishwasher.html', 'vacuum.html', 'electric-bicycle.html',
+                        'wall-switch.html'
+                    ];
+                    
+                    for (let page of pages) {
+                        window.location.href = page;
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

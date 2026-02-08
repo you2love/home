@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微波炉 - 家用电器维修指南</title>
+    <title>油烟机 - 家用电器维修指南</title>
     <style>
         * {
             margin: 0;
@@ -431,43 +431,13 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="microwave.html" class="nav-link active">
-                        <span class="icon">📡</span>
-                        <span class="text">微波炉</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="television.html" class="nav-link">
-                        <span class="icon">📺</span>
-                        <span class="text">电视</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="water-heater.html" class="nav-link">
-                        <span class="icon">🚿</span>
-                        <span class="text">热水器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="dishwasher.html" class="nav-link">
-                        <span class="icon">🍽️</span>
-                        <span class="text">洗碗机</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="vacuum.html" class="nav-link">
-                        <span class="icon">🧹</span>
-                        <span class="text">吸尘器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
                     <a href="air-purifier.html" class="nav-link">
                         <span class="icon">🌬️</span>
                         <span class="text">空气净化器</span>
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="range-hood.html" class="nav-link">
+                    <a href="range-hood.html" class="nav-link active">
                         <span class="icon">🏭</span>
                         <span class="text">油烟机</span>
                     </a>
@@ -532,150 +502,152 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <section class="appliance-detail">
-                    <h2>📡 微波炉运行原理与故障修复</h2>
+                    <h2>🏭 油烟机运行原理与故障修复</h2>
                     
                     <h3>运行原理</h3>
                     <div class="principle-box">
-                        <h3>微波加热原理</h3>
-                        <p>微波炉通过<strong>微波使水分子振动</strong>产生热量：</p>
+                        <h3>油烟排除原理</h3>
+                        <p>油烟机通过以下原理排除厨房油烟：</p>
                         <ol>
-                            <li><strong>产生微波</strong>：磁控管将电能转换为2450MHz微波</li>
-                            <li><strong>传输微波</strong>：波导将微波传输到炉腔</li>
-                            <li><strong>加热食物</strong>：微波使食物中的水分子高速振动，产生热量</li>
-                            <li><strong>均匀加热</strong>：转盘或搅拌器使微波均匀分布</li>
+                            <li><strong>负压吸油烟</strong>：风机高速旋转产生离心力，在进风口形成负压，将油烟吸入</li>
+                            <li><strong>油烟分离</strong>：通过油网和叶轮将油烟中的油滴分离，收集到油杯中</li>
+                            <li><strong>外排/内循环</strong>：外排模式将油烟排到室外，内循环模式通过滤网过滤后循环</li>
+                            <li><strong>油脂分离</strong>：利用离心力将油脂甩到集油槽，排出清洁空气</li>
                         </ol>
                     </div>
 
                     <h3>主要部件</h3>
                     <ul>
-                        <li><strong>磁控管</strong>：产生微波的核心部件</li>
-                        <li><strong>高压变压器</strong>：为磁控管提供高压电</li>
-                        <li><strong>波导</strong>：传输微波到炉腔</li>
-                        <li><strong>转盘电机</strong>：带动转盘旋转</li>
-                        <li><strong>门开关</strong>：安全保护装置</li>
-                        <li><strong>控制板</strong>：设置时间和功率</li>
+                        <li><strong>风机系统</strong>：包括电机和叶轮，是油烟机的核心动力部件</li>
+                        <li><strong>蜗壳</strong>：引导气流流动，形成高效的排烟通道</li>
+                        <li><strong>油网/滤网</strong>：初步过滤油烟，拦截大颗粒油滴</li>
+                        <li><strong>集油槽/油杯</strong>：收集分离出来的废油</li>
+                        <li><strong>止回阀</strong>：防止油烟倒灌</li>
+                        <li><strong>控制面板</strong>：控制风速、照明、延时等功能</li>
+                        <li><strong>照明灯</strong>：为烹饪区域提供照明</li>
                     </ul>
 
                     <div class="diagram-section">
                         <h3>原理图及装配图</h3>
                         <div class="diagram-container">
                             <div class="diagram-box">
-                                <h4>微波产生原理图</h4>
+                                <h4>排烟系统原理图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <marker id="arrowhead-micro" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <marker id="arrowhead-hood" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                                             <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
                                         </marker>
                                     </defs>
-                                    <!-- 电源输入 -->
-                                    <rect x="20" y="30" width="50" height="30" class="component" rx="5"/>
-                                    <text x="45" y="50" class="component-label">电源</text>
+                                    <!-- 风机电机 -->
+                                    <circle cx="200" cy="80" r="45" class="component-highlight" style="fill:#3498db"/>
+                                    <text x="200" y="85" class="component-label">风机电机</text>
                                     
-                                    <!-- 高压变压器 -->
-                                    <rect x="100" y="20" width="80" height="60" class="component" rx="5"/>
-                                    <text x="140" y="55" class="component-label">高压变压器</text>
+                                    <!-- 叶轮 -->
+                                    <circle cx="200" cy="80" r="30" class="component" fill="none" stroke-width="3"/>
+                                    <line x1="200" y1="50" x2="200" y2="110" class="component" stroke-width="4"/>
+                                    <line x1="170" y1="80" x2="230" y2="80" class="component" stroke-width="4"/>
                                     
-                                    <!-- 高压电容 -->
-                                    <rect x="220" y="30" width="40" height="30" class="component" rx="3"/>
-                                    <text x="240" y="50" class="component-label">电容</text>
+                                    <!-- 蜗壳 -->
+                                    <path d="M100,50 Q80,80 100,150 L120,150 Q100,100 120,80 L200,80" class="component" fill="none" stroke-width="3"/>
+                                    <text x="110" y="110" class="component-label">蜗壳</text>
                                     
-                                    <!-- 高压保险丝 -->
-                                    <rect x="220" y="80" width="40" height="20" class="component" rx="3"/>
-                                    <text x="240" y="93" class="component-label">保险</text>
+                                    <!-- 油网 -->
+                                    <rect x="140" y="180" width="120" height="40" class="component" rx="5"/>
+                                    <text x="200" y="205" class="component-label">油网</text>
                                     
-                                    <!-- 磁控管 -->
-                                    <rect x="300" y="40" width="70" height="50" class="component" rx="5"/>
-                                    <text x="335" y="70" class="component-label">磁控管</text>
+                                    <!-- 集油槽 -->
+                                    <rect x="140" y="240" width="120" height="30" class="component-highlight" rx="3" style="fill:#f39c12"/>
+                                    <text x="200" y="260" class="component-label">集油槽</text>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="280" y="100" width="90" height="15" class="component" rx="3"/>
-                                    <text x="325" y="110" class="component-label">波导</text>
+                                    <!-- 止回阀 -->
+                                    <rect x="300" y="50" width="40" height="60" class="component" rx="3"/>
+                                    <text x="320" y="85" class="component-label">止回阀</text>
                                     
-                                    <!-- 炉腔 -->
-                                    <rect x="80" y="150" width="200" height="120" class="component" rx="10"/>
-                                    <text x="180" y="215" class="component-label">微波炉腔</text>
+                                    <!-- 排烟管接口 -->
+                                    <circle cx="350" cy="80" r="20" class="component"/>
+                                    <text x="350" y="85" class="component-label">出风口</text>
                                     
-                                    <!-- 转盘 -->
-                                    <circle cx="180" cy="210" r="50" class="component" fill="none" stroke-width="2"/>
-                                    <text x="180" y="215" class="component-label">转盘</text>
+                                    <!-- 照明灯 -->
+                                    <rect x="200" y="270" width="30" height="15" class="component" rx="3"/>
+                                    <text x="215" y="282" class="component-label">照明</text>
                                     
-                                    <!-- 转盘电机 -->
-                                    <rect x="160" y="275" width="40" height="20" class="component" rx="3"/>
-                                    <text x="180" y="288" class="component-label">转盘电机</text>
+                                    <!-- 控制面板 -->
+                                    <rect x="50" y="180" width="60" height="40" class="component" rx="5"/>
+                                    <text x="80" y="205" class="component-label">控制</text>
                                     
-                                    <!-- 控制板 -->
-                                    <rect x="300" y="180" width="80" height="50" class="component" rx="5"/>
-                                    <text x="340" y="210" class="component-label">控制板</text>
+                                    <!-- 气流方向 -->
+                                    <path d="M100,150 L140,150 L140,180" class="signal-flow" marker-end="url(#arrowhead-hood)"/>
+                                    <path d="M260,80 L300,80" class="signal-flow" marker-end="url(#arrowhead-hood)"/>
                                     
-                                    <!-- 门开关 -->
-                                    <circle cx="80" cy="140" r="15" class="component-highlight" style="fill:#e74c3c"/>
-                                    <text x="80" y="145" class="component-label">门开关</text>
+                                    <!-- 油滴收集 -->
+                                    <path d="M200,220 L200,240" class="signal-flow" stroke="#f39c12" marker-end="url(#arrowhead-hood)"/>
+                                    
+                                    <!-- 烹饪区域 -->
+                                    <rect x="120" y="250" width="60" height="30" class="assembly-part" rx="3" fill="none"/>
+                                    <text x="150" y="270" class="annotation">灶台</text>
                                     
                                     <!-- 电路连接 -->
-                                    <line x1="70" y1="45" x2="100" y2="45" class="power-line"/>
-                                    <line x1="180" y1="50" x2="220" y2="45" class="power-line"/>
-                                    <line x1="240" y1="60" x2="300" y2="65" class="power-line"/>
-                                    <line x1="325" y1="108" x2="325" y2="150" class="power-line"/>
-                                    
-                                    <!-- 微波发射方向 -->
-                                    <path d="M280,140 L180,140 L180,160" class="signal-flow" marker-end="url(#arrowhead-micro)"/>
+                                    <line x1="80" y1="200" x2="120" y2="200" class="power-line"/>
+                                    <line x1="155" y1="200" x2="170" y2="125" class="power-line"/>
+                                    <line x1="230" y1="125" x2="320" y2="125" class="power-line"/>
                                 </svg>
                             </div>
                             
                             <div class="diagram-box">
-                                <h4>微波炉内部装配图</h4>
+                                <h4>油烟机装配图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- 炉腔外壳 -->
-                                    <rect x="60" y="40" width="280" height="200" class="assembly-part" rx="15"/>
+                                    <!-- 外壳 -->
+                                    <rect x="100" y="30" width="200" height="250" class="assembly-part" rx="15"/>
                                     
-                                    <!-- 门框 -->
-                                    <rect x="50" y="35" width="40" height="210" class="assembly-part" rx="5"/>
+                                    <!-- 吸烟口 -->
+                                    <path d="M110,60 L290,60 L270,150 L130,150 Z" class="assembly-part-highlight" fill="none" stroke-width="3"/>
                                     
-                                    <!-- 观察窗 -->
-                                    <rect x="55" y="50" width="30" height="100" class="assembly-part" fill="#bdc3c7" stroke-width="2"/>
+                                    <!-- 集烟罩 -->
+                                    <path d="M110,60 L290,60 L270,150 L130,150 Z" class="assembly-part" fill="none"/>
                                     
-                                    <!-- 磁控管位置 -->
-                                    <rect x="250" y="60" width="60" height="50" class="assembly-part-highlight" rx="5"/>
-                                    <text x="280" y="90" class="assembly-label">磁控管</text>
+                                    <!-- 油网 -->
+                                    <rect x="130" y="70" width="140" height="60" class="assembly-part" fill="#ecf0f1" stroke-width="2"/>
+                                    <line x1="140" y1="80" x2="260" y2="80" class="assembly-dimension"/>
+                                    <line x1="140" y1="100" x2="260" y2="100" class="assembly-dimension"/>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="200" y="70" width="60" height="20" class="assembly-part" rx="3"/>
-                                    <text x="230" y="85" class="assembly-label">波导</text>
-                                    
-                                    <!-- 搅拌器/天线 -->
-                                    <circle cx="200" cy="140" r="30" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <line x1="200" y1="110" x2="200" y2="170" class="assembly-part"/>
-                                    <line x1="170" y1="140" x2="230" y2="140" class="assembly-part"/>
-                                    
-                                    <!-- 转盘 -->
-                                    <circle cx="200" cy="180" r="60" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <circle cx="200" cy="180" r="40" class="assembly-part" fill="none"/>
-                                    
-                                    <!-- 转盘电机 -->
-                                    <rect x="180" y="245" width="40" height="25" class="assembly-part-highlight" rx="3"/>
-                                    <text x="200" y="262" class="assembly-label">电机</text>
-                                    
-                                    <!-- 烧烤管（带烧烤功能） -->
-                                    <rect x="80" y="50" width="80" height="15" class="assembly-part" rx="3"/>
-                                    <text x="120" y="62" class="assembly-label">烧烤管</text>
-                                    
-                                    <!-- 腔体涂层 -->
-                                    <rect x="70" y="70" width="150" height="150" class="assembly-part" fill="none" stroke-width="1"/>
-                                    
-                                    <!-- 底部平台 -->
-                                    <rect x="150" y="240" width="100" height="10" class="assembly-part"/>
-                                    
-                                    <!-- 散热格栅 -->
-                                    <rect x="280" y="120" width="50" height="100" class="assembly-part" fill="#ecf0f1" stroke-width="1"/>
-                                    <line x1="290" y1="130" x2="320" y2="130" class="assembly-dimension"/>
-                                    <line x1="290" y1="150" x2="320" y2="150" class="assembly-dimension"/>
-                                    <line x1="290" y1="170" x2="320" y2="170" class="assembly-dimension"/>
+                                    <!-- 照明灯 -->
+                                    <rect x="160" y="45" width="30" height="12" class="assembly-part-highlight" rx="3"/>
+                                    <rect x="210" y="45" width="30" height="12" class="assembly-part-highlight" rx="3"/>
                                     
                                     <!-- 控制面板 -->
-                                    <rect x="300" y="220" width="70" height="50" class="assembly-part" rx="5"/>
-                                    <circle cx="315" cy="235" r="8" class="assembly-part-highlight"/>
-                                    <circle cx="340" cy="235" r="8" class="assembly-part"/>
-                                    <rect x="325" y="250" width="30" height="10" class="assembly-part"/>
+                                    <rect x="120" y="160" width="160" height="40" class="assembly-part" rx="5"/>
+                                    <circle cx="140" cy="180" r="10" class="assembly-part"/>
+                                    <circle cx="170" cy="180" r="10" class="assembly-part"/>
+                                    <circle cx="200" cy="180" r="10" class="assembly-part-highlight" style="fill:#2ecc71"/>
+                                    <rect x="225" y="172" width="40" height="15" class="assembly-part" rx="3"/>
+                                    
+                                    <!-- 风机仓 -->
+                                    <rect x="140" y="210" width="120" height="60" class="assembly-part-highlight" rx="5"/>
+                                    
+                                    <!-- 风机电机 -->
+                                    <circle cx="200" cy="240" r="25" class="assembly-part"/>
+                                    <circle cx="200" cy="240" r="18" class="assembly-part" fill="none"/>
+                                    
+                                    <!-- 叶轮 -->
+                                    <circle cx="200" cy="240" r="12" class="assembly-part" fill="none" stroke-width="2"/>
+                                    
+                                    <!-- 蜗壳出风口 -->
+                                    <rect x="280" y="220" width="30" height="40" class="assembly-part" rx="3"/>
+                                    
+                                    <!-- 排烟管 -->
+                                    <rect x="310" y="225" width="70" height="30" class="assembly-part" rx="5"/>
+                                    <text x="345" y="245" class="assembly-label">排烟管</text>
+                                    
+                                    <!-- 集油槽 -->
+                                    <rect x="140" y="275" width="120" height="20" class="assembly-part-highlight" rx="3" style="fill:#f39c12"/>
+                                    <text x="200" y="290" class="assembly-label">集油槽</text>
+                                    
+                                    <!-- 挂钩 -->
+                                    <rect x="120" y="20" width="20" height="15" class="assembly-part" rx="2"/>
+                                    <rect x="260" y="20" width="20" height="15" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 装饰条 -->
+                                    <rect x="105" y="40" width="190" height="5" class="assembly-part" fill="#bdc3c7"/>
                                 </svg>
                             </div>
                         </div>
@@ -684,13 +656,13 @@
                     <h3>常见故障及修复</h3>
                     
                     <div class="troubleshoot">
-                        <h4>故障1：微波炉不加热</h4>
+                        <h4>故障1：油烟机不工作/电机不转</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>电源问题</li>
-                            <li>高压保险丝烧断</li>
-                            <li>磁控管损坏</li>
-                            <li>门开关故障</li>
+                            <li>电源问题：检查电源线和插座</li>
+                            <li>电机烧坏：线圈短路或断路</li>
+                            <li>电容损坏：启动电容容量下降或失效</li>
+                            <li>控制面板故障</li>
                         </ul>
                         <p><strong>排查步骤：</strong></p>
                         <div class="flowchart">
@@ -700,88 +672,114 @@
                             </div>
                             <div class="step">
                                 <span class="step-number">2</span>
-                                <div>检查保险丝：断电后检查高压保险丝是否烧断</div>
+                                <div>检查开关：尝试不同档位，看是否有反应</div>
                             </div>
                             <div class="step">
                                 <span class="step-number">3</span>
-                                <div>检查门开关：开门时炉灯应亮，关门时应有"咔嗒"声</div>
+                                <div>听电机声音：通电后是否有嗡嗡声</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <div>检查电容：用万用表测量电容容量</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障2：微波炉转盘不转</h4>
+                        <h4>故障2：吸油烟效果差</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>转盘轨道脱落</li>
-                            <li>转盘电机故障</li>
-                            <li>连接齿轮损坏</li>
+                            <li>止回阀叶片卡住</li>
+                            <li>排烟管道堵塞或过长</li>
+                            <li>电机转速下降</li>
+                            <li>油网堵塞</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>重新安装转盘轨道</li>
-                            <li>检查转盘电机供电</li>
-                            <li>更换损坏的齿轮</li>
-                            <li>必要时更换转盘电机</li>
+                            <li>清洁止回阀，确保叶片开合灵活</li>
+                            <li>清理排烟管道，减少弯头</li>
+                            <li>清洁油网（每周一次）</li>
+                            <li>检查电机碳刷是否磨损</li>
                         </ol>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障3：微波炉有火花</h4>
+                        <h4>故障3：噪音过大</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>使用金属容器</li>
-                            <li>炉腔内有金属异物</li>
-                            <li>磁控管天线损坏</li>
-                            <li>云母挡板脏污</li>
+                            <li>叶轮沾油过多，平衡被破坏</li>
+                            <li>电机轴承磨损</li>
+                            <li>安装不牢固</li>
+                            <li>蜗壳内有异物</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>立即停止使用，检查炉腔</li>
-                            <li>取出所有金属物品</li>
-                            <li>清洁云母挡板</li>
-                            <li>检查磁控管，必要时更换</li>
+                            <li>清洁叶轮和蜗壳内壁</li>
+                            <li>检查并紧固安装螺丝</li>
+                            <li>清理蜗壳内异物</li>
+                            <li>轴承磨损需更换电机</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障4：漏油</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>油杯安装不当或过满</li>
+                            <li>油网/集油槽损坏</li>
+                            <li>机体安装不水平</li>
+                            <li>密封条老化</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>重新正确安装油杯</li>
+                            <li>定期清理油杯（1/3满时清理）</li>
+                            <li>调整机体水平度</li>
+                            <li>更换老化的密封条</li>
                         </ol>
                     </div>
 
                     <h3>最佳使用实践</h3>
                     <div class="tip">
-                        <strong>选择合适的容器：</strong>使用玻璃、陶瓷（无金属装饰）、微波专用塑料容器，避免金属容器产生火花
+                        <strong>提前开启延后关闭：</strong>做饭前2分钟开启，做完饭后继续运行5-10分钟，确保油烟完全排除
                     </div>
                     <div class="tip">
-                        <strong>覆盖食物：</strong>加热液体或易飞溅食物时使用微波炉盖，防止溅出污染炉腔
+                        <strong>选择适当风速：</strong>日常烹饪用低速档，油炸、爆炒时切换高速档，避免油烟扩散
                     </div>
                     <div class="tip">
-                        <strong>分散堆叠食物：</strong>食物堆积过厚会受热不均，大块食物应切小块或薄片，确保均匀加热
+                        <strong>保持厨房通风：</strong>使用时打开厨房窗户，形成空气对流，提高排烟效果
                     </div>
                     <div class="tip">
-                        <strong>中途搅拌：</strong>加热液体或浓稠食物时，中途取出搅拌一次，使热量分布更均匀
+                        <strong>定期清洁油网：</strong>每周用温水加洗洁精浸泡清洗，油网堵塞会降低吸力20%以上
                     </div>
                     <div class="tip">
-                        <strong>掌握加热时间：</strong>从最短时间开始，不够再加，过度加热会导致食物变硬或爆炸
+                        <strong>正确安装高度：</strong>油烟机底部与灶台距离65-75cm为最佳，过低碰头、过高效果差
                     </div>
                     <div class="tip">
-                        <strong>带壳食物需戳孔：</strong>鸡蛋、板栗等带壳食物必须戳几个小孔，否则内部压力会导致爆炸
+                        <strong>保持止回阀灵活：</strong>定期检查止回阀叶片，确保开合灵活，防止油烟倒灌
                     </div>
                     <div class="tip">
-                        <strong>不要加热密封容器：</strong>密封的饭盒、罐头、塑料袋会因压力膨胀而爆炸，应打开盖子加热
+                        <strong>排烟管道越短越好：</strong>减少管道弯头，弯头越多吸力损失越大，管道最长不超过3米
                     </div>
                     <div class="tip">
-                        <strong>清洁云母挡板：</strong>保持炉腔右侧云母挡板清洁干燥，油污会导致打火或损坏磁控管
+                        <strong>定期清理集油槽：</strong>油杯积油1/3时清理，避免溢出和异味
                     </div>
 
-                    <h3>安全使用提示</h3>
-                    <div class="warning">
-                        <strong>禁止使用金属容器：</strong>铝箔、金属碗、叉子等会产生火花
-                    </div>
-                    <div class="warning">
-                        <strong>注意密封容器：</strong>密闭容器可能因压力过大而爆炸
+                    <h3>维护建议</h3>
+                    <div class="tip">
+                        <strong>定期清洁油网</strong>：每周用温水加洗洁精浸泡清洗，保持进风通畅
                     </div>
                     <div class="tip">
-                        <strong>适用容器：</strong>玻璃、陶瓷（无金属装饰）、塑料（微波专用）
+                        <strong>清洁叶轮</strong>：每1-2个月拆下叶轮清洁，注意平衡
+                    </div>
+                    <div class="tip">
+                        <strong>清理油杯</strong>：油杯积油1/3时清理，避免溢出
+                    </div>
+                    <div class="tip">
+                        <strong>检查止回阀</strong>：每半年检查一次，确保开合灵活
                     </div>
                     <div class="warning">
-                        <strong>高压危险：</strong>断电后电容仍可能带电，非专业人员请勿打开机壳
+                        <strong>安全注意</strong>：清洁前必须断电，不要用水冲洗电机和电器部件
                     </div>
                 </section>
 

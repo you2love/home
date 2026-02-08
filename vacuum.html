@@ -262,33 +262,6 @@
             font-weight: bold;
         }
 
-        footer {
-            background: var(--primary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
         .menu-toggle {
             display: none;
             position: fixed;
@@ -303,6 +276,123 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 10px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .ground {
+            fill: #27ae60;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .annotation {
+            font-size: 9px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 8px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .assembly-connector {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+        }
+
+        .assembly-dimension {
+            stroke: #95a5a6;
+            stroke-width: 1;
+            fill: none;
+        }
     </style>
 </head>
 <body>
@@ -311,8 +401,7 @@
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>🏠 家电维修指南</h1>
-                <p>专业、易懂的家电维修知识库</p>
+                <h1>🏠 家电常识</h1>
             </div>
 
             <div class="search-box">
@@ -371,6 +460,72 @@
                         <span class="text">吸尘器</span>
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
@@ -401,6 +556,127 @@
                         <li><strong>地刷/吸头</strong>：接触地面，吸入灰尘</li>
                         <li><strong>集尘盒/尘袋</strong>：收集灰尘</li>
                     </ul>
+
+                    <div class="diagram-section">
+                        <h3>原理图及装配图</h3>
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4>吸尘原理图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <marker id="arrowhead-vac" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                        </marker>
+                                    </defs>
+                                    <!-- 电源 -->
+                                    <rect x="20" y="50" width="50" height="30" class="component" rx="5"/>
+                                    <text x="45" y="70" class="component-label">电源</text>
+                                    
+                                    <!-- 开关 -->
+                                    <rect x="90" y="45" width="40" height="40" class="component" rx="5"/>
+                                    <text x="110" y="70" class="component-label">开关</text>
+                                    
+                                    <!-- 电机 -->
+                                    <circle cx="200" cy="80" r="50" class="component-highlight" style="fill:#3498db"/>
+                                    <text x="200" y="85" class="component-label">电机</text>
+                                    
+                                    <!-- 风扇叶轮 -->
+                                    <circle cx="200" cy="80" r="35" class="component" fill="none" stroke-width="3"/>
+                                    <line x1="200" y1="50" x2="200" y2="110" class="component" stroke-width="4"/>
+                                    <line x1="170" y1="80" x2="230" y2="80" class="component" stroke-width="4"/>
+                                    
+                                    <!-- 滤尘袋/集尘盒 -->
+                                    <rect x="300" y="30" width="80" height="120" class="component" rx="5"/>
+                                    <text x="340" y="95" class="component-label">集尘袋</text>
+                                    
+                                    <!-- HEPA滤网 -->
+                                    <rect x="300" y="170" width="80" height="40" class="component" rx="3"/>
+                                    <text x="340" y="195" class="component-label">HEPA滤网</text>
+                                    
+                                    <!-- 出风口 -->
+                                    <rect x="300" y="230" width="60" height="30" class="component" rx="3"/>
+                                    <text x="330" y="250" class="component-label">出风</text>
+                                    
+                                    <!-- 吸尘口 -->
+                                    <rect x="30" y="220" width="60" height="40" class="component" rx="5"/>
+                                    <text x="60" y="245" class="component-label">吸尘口</text>
+                                    
+                                    <!-- 软管 -->
+                                    <path d="M60,200 Q100,150 150,130" class="power-line" fill="none"/>
+                                    <path d="M150,130 Q180,110 170,90" class="power-line" fill="none"/>
+                                    
+                                    <!-- 气流方向 -->
+                                    <path d="M90,220 L150,150 L170,90" class="signal-flow" marker-end="url(#arrowhead-vac)"/>
+                                    <path d="M250,80 L300,80" class="signal-flow" marker-end="url(#arrowhead-vac)"/>
+                                    <path d="M300,150 L300,170" class="signal-flow" marker-end="url(#arrowhead-vac)"/>
+                                    <path d="M360,210 L360,230" class="signal-flow" marker-end="url(#arrowhead-vac)"/>
+                                    
+                                    <!-- 灰尘收集示意 -->
+                                    <ellipse cx="340" cy="120" rx="30" ry="15" fill="#bdc3c7" stroke="#999"/>
+                                    
+                                    <!-- 地线 -->
+                                    <line x1="45" y1="80" x2="45" y2="280" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="diagram-box">
+                                <h4>吸尘器装配图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- 主机身 -->
+                                    <ellipse cx="200" cy="180" rx="100" ry="80" class="assembly-part"/>
+                                    
+                                    <!-- 把手 -->
+                                    <path d="M150,110 Q140,80 160,60" class="assembly-part" fill="none" stroke-width="15"/>
+                                    <rect x="145" y="50" width="40" height="20" class="assembly-part" rx="5"/>
+                                    
+                                    <!-- 控制开关 -->
+                                    <rect x="150" y="55" width="30" height="12" class="assembly-part-highlight" rx="2"/>
+                                    <circle cx="155" cy="61" r="3" style="fill:#2ecc71"/>
+                                    <circle cx="165" cy="61" r="3" class="assembly-part"/>
+                                    <circle cx="175" cy="61" r="3" class="assembly-part"/>
+                                    
+                                    <!-- 电源线 -->
+                                    <path d="M120,200 Q80,220 60,250" class="power-line" fill="none"/>
+                                    
+                                    <!-- 集尘盒 -->
+                                    <rect x="170" y="130" width="60" height="80" class="assembly-part-highlight" rx="5"/>
+                                    <rect x="175" y="135" width="50" height="70" class="assembly-part" fill="none" stroke-width="2"/>
+                                    
+                                    <!-- 滤网 -->
+                                    <rect x="175" y="160" width="50" height="10" class="assembly-part" fill="#ecf0f1"/>
+                                    
+                                    <!-- HEPA滤网位置 -->
+                                    <rect x="270" y="150" width="30" height="60" class="assembly-part" rx="3"/>
+                                    <text x="285" y="185" class="assembly-label" transform="rotate(90, 285, 185)">HEPA</text>
+                                    
+                                    <!-- 电机位置 -->
+                                    <circle cx="200" cy="200" r="40" class="assembly-part-highlight"/>
+                                    <circle cx="200" cy="200" r="30" class="assembly-part" fill="none"/>
+                                    <line x1="200" y1="175" x2="200" y2="225" class="assembly-part" stroke-width="3"/>
+                                    <line x1="175" y1="200" x2="225" y2="200" class="assembly-part" stroke-width="3"/>
+                                    
+                                    <!-- 风扇叶片 -->
+                                    <circle cx="200" cy="200" r="20" class="assembly-part" fill="none" stroke-width="2"/>
+                                    
+                                    <!-- 吸气口 -->
+                                    <ellipse cx="100" cy="220" rx="20" ry="25" class="assembly-part-highlight"/>
+                                    
+                                    <!-- 软管连接 -->
+                                    <path d="M100,220 Q130,220 150,210" class="assembly-connector" fill="none"/>
+                                    
+                                    <!-- 轮子 -->
+                                    <ellipse cx="140" cy="255" rx="15" ry="10" class="assembly-part"/>
+                                    <ellipse cx="260" cy="255" rx="15" ry="10" class="assembly-part"/>
+                                    
+                                    <!-- 灰尘收集指示 -->
+                                    <rect x="180" y="150" width="40" height="8" class="assembly-part" fill="#95a5a6" opacity="0.5"/>
+                                    
+                                    <!-- 后轮 -->
+                                    <ellipse cx="200" cy="250" rx="12" ry="8" class="assembly-part"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
 
                     <h3>常见故障及修复</h3>
                     
@@ -470,6 +746,32 @@
                         </ol>
                     </div>
 
+                    <h3>最佳使用实践</h3>
+                    <div class="tip">
+                        <strong>先整理后吸尘：</strong>吸尘前捡拾大块杂物、纸屑、绳线等，避免堵塞吸尘管或缠绕滚刷
+                    </div>
+                    <div class="tip">
+                        <strong>从里到外吸尘：</strong>从房间深处向门口吸尘，避免重复踩踏已清洁的区域
+                    </div>
+                    <div class="tip">
+                        <strong>调整吸力档位：</strong>地毯使用高吸力，窗帘和沙发使用低吸力，既干净又保护织物
+                    </div>
+                    <div class="tip">
+                        <strong>定期清洁滤网：</strong>每周取出滤网拍打清洁，HEPA滤网不可水洗，定期更换以保持过滤效果
+                    </div>
+                    <div class="tip">
+                        <strong>不要吸入液体：</strong>普通吸尘器不能吸液体，吸湿会造成电机损坏，应使用专用干湿两用机
+                    </div>
+                    <div class="tip">
+                        <strong>避免吸入易燃物：</strong>不要用吸尘器吸灰烬、未熄灭的烟头或易燃粉尘，防止火灾
+                    </div>
+                    <div class="tip">
+                        <strong>定期清理滚刷：</strong>每周检查并清除滚刷上的毛发和线绳，缠绕过多会影响清洁效果
+                    </div>
+                    <div class="tip">
+                        <strong>检查密封性：</strong>定期检查各连接处是否密封良好，漏气会严重影响吸力
+                    </div>
+
                     <h3>维护建议</h3>
                     <div class="tip">
                         <strong>定期清洁：</strong>每次使用后清理集尘盒/尘袋
@@ -485,10 +787,6 @@
                     </div>
                 </section>
 
-                <footer>
-                    <h3>🔧 家用电器维修指南</h3>
-                    <p>本指南仅供学习参考，涉及高压电和制冷剂的维修请专业人员处理</p>
-                </footer>
             </div>
         </main>
     </div>
@@ -506,6 +804,12 @@
                     { name: '冰箱', file: 'refrigerator.html' },
                     { name: '洗衣机', file: 'washing-machine.html' },
                     { name: '空调', file: 'air-conditioner.html' },
+                    { name: '空气净化器', file: 'air-purifier.html' },
+                    { name: '油烟机', file: 'range-hood.html' },
+                    { name: '电风扇', file: 'electric-fan.html' },
+                    { name: '饮水机', file: 'water-dispenser.html' },
+                    { name: '电饭煲', file: 'rice-cooker.html' },
+                    { name: '电磁炉', file: 'induction-cooker.html' },
                     { name: '微波炉', file: 'microwave.html' },
                     { name: '电视', file: 'television.html' },
                     { name: '热水器', file: 'water-heater.html' },

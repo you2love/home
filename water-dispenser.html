@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微波炉 - 家用电器维修指南</title>
+    <title>饮水机 - 家用电器维修指南</title>
     <style>
         * {
             margin: 0;
@@ -431,36 +431,6 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="microwave.html" class="nav-link active">
-                        <span class="icon">📡</span>
-                        <span class="text">微波炉</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="television.html" class="nav-link">
-                        <span class="icon">📺</span>
-                        <span class="text">电视</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="water-heater.html" class="nav-link">
-                        <span class="icon">🚿</span>
-                        <span class="text">热水器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="dishwasher.html" class="nav-link">
-                        <span class="icon">🍽️</span>
-                        <span class="text">洗碗机</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="vacuum.html" class="nav-link">
-                        <span class="icon">🧹</span>
-                        <span class="text">吸尘器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
                     <a href="air-purifier.html" class="nav-link">
                         <span class="icon">🌬️</span>
                         <span class="text">空气净化器</span>
@@ -479,7 +449,7 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="water-dispenser.html" class="nav-link">
+                    <a href="water-dispenser.html" class="nav-link active">
                         <span class="icon">💧</span>
                         <span class="text">饮水机</span>
                     </a>
@@ -532,150 +502,163 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <section class="appliance-detail">
-                    <h2>📡 微波炉运行原理与故障修复</h2>
+                    <h2>💧 饮水机运行原理与故障修复</h2>
                     
                     <h3>运行原理</h3>
                     <div class="principle-box">
-                        <h3>微波加热原理</h3>
-                        <p>微波炉通过<strong>微波使水分子振动</strong>产生热量：</p>
+                        <h3>冷热饮水原理</h3>
+                        <p>饮水机通过制冷和加热系统提供冷热水：</p>
                         <ol>
-                            <li><strong>产生微波</strong>：磁控管将电能转换为2450MHz微波</li>
-                            <li><strong>传输微波</strong>：波导将微波传输到炉腔</li>
-                            <li><strong>加热食物</strong>：微波使食物中的水分子高速振动，产生热量</li>
-                            <li><strong>均匀加热</strong>：转盘或搅拌器使微波均匀分布</li>
+                            <li><strong>加热原理</strong>：电热管通电加热水罐中的水，温控器控制加热温度（通常85-95℃）</li>
+                            <li><strong>制冷原理</strong>：压缩式制冷或电子制冷（半导体制冷片）</li>
+                            <li><strong>保温系统</strong>：水罐外层有保温层，减少热量散失</li>
+                            <li><strong>出水原理</strong>：按压水龙头时，桶装水内的气压将水顶出</li>
                         </ol>
                     </div>
 
                     <h3>主要部件</h3>
                     <ul>
-                        <li><strong>磁控管</strong>：产生微波的核心部件</li>
-                        <li><strong>高压变压器</strong>：为磁控管提供高压电</li>
-                        <li><strong>波导</strong>：传输微波到炉腔</li>
-                        <li><strong>转盘电机</strong>：带动转盘旋转</li>
-                        <li><strong>门开关</strong>：安全保护装置</li>
-                        <li><strong>控制板</strong>：设置时间和功率</li>
+                        <li><strong>加热罐</strong>：储存热水的不锈钢内胆</li>
+                        <li><strong>电热管</strong>：加热水的主要部件</li>
+                        <li><strong>温控器</strong>：控制加热温度，自动开启关闭</li>
+                        <li><strong>压缩机</strong>：压缩式制冷的核心部件</li>
+                        <li><strong>蒸发器/冷凝器</strong>：制冷系统的换热部件</li>
+                        <li><strong>制冷片</strong>：电子制冷饮水机使用</li>
+                        <li><strong>水龙头</strong>：控制冷热水出水</li>
+                        <li><strong>聪明座</strong>：连接桶装水的接口</li>
                     </ul>
 
                     <div class="diagram-section">
                         <h3>原理图及装配图</h3>
                         <div class="diagram-container">
                             <div class="diagram-box">
-                                <h4>微波产生原理图</h4>
+                                <h4>冷热系统原理图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <marker id="arrowhead-micro" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <marker id="arrowhead-dispenser" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                                             <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
                                         </marker>
                                     </defs>
-                                    <!-- 电源输入 -->
-                                    <rect x="20" y="30" width="50" height="30" class="component" rx="5"/>
-                                    <text x="45" y="50" class="component-label">电源</text>
+                                    <!-- 桶装水 -->
+                                    <rect x="40" y="30" width="60" height="100" class="component" rx="5"/>
+                                    <text x="70" y="85" class="component-label">桶装水</text>
                                     
-                                    <!-- 高压变压器 -->
-                                    <rect x="100" y="20" width="80" height="60" class="component" rx="5"/>
-                                    <text x="140" y="55" class="component-label">高压变压器</text>
+                                    <!-- 聪明座 -->
+                                    <circle cx="110" cy="80" r="20" class="component"/>
+                                    <text x="110" y="85" class="component-label">聪明座</text>
                                     
-                                    <!-- 高压电容 -->
-                                    <rect x="220" y="30" width="40" height="30" class="component" rx="3"/>
-                                    <text x="240" y="50" class="component-label">电容</text>
+                                    <!-- 热水罐 -->
+                                    <rect x="170" y="50" width="80" height="100" class="component-highlight" rx="5" style="fill:#e74c3c"/>
+                                    <text x="210" y="105" class="component-label">热水罐</text>
                                     
-                                    <!-- 高压保险丝 -->
-                                    <rect x="220" y="80" width="40" height="20" class="component" rx="3"/>
-                                    <text x="240" y="93" class="component-label">保险</text>
+                                    <!-- 电热管 -->
+                                    <rect x="190" y="100" width="40" height="30" class="component" rx="3"/>
+                                    <text x="210" y="120" class="component-label">加热管</text>
                                     
-                                    <!-- 磁控管 -->
-                                    <rect x="300" y="40" width="70" height="50" class="component" rx="5"/>
-                                    <text x="335" y="70" class="component-label">磁控管</text>
+                                    <!-- 热水温控器 -->
+                                    <circle cx="220" cy="65" r="12" class="component"/>
+                                    <text x="220" y="68" class="component-label">温控</text>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="280" y="100" width="90" height="15" class="component" rx="3"/>
-                                    <text x="325" y="110" class="component-label">波导</text>
+                                    <!-- 热水水龙头 -->
+                                    <rect x="270" y="120" width="30" height="25" class="component" rx="3"/>
+                                    <text x="285" y="137" class="component-label">热水</text>
                                     
-                                    <!-- 炉腔 -->
-                                    <rect x="80" y="150" width="200" height="120" class="component" rx="10"/>
-                                    <text x="180" y="215" class="component-label">微波炉腔</text>
+                                    <!-- 冷水罐 -->
+                                    <rect x="170" y="180" width="80" height="80" class="component-highlight" rx="5" style="fill:#3498db"/>
+                                    <text x="210" y="225" class="component-label">冷水罐</text>
                                     
-                                    <!-- 转盘 -->
-                                    <circle cx="180" cy="210" r="50" class="component" fill="none" stroke-width="2"/>
-                                    <text x="180" y="215" class="component-label">转盘</text>
+                                    <!-- 制冷系统 -->
+                                    <rect x="280" y="190" width="50" height="60" class="component" rx="5"/>
+                                    <text x="305" y="225" class="component-label">制冷</text>
                                     
-                                    <!-- 转盘电机 -->
-                                    <rect x="160" y="275" width="40" height="20" class="component" rx="3"/>
-                                    <text x="180" y="288" class="component-label">转盘电机</text>
+                                    <!-- 冷水水龙头 -->
+                                    <rect x="270" y="240" width="30" height="25" class="component" rx="3"/>
+                                    <text x="285" y="257" class="component-label">冷水</text>
                                     
-                                    <!-- 控制板 -->
-                                    <rect x="300" y="180" width="80" height="50" class="component" rx="5"/>
-                                    <text x="340" y="210" class="component-label">控制板</text>
+                                    <!-- 接水盘 -->
+                                    <rect x="150" y="280" width="180" height="30" class="component" rx="5"/>
+                                    <text x="240" y="300" class="component-label">接水盘</text>
                                     
-                                    <!-- 门开关 -->
-                                    <circle cx="80" cy="140" r="15" class="component-highlight" style="fill:#e74c3c"/>
-                                    <text x="80" y="145" class="component-label">门开关</text>
+                                    <!-- 水路连接 -->
+                                    <line x1="100" y1="80" x2="170" y2="80" class="power-line"/>
+                                    <line x1="250" y1="80" x2="270" y2="132" class="power-line"/>
+                                    <line x1="250" y1="80" x2="250" y2="180" class="power-line"/>
+                                    <line x1="210" y1="180" x2="210" y2="240" class="power-line"/>
+                                    
+                                    <!-- 制冷电路 -->
+                                    <line x1="290" y1="250" x2="305" y2="250" class="power-line"/>
+                                    
+                                    <!-- 电源 -->
+                                    <rect x="30" y="220" width="50" height="40" class="component" rx="5"/>
+                                    <text x="55" y="245" class="component-label">电源</text>
+                                    
+                                    <!-- 控制电路 -->
+                                    <rect x="90" y="200" width="50" height="60" class="component" rx="5"/>
+                                    <text x="115" y="235" class="component-label">控制板</text>
                                     
                                     <!-- 电路连接 -->
-                                    <line x1="70" y1="45" x2="100" y2="45" class="power-line"/>
-                                    <line x1="180" y1="50" x2="220" y2="45" class="power-line"/>
-                                    <line x1="240" y1="60" x2="300" y2="65" class="power-line"/>
-                                    <line x1="325" y1="108" x2="325" y2="150" class="power-line"/>
-                                    
-                                    <!-- 微波发射方向 -->
-                                    <path d="M280,140 L180,140 L180,160" class="signal-flow" marker-end="url(#arrowhead-micro)"/>
+                                    <line x1="80" y1="240" x2="90" y2="240" class="power-line"/>
+                                    <line x1="140" y1="240" x2="190" y2="240" class="power-line"/>
+                                    <line x1="305" y1="220" x2="330" y2="220" class="power-line"/>
                                 </svg>
                             </div>
                             
                             <div class="diagram-box">
-                                <h4>微波炉内部装配图</h4>
+                                <h4>饮水机装配图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- 炉腔外壳 -->
-                                    <rect x="60" y="40" width="280" height="200" class="assembly-part" rx="15"/>
+                                    <!-- 主机外壳 -->
+                                    <rect x="100" y="60" width="200" height="220" class="assembly-part" rx="10"/>
                                     
-                                    <!-- 门框 -->
-                                    <rect x="50" y="35" width="40" height="210" class="assembly-part" rx="5"/>
+                                    <!-- 桶装水放置区 -->
+                                    <rect x="120" y="20" width="100" height="50" class="assembly-part" rx="5" fill="none" stroke-width="2"/>
                                     
-                                    <!-- 观察窗 -->
-                                    <rect x="55" y="50" width="30" height="100" class="assembly-part" fill="#bdc3c7" stroke-width="2"/>
+                                    <!-- 水桶 -->
+                                    <rect x="135" y="25" width="70" height="45" class="assembly-part-highlight" rx="3"/>
+                                    <text x="170" y="52" class="assembly-label">水桶</text>
                                     
-                                    <!-- 磁控管位置 -->
-                                    <rect x="250" y="60" width="60" height="50" class="assembly-part-highlight" rx="5"/>
-                                    <text x="280" y="90" class="assembly-label">磁控管</text>
+                                    <!-- 聪明座 -->
+                                    <circle cx="170" cy="75" r="15" class="assembly-part-highlight"/>
+                                    <text x="170" y="78" class="assembly-label">聪明座</text>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="200" y="70" width="60" height="20" class="assembly-part" rx="3"/>
-                                    <text x="230" y="85" class="assembly-label">波导</text>
+                                    <!-- 热水箱 -->
+                                    <rect x="120" y="90" width="70" height="70" class="assembly-part-highlight" rx="5"/>
+                                    <text x="155" y="130" class="assembly-label">热水</text>
                                     
-                                    <!-- 搅拌器/天线 -->
-                                    <circle cx="200" cy="140" r="30" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <line x1="200" y1="110" x2="200" y2="170" class="assembly-part"/>
-                                    <line x1="170" y1="140" x2="230" y2="140" class="assembly-part"/>
+                                    <!-- 热水龙头 -->
+                                    <rect x="180" y="110" width="20" height="30" class="assembly-part" rx="3"/>
                                     
-                                    <!-- 转盘 -->
-                                    <circle cx="200" cy="180" r="60" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <circle cx="200" cy="180" r="40" class="assembly-part" fill="none"/>
+                                    <!-- 冷水箱 -->
+                                    <rect x="210" y="90" width="70" height="70" class="assembly-part-highlight" rx="5" style="fill:#3498db;opacity:0.3"/>
+                                    <text x="245" y="130" class="assembly-label">冷水</text>
                                     
-                                    <!-- 转盘电机 -->
-                                    <rect x="180" y="245" width="40" height="25" class="assembly-part-highlight" rx="3"/>
-                                    <text x="200" y="262" class="assembly-label">电机</text>
+                                    <!-- 冷水龙头 -->
+                                    <rect x="270" y="110" width="20" height="30" class="assembly-part" rx="3"/>
                                     
-                                    <!-- 烧烤管（带烧烤功能） -->
-                                    <rect x="80" y="50" width="80" height="15" class="assembly-part" rx="3"/>
-                                    <text x="120" y="62" class="assembly-label">烧烤管</text>
+                                    <!-- 制冷模块 -->
+                                    <rect x="230" y="170" width="50" height="40" class="assembly-part" rx="3"/>
+                                    <text x="255" y="195" class="assembly-label">制冷</text>
                                     
-                                    <!-- 腔体涂层 -->
-                                    <rect x="70" y="70" width="150" height="150" class="assembly-part" fill="none" stroke-width="1"/>
+                                    <!-- 加热指示灯 -->
+                                    <circle cx="130" cy="105" r="5" class="assembly-part-highlight" style="fill:#e74c3c"/>
+                                    <circle cx="130" cy="105" r="3" style="fill:#c0392b"/>
                                     
-                                    <!-- 底部平台 -->
-                                    <rect x="150" y="240" width="100" height="10" class="assembly-part"/>
+                                    <!-- 制冷指示灯 -->
+                                    <circle cx="220" cy="105" r="5" class="assembly-part-highlight" style="fill:#3498db"/>
                                     
-                                    <!-- 散热格栅 -->
-                                    <rect x="280" y="120" width="50" height="100" class="assembly-part" fill="#ecf0f1" stroke-width="1"/>
-                                    <line x1="290" y1="130" x2="320" y2="130" class="assembly-dimension"/>
-                                    <line x1="290" y1="150" x2="320" y2="150" class="assembly-dimension"/>
-                                    <line x1="290" y1="170" x2="320" y2="170" class="assembly-dimension"/>
+                                    <!-- 电源开关 -->
+                                    <rect x="270" y="220" width="25" height="15" class="assembly-part" rx="2"/>
+                                    <circle cx="282" cy="227" r="5" class="assembly-part-highlight" style="fill:#2ecc71"/>
                                     
-                                    <!-- 控制面板 -->
-                                    <rect x="300" y="220" width="70" height="50" class="assembly-part" rx="5"/>
-                                    <circle cx="315" cy="235" r="8" class="assembly-part-highlight"/>
-                                    <circle cx="340" cy="235" r="8" class="assembly-part"/>
-                                    <rect x="325" y="250" width="30" height="10" class="assembly-part"/>
+                                    <!-- 接水盘 -->
+                                    <rect x="120" y="240" width="160" height="25" class="assembly-part" rx="5"/>
+                                    <rect x="130" y="248" width="140" height="12" class="assembly-part" fill="#bdc3c7"/>
+                                    
+                                    <!-- 排水口 -->
+                                    <circle cx="250" cy="260" r="8" class="assembly-part"/>
+                                    
+                                    <!-- 脚座 -->
+                                    <rect x="110" y="275" width="30" height="15" class="assembly-part" rx="2"/>
+                                    <rect x="260" y="275" width="30" height="15" class="assembly-part" rx="2"/>
                                 </svg>
                             </div>
                         </div>
@@ -684,104 +667,130 @@
                     <h3>常见故障及修复</h3>
                     
                     <div class="troubleshoot">
-                        <h4>故障1：微波炉不加热</h4>
+                        <h4>故障1：热水不热</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
+                            <li>加热管烧坏</li>
+                            <li>温控器故障</li>
                             <li>电源问题</li>
-                            <li>高压保险丝烧断</li>
-                            <li>磁控管损坏</li>
-                            <li>门开关故障</li>
+                            <li>水罐结垢严重</li>
                         </ul>
                         <p><strong>排查步骤：</strong></p>
                         <div class="flowchart">
                             <div class="step">
                                 <span class="step-number">1</span>
-                                <div>检查电源：确认插座有电，电源线完好</div>
+                                <div>检查电源：指示灯是否亮起</div>
                             </div>
                             <div class="step">
                                 <span class="step-number">2</span>
-                                <div>检查保险丝：断电后检查高压保险丝是否烧断</div>
+                                <div>检查加热指示灯：是否正常亮起</div>
                             </div>
                             <div class="step">
                                 <span class="step-number">3</span>
-                                <div>检查门开关：开门时炉灯应亮，关门时应有"咔嗒"声</div>
+                                <div>测量加热管阻值：用万用表检查是否断路</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <div>更换温控器或加热管</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障2：微波炉转盘不转</h4>
+                        <h4>故障2：冷水不冷</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>转盘轨道脱落</li>
-                            <li>转盘电机故障</li>
-                            <li>连接齿轮损坏</li>
+                            <li>制冷系统故障（压缩机）</li>
+                            <li>制冷片损坏（电子制冷）</li>
+                            <li>温控器设置不当</li>
+                            <li>制冷剂泄漏</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>重新安装转盘轨道</li>
-                            <li>检查转盘电机供电</li>
-                            <li>更换损坏的齿轮</li>
-                            <li>必要时更换转盘电机</li>
+                            <li>检查制冷开关是否开启</li>
+                            <li>清洁冷凝器灰尘</li>
+                            <li>检查制冷片是否工作（电子制冷）</li>
+                            <li>压缩机故障需专业维修</li>
                         </ol>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障3：微波炉有火花</h4>
+                        <h4>故障3：漏水</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>使用金属容器</li>
-                            <li>炉腔内有金属异物</li>
-                            <li>磁控管天线损坏</li>
-                            <li>云母挡板脏污</li>
+                            <li>水龙头密封圈老化</li>
+                            <li>聪明座密封圈损坏</li>
+                            <li>水罐或管道破裂</li>
+                            <li>接水盘排水管堵塞</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>立即停止使用，检查炉腔</li>
-                            <li>取出所有金属物品</li>
-                            <li>清洁云母挡板</li>
-                            <li>检查磁控管，必要时更换</li>
+                            <li>更换水龙头密封圈</li>
+                            <li>更换聪明座密封圈</li>
+                            <li>疏通排水管</li>
+                            <li>水罐破裂需更换整机</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障4：出水小或不出水</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>桶装水用完</li>
+                            <li>聪明座进气孔堵塞</li>
+                            <li>水龙头堵塞</li>
+                            <li>管道内有空气</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>更换新的桶装水</li>
+                            <li>清洁聪明座进气孔</li>
+                            <li>拆卸清洗水龙头</li>
+                            <li>打开水龙头放掉空气</li>
                         </ol>
                     </div>
 
                     <h3>最佳使用实践</h3>
                     <div class="tip">
-                        <strong>选择合适的容器：</strong>使用玻璃、陶瓷（无金属装饰）、微波专用塑料容器，避免金属容器产生火花
+                        <strong>首次使用需清洗：</strong>新机或长期不用后首次使用，应先放掉几杯水，再进行加热和制冷
                     </div>
                     <div class="tip">
-                        <strong>覆盖食物：</strong>加热液体或易飞溅食物时使用微波炉盖，防止溅出污染炉腔
+                        <strong>合理使用热水：</strong>热水温度设置在85-95℃即可，过高温度不仅浪费电，还增加结垢速度
                     </div>
                     <div class="tip">
-                        <strong>分散堆叠食物：</strong>食物堆积过厚会受热不均，大块食物应切小块或薄片，确保均匀加热
+                        <strong>不要频繁开关：</strong>加热和制冷都有热惯性，频繁开关反而更耗电，建议保持通电状态
                     </div>
                     <div class="tip">
-                        <strong>中途搅拌：</strong>加热液体或浓稠食物时，中途取出搅拌一次，使热量分布更均匀
+                        <strong>定期排放陈水：</strong>饮水机中的水超过3天未使用，应先放掉陈水再饮用新鲜水
                     </div>
                     <div class="tip">
-                        <strong>掌握加热时间：</strong>从最短时间开始，不够再加，过度加热会导致食物变硬或爆炸
+                        <strong>清洁聪明座：</strong>每次更换桶装水时清洁聪明座和密封圈，防止细菌滋生
                     </div>
                     <div class="tip">
-                        <strong>带壳食物需戳孔：</strong>鸡蛋、板栗等带壳食物必须戳几个小孔，否则内部压力会导致爆炸
+                        <strong>接水时注意卫生：</strong>不要让杯子碰到出水口，放置杯子时注意杯口清洁
                     </div>
                     <div class="tip">
-                        <strong>不要加热密封容器：</strong>密封的饭盒、罐头、塑料袋会因压力膨胀而爆炸，应打开盖子加热
+                        <strong>定期清洁水龙头：</strong>用酒精棉签清洁出水口和龙头表面，每周一次保持卫生
                     </div>
                     <div class="tip">
-                        <strong>清洁云母挡板：</strong>保持炉腔右侧云母挡板清洁干燥，油污会导致打火或损坏磁控管
+                        <strong>外出时关闭电源：</strong>超过一周不使用，关闭电源并排空水箱内的水
                     </div>
 
-                    <h3>安全使用提示</h3>
-                    <div class="warning">
-                        <strong>禁止使用金属容器：</strong>铝箔、金属碗、叉子等会产生火花
-                    </div>
-                    <div class="warning">
-                        <strong>注意密封容器：</strong>密闭容器可能因压力过大而爆炸
+                    <h3>维护建议</h3>
+                    <div class="tip">
+                        <strong>定期清洁水罐</strong>：每月用食品级柠檬酸清洁加热罐水垢
                     </div>
                     <div class="tip">
-                        <strong>适用容器：</strong>玻璃、陶瓷（无金属装饰）、塑料（微波专用）
+                        <strong>消毒管路</strong>：每季度用消毒液（如84稀释液）消毒管路
+                    </div>
+                    <div class="tip">
+                        <strong>清洁聪明座</strong>：每次换水时清洁聪明座和密封圈
+                    </div>
+                    <div class="tip">
+                        <strong>检查电源线</strong>：定期检查电源线有无破损
                     </div>
                     <div class="warning">
-                        <strong>高压危险：</strong>断电后电容仍可能带电，非专业人员请勿打开机壳
+                        <strong>安全注意</strong>：清洁和维护前必须拔掉电源，热水使用小心烫伤
                     </div>
                 </section>
 

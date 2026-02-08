@@ -262,33 +262,6 @@
             font-weight: bold;
         }
 
-        footer {
-            background: var(--primary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
         .menu-toggle {
             display: none;
             position: fixed;
@@ -303,6 +276,123 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 10px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .ground {
+            fill: #27ae60;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .annotation {
+            font-size: 9px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 8px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .assembly-connector {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+        }
+
+        .assembly-dimension {
+            stroke: #95a5a6;
+            stroke-width: 1;
+            fill: none;
+        }
     </style>
 </head>
 <body>
@@ -311,8 +401,7 @@
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>🏠 家电维修指南</h1>
-                <p>专业、易懂的家电维修知识库</p>
+                <h1>🏠 家电常识</h1>
             </div>
 
             <div class="search-box">
@@ -371,6 +460,72 @@
                         <span class="text">吸尘器</span>
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
@@ -401,6 +556,158 @@
                         <li><strong>排水泵</strong>：排出污水</li>
                         <li><strong>软水器</strong>：减少水垢（部分型号）</li>
                     </ul>
+
+                    <div class="diagram-section">
+                        <h3>原理图及装配图</h3>
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4>洗涤循环原理图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <marker id="arrowhead-dish" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                        </marker>
+                                    </defs>
+                                    <!-- 进水阀 -->
+                                    <rect x="30" y="40" width="50" height="40" class="component" rx="5"/>
+                                    <text x="55" y="65" class="component-label">进水阀</text>
+                                    
+                                    <!-- 水位传感器 -->
+                                    <circle cx="130" y="60" r="20" class="component"/>
+                                    <text x="130" y="65" class="component-label">水位</text>
+                                    
+                                    <!-- 加热器 -->
+                                    <rect x="190" y="45" width="60" height="35" class="component" rx="5"/>
+                                    <text x="220" y="67" class="component-label">加热器</text>
+                                    
+                                    <!-- 洗涤泵 -->
+                                    <rect x="290" y="40" width="60" height="40" class="component-highlight" rx="5" style="fill:#3498db"/>
+                                    <text x="320" y="65" class="component-label">洗涤泵</text>
+                                    
+                                    <!-- 洗涤桶 -->
+                                    <rect x="100" y="130" width="200" height="120" class="component" rx="10"/>
+                                    <text x="200" y="195" class="component-label">洗涤桶</text>
+                                    
+                                    <!-- 上喷臂 -->
+                                    <rect x="120" y="150" width="160" height="15" class="component" rx="3"/>
+                                    <circle cx="140" cy="157" r="8" class="component"/>
+                                    <circle cx="200" cy="157" r="8" class="component"/>
+                                    <circle cx="260" cy="157" r="8" class="component"/>
+                                    
+                                    <!-- 下喷臂 -->
+                                    <rect x="130" y="200" width="140" height="15" class="component" rx="3"/>
+                                    <circle cx="150" cy="207" r="8" class="component"/>
+                                    <circle cx="200" cy="207" r="8" class="component"/>
+                                    <circle cx="250" cy="207" r="8" class="component"/>
+                                    
+                                    <!-- 排水泵 -->
+                                    <rect x="290" y="150" width="50" height="40" class="component" rx="5"/>
+                                    <text x="315" y="175" class="component-label">排水泵</text>
+                                    
+                                    <!-- 过滤网 -->
+                                    <rect x="180" y="235" width="40" height="30" class="component" rx="3"/>
+                                    <text x="200" y="255" class="component-label">过滤</text>
+                                    
+                                    <!-- 软水器 -->
+                                    <rect x="30" y="130" width="40" height="50" class="component" rx="3"/>
+                                    <text x="50" y="160" class="component-label">软水</text>
+                                    
+                                    <!-- 洗涤剂盒 -->
+                                    <rect x="30" y="200" width="30" height="40" class="component" rx="3"/>
+                                    <text x="45" y="225" class="component-label">洗涤剂</text>
+                                    
+                                    <!-- 水路连接 -->
+                                    <line x1="80" y1="60" x2="110" y2="60" class="power-line"/>
+                                    <line x1="150" y1="60" x2="190" y2="60" class="power-line"/>
+                                    <line x1="250" y1="60" x2="290" y2="60" class="power-line"/>
+                                    <line x1="320" y1="80" x2="320" y2="130" class="power-line"/>
+                                    <line x1="320" y1="130" x2="300" y2="130" class="power-line"/>
+                                    <line x1="100" y1="130" x2="100" y2="100" class="power-line"/>
+                                    
+                                    <!-- 水循环 -->
+                                    <path d="M300,120 L300,90 L100,90 L100,130" class="signal-flow" marker-end="url(#arrowhead-dish)"/>
+                                    
+                                    <!-- 排水 -->
+                                    <line x1="200" y1="250" x2="200" y2="280" class="signal-flow" marker-end="url(#arrowhead-dish)"/>
+                                    <line x1="315" y1="190" x2="315" y2="250" class="signal-flow" marker-end="url(#arrowhead-dish)"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="diagram-box">
+                                <h4>洗碗机内部装配图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- 外壳 -->
+                                    <rect x="80" y="20" width="240" height="260" class="assembly-part" rx="10"/>
+                                    
+                                    <!-- 门板 -->
+                                    <rect x="85" y="25" width="60" height="250" class="assembly-part" rx="5"/>
+                                    
+                                    <!-- 控制面板区域 -->
+                                    <rect x="90" y="35" width="50" height="40" class="assembly-part" rx="3"/>
+                                    <circle cx="105" cy="50" r="8" class="assembly-part-highlight"/>
+                                    <circle cx="125" cy="50" r="8" class="assembly-part"/>
+                                    <rect x="95" y="62" width="40" height="8" class="assembly-part"/>
+                                    
+                                    <!-- 洗涤剂盒 -->
+                                    <rect x="95" y="90" width="30" height="25" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 软水器盐仓 -->
+                                    <rect x="95" y="130" width="35" height="30" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 洗涤桶 -->
+                                    <rect x="160" y="35" width="145" height="200" class="assembly-part" rx="10"/>
+                                    
+                                    <!-- 上层碗篮 -->
+                                    <rect x="175" y="50" width="115" height="60" class="assembly-part" fill="none" stroke-width="2"/>
+                                    <line x1="185" y1="55" x2="280" y2="55" class="assembly-dimension"/>
+                                    <line x1="185" y1="70" x2="280" y2="70" class="assembly-dimension"/>
+                                    <line x1="185" y1="85" x2="280" y2="85" class="assembly-dimension"/>
+                                    
+                                    <!-- 下层碗篮 -->
+                                    <rect x="175" y="130" width="115" height="80" class="assembly-part" fill="none" stroke-width="2"/>
+                                    <line x1="185" y1="140" x2="280" y2="140" class="assembly-dimension"/>
+                                    <line x1="185" y1="160" x2="280" y2="160" class="assembly-dimension"/>
+                                    
+                                    <!-- 上喷臂 -->
+                                    <rect x="185" y="115" width="95" height="12" class="assembly-part-highlight" rx="3"/>
+                                    <circle cx="195" cy="121" r="5" class="assembly-part"/>
+                                    <circle cx="232" cy="121" r="5" class="assembly-part"/>
+                                    <circle cx="270" cy="121" r="5" class="assembly-part"/>
+                                    
+                                    <!-- 下喷臂 -->
+                                    <ellipse cx="230" cy="195" rx="50" ry="12" class="assembly-part-highlight"/>
+                                    <circle cx="195" cy="195" r="5" class="assembly-part"/>
+                                    <circle cx="230" cy="195" r="5" class="assembly-part"/>
+                                    <circle cx="265" cy="195" r="5" class="assembly-part"/>
+                                    
+                                    <!-- 喷臂连接轴 -->
+                                    <circle cx="230" cy="115" r="8" class="assembly-part"/>
+                                    
+                                    <!-- 底部过滤组件 -->
+                                    <ellipse cx="230" cy="225" rx="35" ry="15" class="assembly-part"/>
+                                    <ellipse cx="230" cy="222" rx="25" ry="10" class="assembly-part-highlight"/>
+                                    
+                                    <!-- 加热器位置 -->
+                                    <rect x="260" y="220" width="35" height="15" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 排水泵位置 -->
+                                    <rect x="175" y="235" width="30" height="20" class="assembly-part" rx="3"/>
+                                    
+                                    <!-- 进水管接口 -->
+                                    <circle cx="115" cy="260" r="8" class="assembly-part"/>
+                                    <text x="115" y="263" class="assembly-label">进水</text>
+                                    
+                                    <!-- 排水管接口 -->
+                                    <circle cx="155" cy="260" r="8" class="assembly-part"/>
+                                    <text x="155" y="263" class="assembly-label">排水</text>
+                                    
+                                    <!-- 脚架 -->
+                                    <rect x="90" y="275" width="50" height="15" class="assembly-part" rx="2"/>
+                                    <rect x="260" y="275" width="50" height="15" class="assembly-part" rx="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
 
                     <h3>常见故障及修复</h3>
                     
@@ -466,6 +773,32 @@
                         </ol>
                     </div>
 
+                    <h3>最佳使用实践</h3>
+                    <div class="tip">
+                        <strong>合理摆放餐具：</strong>餐具之间留出间隙，碗碟不要重叠，确保水流能充分冲洗到每个表面
+                    </div>
+                    <div class="tip">
+                        <strong>大件在下小件在上：</strong>锅具、大盘放在下层篮筐，小碗、杯子放在上层，确保喷臂旋转无阻碍
+                    </div>
+                    <div class="tip">
+                        <strong>使用专用洗涤剂：</strong>必须使用洗碗机专用洗涤剂，普通洗涤剂会产生大量泡沫，损坏机器
+                    </div>
+                    <div class="tip">
+                        <strong>添加软水盐：</strong>水质硬的地区必须添加软水盐，可防止水垢附着在餐具和加热管上
+                    </div>
+                    <div class="tip">
+                        <strong>定期使用空载清洁：</strong>每月运行一次高温清洁程序，用专用清洁剂清洁机器内部
+                    </div>
+                    <div class="tip">
+                        <strong>选择合适的程序：</strong>轻度脏污使用快速/节能程序，重油污使用强力程序，玻璃器皿使用低温程序
+                    </div>
+                    <div class="tip">
+                        <strong>不要超载：</strong>餐具装载量控制在80%以内，过多会影响洗涤效果和干燥程度
+                    </div>
+                    <div class="tip">
+                        <strong>及时清洁滤网：</strong>每周取出滤网清理残渣，堵塞的滤网会影响水循环和洗涤效果
+                    </div>
+
                     <h3>维护建议</h3>
                     <div class="tip">
                         <strong>定期清洁：</strong>每月运行一次空载清洁程序
@@ -481,10 +814,6 @@
                     </div>
                 </section>
 
-                <footer>
-                    <h3>🔧 家用电器维修指南</h3>
-                    <p>本指南仅供学习参考，涉及高压电和制冷剂的维修请专业人员处理</p>
-                </footer>
             </div>
         </main>
     </div>
@@ -502,6 +831,12 @@
                     { name: '冰箱', file: 'refrigerator.html' },
                     { name: '洗衣机', file: 'washing-machine.html' },
                     { name: '空调', file: 'air-conditioner.html' },
+                    { name: '空气净化器', file: 'air-purifier.html' },
+                    { name: '油烟机', file: 'range-hood.html' },
+                    { name: '电风扇', file: 'electric-fan.html' },
+                    { name: '饮水机', file: 'water-dispenser.html' },
+                    { name: '电饭煲', file: 'rice-cooker.html' },
+                    { name: '电磁炉', file: 'induction-cooker.html' },
                     { name: '微波炉', file: 'microwave.html' },
                     { name: '电视', file: 'television.html' },
                     { name: '热水器', file: 'water-heater.html' },

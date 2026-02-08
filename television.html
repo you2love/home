@@ -262,33 +262,6 @@
             font-weight: bold;
         }
 
-        footer {
-            background: var(--primary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
         .menu-toggle {
             display: none;
             position: fixed;
@@ -303,6 +276,123 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 10px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .ground {
+            fill: #27ae60;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .annotation {
+            font-size: 9px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 8px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .assembly-connector {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+        }
+
+        .assembly-dimension {
+            stroke: #95a5a6;
+            stroke-width: 1;
+            fill: none;
+        }
     </style>
 </head>
 <body>
@@ -311,8 +401,7 @@
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>🏠 家电维修指南</h1>
-                <p>专业、易懂的家电维修知识库</p>
+                <h1>🏠 家电常识</h1>
             </div>
 
             <div class="search-box">
@@ -371,6 +460,72 @@
                         <span class="text">吸尘器</span>
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
@@ -401,6 +556,120 @@
                         <li><strong>背光驱动板</strong>：控制LED背光</li>
                         <li><strong>逻辑板</strong>：控制液晶分子排列</li>
                     </ul>
+
+                    <div class="diagram-section">
+                        <h3>原理图及装配图</h3>
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4>液晶电视信号流程图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <marker id="arrowhead-tv" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                        </marker>
+                                    </defs>
+                                    <!-- 信号源 -->
+                                    <rect x="20" y="40" width="80" height="50" class="component" rx="5"/>
+                                    <text x="60" y="70" class="component-label">信号输入</text>
+                                    
+                                    <!-- 主板 -->
+                                    <rect x="140" y="30" width="100" height="70" class="component" rx="5"/>
+                                    <text x="190" y="70" class="component-label">主板</text>
+                                    
+                                    <!-- 电源板 -->
+                                    <rect x="280" y="20" width="80" height="50" class="component" rx="5"/>
+                                    <text x="320" y="50" class="component-label">电源板</text>
+                                    
+                                    <!-- 背光驱动 -->
+                                    <rect x="280" y="90" width="80" height="40" class="component" rx="3"/>
+                                    <text x="320" y="115" class="component-label">背光驱动</text>
+                                    
+                                    <!-- 逻辑板 -->
+                                    <rect x="140" y="140" width="80" height="50" class="component" rx="5"/>
+                                    <text x="180" y="170" class="component-label">逻辑板</text>
+                                    
+                                    <!-- 液晶面板 -->
+                                    <rect x="20" y="200" width="280" height="80" class="component" rx="5"/>
+                                    <text x="160" y="245" class="component-label">液晶面板</text>
+                                    
+                                    <!-- LED背光 -->
+                                    <rect x="320" y="200" width="50" height="80" class="component" rx="3"/>
+                                    <text x="345" y="245" class="component-label">LED背光</text>
+                                    
+                                    <!-- 信号连接 -->
+                                    <line x1="100" y1="65" x2="140" y2="65" class="signal-flow"/>
+                                    <line x1="240" y1="55" x2="280" y2="45" class="signal-flow"/>
+                                    <line x1="280" y1="55" x2="280" y2="90" class="signal-flow"/>
+                                    <line x1="220" y1="70" x2="220" y2="140" class="signal-flow"/>
+                                    <line x1="180" y1="165" x2="180" y2="200" class="signal-flow"/>
+                                    <line x1="280" y1="200" x2="320" y2="200" class="signal-flow"/>
+                                    
+                                    <!-- 电源连接 -->
+                                    <line x1="320" y1="70" x2="320" y2="90" class="power-line"/>
+                                    <line x1="280" y1="110" x2="220" y2="110" class="power-line"/>
+                                    
+                                    <!-- 箭头标注 -->
+                                    <text x="260" y="35" class="annotation">DC电源</text>
+                                    <text x="370" y="250" class="annotation">背光</text>
+                                </svg>
+                            </div>
+                            
+                            <div class="diagram-box">
+                                <h4>液晶电视结构装配图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- 外壳边框 -->
+                                    <rect x="50" y="30" width="300" height="220" class="assembly-part" rx="10" fill="none" stroke-width="4"/>
+                                    
+                                    <!-- 前框 -->
+                                    <rect x="50" y="30" width="300" height="220" class="assembly-part" rx="5" fill="none"/>
+                                    
+                                    <!-- 液晶面板 -->
+                                    <rect x="70" y="50" width="260" height="160" class="assembly-part-highlight" rx="3"/>
+                                    <text x="200" y="135" class="assembly-label">液晶面板</text>
+                                    
+                                    <!-- 偏光片 -->
+                                    <rect x="75" y="55" width="250" height="150" class="assembly-part" fill="none" stroke-width="1"/>
+                                    
+                                    <!-- 背光模组 -->
+                                    <rect x="340" y="50" width="40" height="180" class="assembly-part-highlight" rx="3"/>
+                                    <text x="360" y="140" class="assembly-label" transform="rotate(90, 360, 140)">LED条</text>
+                                    
+                                    <!-- 导光板 -->
+                                    <rect x="80" y="60" width="240" height="140" class="assembly-part" fill="none" stroke-width="1"/>
+                                    
+                                    <!-- 反射片 -->
+                                    <rect x="85" y="195" width="230" height="10" class="assembly-part" fill="#ecf0f1"/>
+                                    
+                                    <!-- 扩散板 -->
+                                    <rect x="85" y="65" width="230" height="60" class="assembly-part" fill="none" stroke-width="1" opacity="0.5"/>
+                                    
+                                    <!-- 光学膜片 -->
+                                    <rect x="85" y="130" width="230" height="60" class="assembly-part" fill="none" stroke-width="1" opacity="0.5"/>
+                                    
+                                    <!-- 边框胶条 -->
+                                    <rect x="60" y="45" width="280" height="5" class="assembly-part" fill="#bdc3c7"/>
+                                    <rect x="60" y="200" width="280" height="5" class="assembly-part" fill="#bdc3c7"/>
+                                    
+                                    <!-- 逻辑板位置 -->
+                                    <rect x="70" y="220" width="100" height="20" class="assembly-part-highlight" rx="3"/>
+                                    <text x="120" y="235" class="assembly-label">逻辑板</text>
+                                    
+                                    <!-- 背光驱动板 -->
+                                    <rect x="200" y="220" width="80" height="20" class="assembly-part" rx="3"/>
+                                    <text x="240" y="235" class="assembly-label">背光驱动</text>
+                                    
+                                    <!-- 侧入式LED光源 -->
+                                    <rect x="325" y="60" width="15" height="160" class="assembly-part-highlight" rx="2"/>
+                                    
+                                    <!-- 散热片 -->
+                                    <rect x="300" y="230" width="60" height="15" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 按钮/接口区 -->
+                                    <rect x="280" y="235" width="15" height="10" class="assembly-part"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
 
                     <h3>常见故障及修复</h3>
                     
@@ -464,6 +733,32 @@
                         </ol>
                     </div>
 
+                    <h3>最佳使用实践</h3>
+                    <div class="tip">
+                        <strong>保持适当观看距离：</strong>根据电视尺寸调整距离，55英寸电视约3-4米，32英寸电视约2米，避免眼睛疲劳
+                    </div>
+                    <div class="tip">
+                        <strong>调节适当亮度：</strong>亮度过高会加速液晶面板老化，根据环境光线调节到舒适程度即可
+                    </div>
+                    <div class="tip">
+                        <strong>开启自动调节：</strong>大多数智能电视有自动亮度调节功能，开启后可随环境光自动调整
+                    </div>
+                    <div class="tip">
+                        <strong>保持通风散热：</strong>电视周围留出10cm以上散热空间，不要放入电视柜内封闭使用
+                    </div>
+                    <div class="tip">
+                        <strong>避免长时间静态画面：</strong>长时间显示静止画面可能导致烧屏，特别是OLED电视，建议使用屏幕保护程序
+                    </div>
+                    <div class="tip">
+                        <strong>正确开关机：</strong>使用遥控器关机而非直接拔电源，让电视完成关机程序后再断电
+                    </div>
+                    <div class="tip">
+                        <strong>定期清洁屏幕：</strong>用专用屏幕清洁布轻轻擦拭，不要使用含酒精的清洁剂，避免损伤涂层
+                    </div>
+                    <div class="tip">
+                        <strong>调节音效保护听力：</strong>不要将音量调得过高，长期大音量会损伤听力，建议音量不超过最大值的60%
+                    </div>
+
                     <h3>维护建议</h3>
                     <div class="tip">
                         <strong>正确关机：</strong>使用遥控器关机，不要直接拔电源
@@ -479,10 +774,6 @@
                     </div>
                 </section>
 
-                <footer>
-                    <h3>🔧 家用电器维修指南</h3>
-                    <p>本指南仅供学习参考，涉及高压电和制冷剂的维修请专业人员处理</p>
-                </footer>
             </div>
         </main>
     </div>
@@ -500,6 +791,12 @@
                     { name: '冰箱', file: 'refrigerator.html' },
                     { name: '洗衣机', file: 'washing-machine.html' },
                     { name: '空调', file: 'air-conditioner.html' },
+                    { name: '空气净化器', file: 'air-purifier.html' },
+                    { name: '油烟机', file: 'range-hood.html' },
+                    { name: '电风扇', file: 'electric-fan.html' },
+                    { name: '饮水机', file: 'water-dispenser.html' },
+                    { name: '电饭煲', file: 'rice-cooker.html' },
+                    { name: '电磁炉', file: 'induction-cooker.html' },
                     { name: '微波炉', file: 'microwave.html' },
                     { name: '电视', file: 'television.html' },
                     { name: '热水器', file: 'water-heater.html' },

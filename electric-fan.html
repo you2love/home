@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微波炉 - 家用电器维修指南</title>
+    <title>电风扇 - 家用电器维修指南</title>
     <style>
         * {
             margin: 0;
@@ -431,36 +431,6 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="microwave.html" class="nav-link active">
-                        <span class="icon">📡</span>
-                        <span class="text">微波炉</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="television.html" class="nav-link">
-                        <span class="icon">📺</span>
-                        <span class="text">电视</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="water-heater.html" class="nav-link">
-                        <span class="icon">🚿</span>
-                        <span class="text">热水器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="dishwasher.html" class="nav-link">
-                        <span class="icon">🍽️</span>
-                        <span class="text">洗碗机</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="vacuum.html" class="nav-link">
-                        <span class="icon">🧹</span>
-                        <span class="text">吸尘器</span>
-                    </a>
-                </div>
-                <div class="nav-item">
                     <a href="air-purifier.html" class="nav-link">
                         <span class="icon">🌬️</span>
                         <span class="text">空气净化器</span>
@@ -473,7 +443,7 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="electric-fan.html" class="nav-link">
+                    <a href="electric-fan.html" class="nav-link active">
                         <span class="icon">🌀</span>
                         <span class="text">电风扇</span>
                     </a>
@@ -532,38 +502,40 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <section class="appliance-detail">
-                    <h2>📡 微波炉运行原理与故障修复</h2>
+                    <h2>🌀 电风扇运行原理与故障修复</h2>
                     
                     <h3>运行原理</h3>
                     <div class="principle-box">
-                        <h3>微波加热原理</h3>
-                        <p>微波炉通过<strong>微波使水分子振动</strong>产生热量：</p>
+                        <h3>风扇送风原理</h3>
+                        <p>电风扇通过电机驱动叶片旋转产生空气流动：</p>
                         <ol>
-                            <li><strong>产生微波</strong>：磁控管将电能转换为2450MHz微波</li>
-                            <li><strong>传输微波</strong>：波导将微波传输到炉腔</li>
-                            <li><strong>加热食物</strong>：微波使食物中的水分子高速振动，产生热量</li>
-                            <li><strong>均匀加热</strong>：转盘或搅拌器使微波均匀分布</li>
+                            <li><strong>电机驱动</strong>：单相异步电机通电后产生旋转磁场，带动叶片旋转</li>
+                            <li><strong>叶片切割空气</strong>：旋转的叶片不断切割空气，产生推力将空气向前推送</li>
+                            <li><strong>摇头机构</strong>：通过齿轮或电机带动底座或叶片转动，改变送风方向</li>
+                            <li><strong>调速原理</strong>：通过改变电机绕组匝数或电子调速器改变转速</li>
                         </ol>
                     </div>
 
                     <h3>主要部件</h3>
                     <ul>
-                        <li><strong>磁控管</strong>：产生微波的核心部件</li>
-                        <li><strong>高压变压器</strong>：为磁控管提供高压电</li>
-                        <li><strong>波导</strong>：传输微波到炉腔</li>
-                        <li><strong>转盘电机</strong>：带动转盘旋转</li>
-                        <li><strong>门开关</strong>：安全保护装置</li>
-                        <li><strong>控制板</strong>：设置时间和功率</li>
+                        <li><strong>电机</strong>：单相异步电机或直流电机，提供旋转动力</li>
+                        <li><strong>风扇叶片</strong>：通常为3-5片，产生送风效果</li>
+                        <li><strong>电容器</strong>：单相电机的启动和运行电容</li>
+                        <li><strong>调速开关</strong>：机械或电子调速，控制电机转速</li>
+                        <li><strong>摇头电机</strong>：驱动摇头机构的微型电机</li>
+                        <li><strong>摇头齿轮组</strong>：将摇头电机的旋转转换为往复运动</li>
+                        <li><strong>定时器</strong>：设置运行时间（部分型号）</li>
+                        <li><strong>防护网罩</strong>：保护用户安全</li>
                     </ul>
 
                     <div class="diagram-section">
                         <h3>原理图及装配图</h3>
                         <div class="diagram-container">
                             <div class="diagram-box">
-                                <h4>微波产生原理图</h4>
+                                <h4>电机电路原理图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <marker id="arrowhead-micro" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <marker id="arrowhead-fan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                                             <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
                                         </marker>
                                     </defs>
@@ -571,111 +543,99 @@
                                     <rect x="20" y="30" width="50" height="30" class="component" rx="5"/>
                                     <text x="45" y="50" class="component-label">电源</text>
                                     
-                                    <!-- 高压变压器 -->
-                                    <rect x="100" y="20" width="80" height="60" class="component" rx="5"/>
-                                    <text x="140" y="55" class="component-label">高压变压器</text>
+                                    <!-- 调速开关 -->
+                                    <rect x="100" y="20" width="60" height="50" class="component" rx="5"/>
+                                    <text x="130" y="50" class="component-label">调速开关</text>
                                     
-                                    <!-- 高压电容 -->
-                                    <rect x="220" y="30" width="40" height="30" class="component" rx="3"/>
-                                    <text x="240" y="50" class="component-label">电容</text>
+                                    <!-- 电容 -->
+                                    <rect x="190" y="30" width="40" height="30" class="component" rx="3"/>
+                                    <text x="210" y="50" class="component-label">电容</text>
                                     
-                                    <!-- 高压保险丝 -->
-                                    <rect x="220" y="80" width="40" height="20" class="component" rx="3"/>
-                                    <text x="240" y="93" class="component-label">保险</text>
+                                    <!-- 电机 -->
+                                    <circle cx="280" cy="100" r="45" class="component"/>
+                                    <text x="280" y="105" class="component-label">电机</text>
                                     
-                                    <!-- 磁控管 -->
-                                    <rect x="300" y="40" width="70" height="50" class="component" rx="5"/>
-                                    <text x="335" y="70" class="component-label">磁控管</text>
+                                    <!-- 摇头电机 -->
+                                    <rect x="260" y="180" width="40" height="30" class="component" rx="3"/>
+                                    <text x="280" y="200" class="component-label">摇头</text>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="280" y="100" width="90" height="15" class="component" rx="3"/>
-                                    <text x="325" y="110" class="component-label">波导</text>
+                                    <!-- 摇头开关 -->
+                                    <rect x="100" y="180" width="50" height="30" class="component" rx="3"/>
+                                    <text x="125" y="200" class="component-label">摇头开关</text>
                                     
-                                    <!-- 炉腔 -->
-                                    <rect x="80" y="150" width="200" height="120" class="component" rx="10"/>
-                                    <text x="180" y="215" class="component-label">微波炉腔</text>
-                                    
-                                    <!-- 转盘 -->
-                                    <circle cx="180" cy="210" r="50" class="component" fill="none" stroke-width="2"/>
-                                    <text x="180" y="215" class="component-label">转盘</text>
-                                    
-                                    <!-- 转盘电机 -->
-                                    <rect x="160" y="275" width="40" height="20" class="component" rx="3"/>
-                                    <text x="180" y="288" class="component-label">转盘电机</text>
-                                    
-                                    <!-- 控制板 -->
-                                    <rect x="300" y="180" width="80" height="50" class="component" rx="5"/>
-                                    <text x="340" y="210" class="component-label">控制板</text>
-                                    
-                                    <!-- 门开关 -->
-                                    <circle cx="80" cy="140" r="15" class="component-highlight" style="fill:#e74c3c"/>
-                                    <text x="80" y="145" class="component-label">门开关</text>
-                                    
-                                    <!-- 电路连接 -->
+                                    <!-- 电源线 -->
                                     <line x1="70" y1="45" x2="100" y2="45" class="power-line"/>
-                                    <line x1="180" y1="50" x2="220" y2="45" class="power-line"/>
-                                    <line x1="240" y1="60" x2="300" y2="65" class="power-line"/>
-                                    <line x1="325" y1="108" x2="325" y2="150" class="power-line"/>
                                     
-                                    <!-- 微波发射方向 -->
-                                    <path d="M280,140 L180,140 L180,160" class="signal-flow" marker-end="url(#arrowhead-micro)"/>
+                                    <!-- 开关到电容 -->
+                                    <line x1="160" y1="45" x2="190" y2="45" class="power-line"/>
+                                    
+                                    <!-- 电容到电机 -->
+                                    <line x1="230" y1="45" x2="235" y2="80" class="power-line"/>
+                                    <line x1="235" y1="80" x2="250" y2="80" class="power-line"/>
+                                    
+                                    <!-- 电机主电路 -->
+                                    <line x1="250" y1="80" x2="250" y2="100" class="power-line"/>
+                                    <line x1="250" y1="100" x2="250" y2="140" class="power-line"/>
+                                    <line x1="250" y1="140" x2="280" y2="140" class="power-line"/>
+                                    
+                                    <!-- 摇头电路 -->
+                                    <line x1="150" y1="195" x2="200" y2="195" class="power-line"/>
+                                    <line x1="200" y1="195" x2="260" y2="195" class="power-line"/>
+                                    
+                                    <!-- 摇头电机连接 -->
+                                    <line x1="260" y1="185" x2="260" y2="180" class="power-line"/>
+                                    
+                                    <!-- 地线 -->
+                                    <line x1="45" y1="60" x2="45" y2="250" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                    <path d="M25,250 L65,250 L55,240 M35,240 L55,240" class="ground" stroke="#27ae60" stroke-width="2" fill="none"/>
                                 </svg>
                             </div>
                             
                             <div class="diagram-box">
-                                <h4>微波炉内部装配图</h4>
+                                <h4>电风扇装配图</h4>
                                 <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- 炉腔外壳 -->
-                                    <rect x="60" y="40" width="280" height="200" class="assembly-part" rx="15"/>
+                                    <!-- 底座 -->
+                                    <ellipse cx="200" cy="280" rx="80" ry="20" class="assembly-part"/>
+                                    <text x="200" y="285" class="assembly-label">底座</text>
                                     
-                                    <!-- 门框 -->
-                                    <rect x="50" y="35" width="40" height="210" class="assembly-part" rx="5"/>
+                                    <!-- 支撑杆 -->
+                                    <rect x="190" y="180" width="20" height="100" class="assembly-part"/>
                                     
-                                    <!-- 观察窗 -->
-                                    <rect x="55" y="50" width="30" height="100" class="assembly-part" fill="#bdc3c7" stroke-width="2"/>
+                                    <!-- 电机外壳 -->
+                                    <circle cx="200" cy="140" r="50" class="assembly-part-highlight"/>
+                                    <text x="200" y="145" class="assembly-label">电机</text>
                                     
-                                    <!-- 磁控管位置 -->
-                                    <rect x="250" y="60" width="60" height="50" class="assembly-part-highlight" rx="5"/>
-                                    <text x="280" y="90" class="assembly-label">磁控管</text>
+                                    <!-- 风扇叶片 -->
+                                    <g transform="translate(200, 140)">
+                                        <ellipse cx="0" cy="-60" rx="20" ry="60" class="assembly-part" transform="rotate(0)"/>
+                                        <ellipse cx="0" cy="-60" rx="20" ry="60" class="assembly-part" transform="rotate(72)"/>
+                                        <ellipse cx="0" cy="-60" rx="20" ry="60" class="assembly-part" transform="rotate(144)"/>
+                                        <ellipse cx="0" cy="-60" rx="20" ry="60" class="assembly-part" transform="rotate(216)"/>
+                                        <ellipse cx="0" cy="-60" rx="20" ry="60" class="assembly-part" transform="rotate(288)"/>
+                                    </g>
                                     
-                                    <!-- 波导 -->
-                                    <rect x="200" y="70" width="60" height="20" class="assembly-part" rx="3"/>
-                                    <text x="230" y="85" class="assembly-label">波导</text>
+                                    <!-- 前后网罩 -->
+                                    <circle cx="200" cy="140" r="85" class="assembly-part" fill="none" stroke-width="3"/>
+                                    <circle cx="200" cy="140" r="75" class="assembly-part" fill="none" stroke-width="2"/>
                                     
-                                    <!-- 搅拌器/天线 -->
-                                    <circle cx="200" cy="140" r="30" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <line x1="200" y1="110" x2="200" y2="170" class="assembly-part"/>
-                                    <line x1="170" y1="140" x2="230" y2="140" class="assembly-part"/>
+                                    <!-- 摇头齿轮箱 -->
+                                    <rect x="185" y="175" width="30" height="25" class="assembly-part-highlight" rx="5"/>
                                     
-                                    <!-- 转盘 -->
-                                    <circle cx="200" cy="180" r="60" class="assembly-part" fill="none" stroke-width="2"/>
-                                    <circle cx="200" cy="180" r="40" class="assembly-part" fill="none"/>
+                                    <!-- 摇头连杆 -->
+                                    <line x1="200" y1="200" x2="200" y2="250" class="assembly-connector"/>
                                     
-                                    <!-- 转盘电机 -->
-                                    <rect x="180" y="245" width="40" height="25" class="assembly-part-highlight" rx="3"/>
-                                    <text x="200" y="262" class="assembly-label">电机</text>
+                                    <!-- 摇头关节 -->
+                                    <circle cx="200" cy="250" r="10" class="assembly-part"/>
                                     
-                                    <!-- 烧烤管（带烧烤功能） -->
-                                    <rect x="80" y="50" width="80" height="15" class="assembly-part" rx="3"/>
-                                    <text x="120" y="62" class="assembly-label">烧烤管</text>
+                                    <!-- 调速开关 -->
+                                    <rect x="170" y="270" width="30" height="20" class="assembly-part" rx="3"/>
+                                    <text x="185" y="285" class="assembly-label">调速</text>
                                     
-                                    <!-- 腔体涂层 -->
-                                    <rect x="70" y="70" width="150" height="150" class="assembly-part" fill="none" stroke-width="1"/>
+                                    <!-- 电容（隐藏位置） -->
+                                    <rect x="220" y="265" width="20" height="15" class="assembly-part" rx="2"/>
                                     
-                                    <!-- 底部平台 -->
-                                    <rect x="150" y="240" width="100" height="10" class="assembly-part"/>
-                                    
-                                    <!-- 散热格栅 -->
-                                    <rect x="280" y="120" width="50" height="100" class="assembly-part" fill="#ecf0f1" stroke-width="1"/>
-                                    <line x1="290" y1="130" x2="320" y2="130" class="assembly-dimension"/>
-                                    <line x1="290" y1="150" x2="320" y2="150" class="assembly-dimension"/>
-                                    <line x1="290" y1="170" x2="320" y2="170" class="assembly-dimension"/>
-                                    
-                                    <!-- 控制面板 -->
-                                    <rect x="300" y="220" width="70" height="50" class="assembly-part" rx="5"/>
-                                    <circle cx="315" cy="235" r="8" class="assembly-part-highlight"/>
-                                    <circle cx="340" cy="235" r="8" class="assembly-part"/>
-                                    <rect x="325" y="250" width="30" height="10" class="assembly-part"/>
+                                    <!-- 电源线 -->
+                                    <path d="M200,280 Q180,290 160,295" class="power-line" fill="none"/>
                                 </svg>
                             </div>
                         </div>
@@ -684,13 +644,13 @@
                     <h3>常见故障及修复</h3>
                     
                     <div class="troubleshoot">
-                        <h4>故障1：微波炉不加热</h4>
+                        <h4>故障1：电风扇不转</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>电源问题</li>
-                            <li>高压保险丝烧断</li>
-                            <li>磁控管损坏</li>
-                            <li>门开关故障</li>
+                            <li>电源问题：检查电源线和插座</li>
+                            <li>电机绕组烧毁</li>
+                            <li>启动电容损坏</li>
+                            <li>调速开关接触不良</li>
                         </ul>
                         <p><strong>排查步骤：</strong></p>
                         <div class="flowchart">
@@ -700,88 +660,114 @@
                             </div>
                             <div class="step">
                                 <span class="step-number">2</span>
-                                <div>检查保险丝：断电后检查高压保险丝是否烧断</div>
+                                <div>检查调速开关：尝试所有档位</div>
                             </div>
                             <div class="step">
                                 <span class="step-number">3</span>
-                                <div>检查门开关：开门时炉灯应亮，关门时应有"咔嗒"声</div>
+                                <div>手动转动叶片：检查是否卡住或轴承损坏</div>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <div>检查电容：用万用表测量或更换同规格电容测试</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障2：微波炉转盘不转</h4>
+                        <h4>故障2：转速慢/无力</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>转盘轨道脱落</li>
-                            <li>转盘电机故障</li>
-                            <li>连接齿轮损坏</li>
+                            <li>电容容量下降</li>
+                            <li>电机轴承缺油或损坏</li>
+                            <li>绕组局部短路</li>
+                            <li>叶片变形或沾染过多灰尘</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>重新安装转盘轨道</li>
-                            <li>检查转盘电机供电</li>
-                            <li>更换损坏的齿轮</li>
-                            <li>必要时更换转盘电机</li>
+                            <li>更换同规格电容</li>
+                            <li>清洁叶片，矫正变形叶片</li>
+                            <li>给轴承加润滑油</li>
+                            <li>绕组问题需专业维修或更换电机</li>
                         </ol>
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障3：微波炉有火花</h4>
+                        <h4>故障3：噪音过大</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
-                            <li>使用金属容器</li>
-                            <li>炉腔内有金属异物</li>
-                            <li>磁控管天线损坏</li>
-                            <li>云母挡板脏污</li>
+                            <li>轴承磨损或缺油</li>
+                            <li>叶片松动或不平衡</li>
+                            <li>电机固定螺丝松动</li>
+                            <li>齿轮箱缺油（摇头风扇）</li>
                         </ul>
                         <p><strong>修复方法：</strong></p>
                         <ol>
-                            <li>立即停止使用，检查炉腔</li>
-                            <li>取出所有金属物品</li>
-                            <li>清洁云母挡板</li>
-                            <li>检查磁控管，必要时更换</li>
+                            <li>紧固叶片螺丝</li>
+                            <li>给轴承加润滑油或更换轴承</li>
+                            <li>紧固电机固定螺丝</li>
+                            <li>给摇头齿轮加润滑脂</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>故障4：摇头失灵</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ul>
+                            <li>摇头齿轮损坏</li>
+                            <li>摇头电机故障</li>
+                            <li>摇头开关接触不良</li>
+                            <li>摇头连杆断裂</li>
+                        </ul>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>检查并修复摇头开关</li>
+                            <li>润滑或更换摇头齿轮组</li>
+                            <li>更换摇头电机</li>
+                            <li>严重损坏建议更换整机</li>
                         </ol>
                     </div>
 
                     <h3>最佳使用实践</h3>
                     <div class="tip">
-                        <strong>选择合适的容器：</strong>使用玻璃、陶瓷（无金属装饰）、微波专用塑料容器，避免金属容器产生火花
+                        <strong>选择合适的摆放位置：</strong>风扇对准人吹效果最佳，也可对着墙壁利用反弹风，避免直接吹头部太久
                     </div>
                     <div class="tip">
-                        <strong>覆盖食物：</strong>加热液体或易飞溅食物时使用微波炉盖，防止溅出污染炉腔
+                        <strong>配合空调使用：</strong>风扇与空调配合使用，将冷空气吹向整个房间，降低空调设定温度，节省电费
                     </div>
                     <div class="tip">
-                        <strong>分散堆叠食物：</strong>食物堆积过厚会受热不均，大块食物应切小块或薄片，确保均匀加热
+                        <strong>使用摇头功能：</strong>摇头送风覆盖面更广，避免局部过冷也更舒适
                     </div>
                     <div class="tip">
-                        <strong>中途搅拌：</strong>加热液体或浓稠食物时，中途取出搅拌一次，使热量分布更均匀
+                        <strong>选择合适档位：</strong>睡眠时使用低速或微风档，既舒适又不会着凉，日常使用中速档最省电
                     </div>
                     <div class="tip">
-                        <strong>掌握加热时间：</strong>从最短时间开始，不够再加，过度加热会导致食物变硬或爆炸
+                        <strong>定时功能善用：</strong>睡前设置1-2小时定时，自动关闭避免着凉，也可节约能源
                     </div>
                     <div class="tip">
-                        <strong>带壳食物需戳孔：</strong>鸡蛋、板栗等带壳食物必须戳几个小孔，否则内部压力会导致爆炸
+                        <strong>保持适当距离：</strong>风扇与人体保持2-3米距离，过近风吹过强可能导致头痛或感冒
                     </div>
                     <div class="tip">
-                        <strong>不要加热密封容器：</strong>密封的饭盒、罐头、塑料袋会因压力膨胀而爆炸，应打开盖子加热
+                        <strong>不要连续长时间使用：</strong>建议每使用2-3小时关闭休息，特别是睡眠时不要整夜直吹
                     </div>
                     <div class="tip">
-                        <strong>清洁云母挡板：</strong>保持炉腔右侧云母挡板清洁干燥，油污会导致打火或损坏磁控管
+                        <strong>使用自然风模式：</strong>模拟自然风的风扇吹起来更舒适，不会让人感到机械风的生硬
                     </div>
 
-                    <h3>安全使用提示</h3>
-                    <div class="warning">
-                        <strong>禁止使用金属容器：</strong>铝箔、金属碗、叉子等会产生火花
-                    </div>
-                    <div class="warning">
-                        <strong>注意密封容器：</strong>密闭容器可能因压力过大而爆炸
+                    <h3>维护建议</h3>
+                    <div class="tip">
+                        <strong>定期清洁</strong>：每季度清洁叶片和防护网，去除积尘
                     </div>
                     <div class="tip">
-                        <strong>适用容器：</strong>玻璃、陶瓷（无金属装饰）、塑料（微波专用）
+                        <strong>润滑轴承</strong>：每年给电机轴承加1-2滴润滑油
+                    </div>
+                    <div class="tip">
+                        <strong>检查电源线</strong>：定期检查电源线有无破损老化
+                    </div>
+                    <div class="tip">
+                        <strong>存放保养</strong>：长期不用时清洁后用防尘罩罩好
                     </div>
                     <div class="warning">
-                        <strong>高压危险：</strong>断电后电容仍可能带电，非专业人员请勿打开机壳
+                        <strong>安全注意</strong>：清洁和维修前必须拔掉电源，不要用水冲洗风扇
                     </div>
                 </section>
 

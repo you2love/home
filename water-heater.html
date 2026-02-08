@@ -262,33 +262,6 @@
             font-weight: bold;
         }
 
-        footer {
-            background: var(--primary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
         .menu-toggle {
             display: none;
             position: fixed;
@@ -303,6 +276,123 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 10px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .ground {
+            fill: #27ae60;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .annotation {
+            font-size: 9px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 8px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .assembly-connector {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+        }
+
+        .assembly-dimension {
+            stroke: #95a5a6;
+            stroke-width: 1;
+            fill: none;
+        }
     </style>
 </head>
 <body>
@@ -311,8 +401,7 @@
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>🏠 家电维修指南</h1>
-                <p>专业、易懂的家电维修知识库</p>
+                <h1>🏠 家电常识</h1>
             </div>
 
             <div class="search-box">
@@ -371,6 +460,72 @@
                         <span class="text">吸尘器</span>
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
@@ -400,6 +555,135 @@
                         <li><strong>安全阀</strong>：泄压保护装置</li>
                         <li><strong>控制面板</strong>：设置温度和显示</li>
                     </ul>
+
+                    <div class="diagram-section">
+                        <h3>原理图及装配图</h3>
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4>电加热原理图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <marker id="arrowhead-water" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                        </marker>
+                                    </defs>
+                                    <!-- 电源 -->
+                                    <rect x="20" y="30" width="50" height="30" class="component" rx="5"/>
+                                    <text x="45" y="50" class="component-label">电源</text>
+                                    
+                                    <!-- 控制开关 -->
+                                    <rect x="100" y="25" width="50" height="40" class="component" rx="5"/>
+                                    <text x="125" y="50" class="component-label">开关</text>
+                                    
+                                    <!-- 温控器 -->
+                                    <rect x="180" y="25" width="50" height="40" class="component" rx="5"/>
+                                    <text x="205" y="50" class="component-label">温控器</text>
+                                    
+                                    <!-- 超温保护 -->
+                                    <rect x="180" y="85" width="50" height="30" class="component" rx="3"/>
+                                    <text x="205" y="105" class="component-label">超温保护</text>
+                                    
+                                    <!-- 加热管 -->
+                                    <rect x="270" y="40" width="80" height="60" class="component-highlight" rx="5" style="fill:#e74c3c"/>
+                                    <text x="310" y="75" class="component-label">加热管</text>
+                                    
+                                    <!-- 水箱/内胆 -->
+                                    <rect x="80" y="150" width="200" height="120" class="component" rx="10"/>
+                                    <text x="180" y="215" class="component-label">储水箱</text>
+                                    
+                                    <!-- 水位 -->
+                                    <rect x="90" y="220" width="40" height="40" class="component" rx="3"/>
+                                    <text x="110" y="245" class="component-label">水位</text>
+                                    
+                                    <!-- 镁棒 -->
+                                    <rect x="240" y="180" width="20" height="80" class="component" rx="3"/>
+                                    <text x="250" y="225" class="component-label">镁棒</text>
+                                    
+                                    <!-- 保温层 -->
+                                    <rect x="70" y="140" width="220" height="140" class="assembly-part" fill="none" stroke-width="3"/>
+                                    
+                                    <!-- 电路连接 -->
+                                    <line x1="70" y1="45" x2="100" y2="45" class="power-line"/>
+                                    <line x1="150" y1="45" x2="180" y2="45" class="power-line"/>
+                                    <line x1="230" y1="45" x2="270" y2="65" class="power-line"/>
+                                    <line x1="310" y1="100" x2="310" y2="150" class="power-line"/>
+                                    
+                                    <!-- 水流连接 -->
+                                    <path d="M180,130 L180,110 L80,110 L80,150" class="signal-flow" marker-end="url(#arrowhead-water)"/>
+                                    
+                                    <!-- 热水出口 -->
+                                    <rect x="240" y="140" width="30" height="20" class="component" rx="3"/>
+                                    <text x="255" y="155" class="component-label">热水</text>
+                                    
+                                    <!-- 冷水入口 -->
+                                    <rect x="80" y="200" width="30" height="20" class="component" rx="3"/>
+                                    <text x="95" y="215" class="component-label">冷水</text>
+                                    
+                                    <!-- 地线 -->
+                                    <line x1="45" y1="60" x2="45" y2="250" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="diagram-box">
+                                <h4>电热水器装配图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- 储水箱外壳 -->
+                                    <rect x="100" y="40" width="160" height="220" class="assembly-part" rx="15"/>
+                                    
+                                    <!-- 内胆 -->
+                                    <rect x="115" y="55" width="130" height="190" class="assembly-part-highlight" rx="10" fill="none" stroke-width="2"/>
+                                    
+                                    <!-- 保温层 -->
+                                    <rect x="105" y="45" width="150" height="210" class="assembly-part" fill="none" stroke-width="2" stroke-dasharray="5,5"/>
+                                    
+                                    <!-- 加热管安装位置 -->
+                                    <rect x="150" y="100" width="60" height="40" class="assembly-part-highlight" rx="5"/>
+                                    <text x="180" y="125" class="assembly-label">加热管</text>
+                                    
+                                    <!-- 镁棒位置 -->
+                                    <rect x="225" y="80" width="15" height="100" class="assembly-part" rx="3"/>
+                                    <text x="232" y="135" class="assembly-label" transform="rotate(90, 232, 135)">镁棒</text>
+                                    
+                                    <!-- 热水出口 -->
+                                    <circle cx="240" cy="100" r="10" class="assembly-part-highlight"/>
+                                    <text x="240" y="103" class="assembly-label">热水口</text>
+                                    
+                                    <!-- 冷水入口 -->
+                                    <circle cx="120" cy="100" r="10" class="assembly-part"/>
+                                    <text x="120" y="103" class="assembly-label">冷水口</text>
+                                    
+                                    <!-- 排污口 -->
+                                    <circle cx="180" cy="235" r="10" class="assembly-part"/>
+                                    <text x="180" y="238" class="assembly-label">排污</text>
+                                    
+                                    <!-- 温度传感器 -->
+                                    <rect x="200" y="120" width="20" height="15" class="assembly-part" rx="3"/>
+                                    <text x="210" y="132" class="assembly-label">传感器</text>
+                                    
+                                    <!-- 温控器 -->
+                                    <rect x="230" y="140" width="20" height="15" class="assembly-part-highlight" rx="3"/>
+                                    <text x="240" y="152" class="assembly-label">温控</text>
+                                    
+                                    <!-- 控制面板 -->
+                                    <rect x="100" y="265" width="60" height="25" class="assembly-part" rx="5"/>
+                                    <circle cx="115" cy="278" r="5" class="assembly-part-highlight"/>
+                                    <rect x="125" y="273" width="30" height="10" class="assembly-part"/>
+                                    
+                                    <!-- 挂架 -->
+                                    <rect x="90" y="80" width="15" height="30" class="assembly-part" rx="2"/>
+                                    <rect x="255" y="80" width="15" height="30" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 指示灯 -->
+                                    <circle cx="115" cy="270" r="4" class="assembly-part-highlight" style="fill:#2ecc71"/>
+                                    
+                                    <!-- 水管接口标注 -->
+                                    <text x="50" y="105" class="annotation">冷水</text>
+                                    <text x="270" y="105" class="annotation">热水</text>
+                                    <text x="50" y="240" class="annotation">排污</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
 
                     <h3>常见故障及修复</h3>
                     
@@ -469,6 +753,32 @@
                         </ol>
                     </div>
 
+                    <h3>最佳使用实践</h3>
+                    <div class="tip">
+                        <strong>合理设置温度：</strong>电热水器建议设置在50-60℃，既满足日常使用需求，又避免烫伤和结垢
+                    </div>
+                    <div class="tip">
+                        <strong>避开用电高峰：</strong>热水器是大功率电器，避开晚间用电高峰时段加热，可减少电费支出
+                    </div>
+                    <div class="tip">
+                        <strong>定期检查安全阀：</strong>每月手动开启安全阀一次，检查是否能正常排水，确保泄压功能正常
+                    </div>
+                    <div class="tip">
+                        <strong>根据用水量选择容量：</strong>1-2人选择40-50L，3-4人选择60-80L，避免容量过大浪费能源
+                    </div>
+                    <div class="tip">
+                        <strong>长期不用需排水：</strong>超过一周不使用，应关闭电源并排空内胆积水，防止水垢沉积和细菌滋生
+                    </div>
+                    <div class="tip">
+                        <strong>配合保温使用：</strong>热水器有保温功能，24小时通电比反复加热更省电（针对保温好的热水器）
+                    </div>
+                    <div class="tip">
+                        <strong>防止干烧：</strong>确保内胆有水后再通电加热，干烧会严重损坏加热管和内胆
+                    </div>
+                    <div class="tip">
+                        <strong>定期检查接地：</strong>确保热水器可靠接地，必须安装漏电保护器，这是防止触电的关键
+                    </div>
+
                     <h3>维护建议</h3>
                     <div class="tip">
                         <strong>定期排污：</strong>每半年排污一次，清除水垢
@@ -484,10 +794,6 @@
                     </div>
                 </section>
 
-                <footer>
-                    <h3>🔧 家用电器维修指南</h3>
-                    <p>本指南仅供学习参考，涉及高压电和制冷剂的维修请专业人员处理</p>
-                </footer>
             </div>
         </main>
     </div>
@@ -505,6 +811,12 @@
                     { name: '冰箱', file: 'refrigerator.html' },
                     { name: '洗衣机', file: 'washing-machine.html' },
                     { name: '空调', file: 'air-conditioner.html' },
+                    { name: '空气净化器', file: 'air-purifier.html' },
+                    { name: '油烟机', file: 'range-hood.html' },
+                    { name: '电风扇', file: 'electric-fan.html' },
+                    { name: '饮水机', file: 'water-dispenser.html' },
+                    { name: '电饭煲', file: 'rice-cooker.html' },
+                    { name: '电磁炉', file: 'induction-cooker.html' },
                     { name: '微波炉', file: 'microwave.html' },
                     { name: '电视', file: 'television.html' },
                     { name: '热水器', file: 'water-heater.html' },

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电动自行车 - 家用电器维修指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-box {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .appliance-detail {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .appliance-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        .appliance-detail h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .appliance-detail h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.1rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .principle-box h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .principle-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .principle-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshoot {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .troubleshoot h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot ul, .troubleshoot ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #d4edda;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .flowchart {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .flowchart .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart .step-number {
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 320px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 9px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .annotation {
+            font-size: 8px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 7px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .assembly-connector {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+        }
+
+        .assembly-dimension {
+            stroke: #95a5a6;
+            stroke-width: 1;
+            fill: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .appliance-detail {
+                padding: 1.5rem;
+            }
+
+            .appliance-detail h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电常识</h1>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电器名称或故障..." onkeypress="handleSearch(event)">
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link active">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="appliance-detail">
+                    <h2>🚲 电动自行车运行原理与故障修复</h2>
+                    
+                    <h3>运行原理</h3>
+                    <div class="principle-box">
+                        <h3>电动自行车工作原理</h3>
+                        <p>电动自行车以电池为动力源，通过控制器驱动电机运转：</p>
+                        <ol>
+                            <li><strong>电池供电</strong>：锂电池或铅酸电池存储电能，为整个系统提供动力</li>
+                            <li><strong>控制器处理</strong>：控制器接收转把信号和刹车信号，处理后输出电机驱动信号</li>
+                            <li><strong>电机运转</strong>：无刷电机或无刷直流电机根据控制器信号产生旋转动力</li>
+                            <li><strong>动力传递</strong>：电机通过链条或齿轮将动力传递给车轮，驱动车辆前进</li>
+                            <li><strong>能量回收</strong>：部分车型具备能量回收功能，刹车时将动能转化为电能</li>
+                        </ol>
+                    </div>
+
+                    <h3>主要部件</h3>
+                    <ul>
+                        <li><strong>电池</strong>：36V或48V锂电池/铅酸电池，存储电能的核心部件</li>
+                        <li><strong>控制器</strong>：控制电机转速和车辆运行的核心电子部件</li>
+                        <li><strong>电机</strong>：无刷直流电机或有刷电机，将电能转化为机械能</li>
+                        <li><strong>转把</strong>：控制车辆加速的部件，通过旋转角度调节速度</li>
+                        <li><strong>刹车断电开关</strong>：刹车时切断电机电源，实现刹车断电功能</li>
+                        <li><strong>仪表盘</strong>：显示速度、电量、里程等信息的显示设备</li>
+                        <li><strong>充电器</strong>：为电池充电的专用设备</li>
+                        <li><strong>灯光系统</strong>：前灯、尾灯、转向灯等照明设备</li>
+                    </ul>
+
+                    <div class="diagram-section">
+                        <h3>📐 电路原理图及装配图</h3>
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4>电动自行车电路原理图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 450 320" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                                        </marker>
+                                    </defs>
+                                    
+                                    <!-- 电池组 -->
+                                    <rect x="30" y="100" width="80" height="60" class="component" rx="5"/>
+                                    <text x="70" y="125" class="component-label">电池组</text>
+                                    <text x="70" y="140" class="annotation">48V/12Ah</text>
+                                    <text x="70" y="155" class="annotation">锂电池</text>
+                                    
+                                    <!-- 电池正极 -->
+                                    <line x1="110" y1="115" x2="140" y2="115" class="power-line"/>
+                                    <text x="120" y="108" class="annotation">+48V</text>
+                                    
+                                    <!-- 电池负极 -->
+                                    <line x1="110" y1="145" x2="140" y2="145" class="power-line"/>
+                                    <text x="120" y="155" class="annotation">GND</text>
+                                    
+                                    <!-- 主保险丝 -->
+                                    <rect x="145" y="105" width="30" height="20" class="component" rx="3"/>
+                                    <text x="160" y="118" class="component-label">FU</text>
+                                    
+                                    <!-- 主开关 -->
+                                    <rect x="185" y="105" width="25" height="20" class="component" rx="3"/>
+                                    <text x="197" y="118" class="component-label">SW</text>
+                                    
+                                    <!-- 控制器 -->
+                                    <rect x="220" y="80" width="100" height="100" class="component" rx="5"/>
+                                    <text x="270" y="110" class="component-label">控制器</text>
+                                    <text x="270" y="125" class="annotation">MCU</text>
+                                    <text x="270" y="165" class="annotation">功率模块</text>
+                                    
+                                    <!-- 控制器输入 -->
+                                    <line x1="215" y1="115" x2="220" y2="115" class="power-line"/>
+                                    <line x1="215" y1="145" x2="220" y2="145" class="power-line"/>
+                                    
+                                    <!-- 控制器输出到电机 -->
+                                    <line x1="320" y1="115" x2="340" y2="115" class="power-line"/>
+                                    <line x1="320" y1="145" x2="340" y2="145" class="power-line"/>
+                                    
+                                    <!-- 电机（轮毂电机） -->
+                                    <circle cx="390" cy="130" r="45" class="component"/>
+                                    <circle cx="390" cy="130" r="35" class="assembly-part-highlight"/>
+                                    <text x="390" y="125" class="component-label">电机</text>
+                                    <text x="390" y="140" class="annotation">轮毂</text>
+                                    <text x="390" y="155" class="annotation">无刷</text>
+                                    
+                                    <!-- 电机霍尔连接 -->
+                                    <line x1="360" y1="100" x2="370" y2="90" class="signal-flow"/>
+                                    <text x="365" y="88" class="annotation">霍尔</text>
+                                    
+                                    <!-- 转把 -->
+                                    <rect x="220" y="200" width="50" height="25" class="component" rx="5"/>
+                                    <text x="245" y="217" class="component-label">转把</text>
+                                    <text x="245" y="232" class="annotation">PWM</text>
+                                    
+                                    <!-- 转把信号线 -->
+                                    <line x1="270" y1="212" x2="300" y2="212" class="signal-flow"/>
+                                    <line x1="300" y1="212" x2="300" y2="150" class="signal-flow"/>
+                                    <line x1="300" y1="150" x2="270" y2="150" class="signal-flow"/>
+                                    
+                                    <!-- 刹车开关 -->
+                                    <rect x="220" y="240" width="40" height="20" class="component" rx="3"/>
+                                    <text x="240" y="255" class="component-label">刹车</text>
+                                    
+                                    <!-- 刹车信号 -->
+                                    <line x1="260" y1="250" x2="290" y2="250" class="signal-flow"/>
+                                    <line x1="290" y1="250" x2="290" y2="170" class="signal-flow"/>
+                                    <line x1="290" y1="170" x2="270" y2="170" class="signal-flow"/>
+                                    
+                                    <!-- 仪表盘 -->
+                                    <rect x="100" y="220" width="60" height="35" class="component" rx="5"/>
+                                    <text x="130" y="240" class="component-label">仪表</text>
+                                    <text x="130" y="252" class="annotation">LCD</text>
+                                    
+                                    <!-- 仪表连接 -->
+                                    <line x1="145" y1="240" x2="170" y2="240" class="wire"/>
+                                    <line x1="170" y1="240" x2="220" y2="240" class="wire"/>
+                                    
+                                    <!-- 灯光系统 -->
+                                    <rect x="30" y="220" width="40" height="25" class="component" rx="3"/>
+                                    <text x="50" y="237" class="component-label">灯光</text>
+                                    
+                                    <!-- 灯光连接 -->
+                                    <line x1="70" y1="232" x2="100" y2="232" class="wire"/>
+                                    
+                                    <!-- 充电器接口 -->
+                                    <rect x="30" y="170" width="35" height="25" class="component" rx="3"/>
+                                    <text x="47" y="187" class="component-label">充电</text>
+                                    
+                                    <!-- 充电指示 -->
+                                    <line x1="65" y1="182" x2="110" y2="182" class="power-line"/>
+                                    <line x1="110" y1="182" x2="110" y2="100" class="power-line"/>
+                                    
+                                    <!-- 速度传感器 -->
+                                    <circle cx="390" cy="200" r="15" class="component"/>
+                                    <text x="390" y="205" class="component-label">速传</text>
+                                    <line x1="375" y1="200" x2="350" y2="200" class="signal-flow"/>
+                                    <line x1="350" y1="200" x2="350" y2="220" class="signal-flow"/>
+                                    <line x1="350" y1="220" x2="270" y2="220" class="signal-flow"/>
+                                    
+                                    <!-- 地线 -->
+                                    <line x1="160" y1="160" x2="160" y2="300" class="ground" stroke="#27ae60" stroke-width="2"/>
+                                    <path d="M140,300 L180,300 L170,290 M150,290 L170,290" class="ground" stroke="#27ae60" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="diagram-box">
+                                <h4>电动自行车装配图</h4>
+                                <svg class="diagram-svg" viewBox="0 0 450 320" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- 车架主管 -->
+                                    <path d="M50,200 L120,180 L250,160 L380,170 L420,200" class="assembly-part" fill="none" stroke-width="8"/>
+                                    
+                                    <!-- 座管 -->
+                                    <line x1="120" y1="180" x2="110" y2="80" class="assembly-part" stroke-width="10"/>
+                                    
+                                    <!-- 座椅 -->
+                                    <rect x="80" y="60" width="60" height="15" class="assembly-part" rx="5"/>
+                                    
+                                    <!-- 后轮（轮毂电机） -->
+                                    <circle cx="400" cy="220" r="55" class="assembly-part-highlight"/>
+                                    <circle cx="400" cy="220" r="40" fill="#34495e"/>
+                                    <circle cx="400" cy="220" r="15" class="assembly-part"/>
+                                    <text x="400" y="225" class="assembly-label">电机</text>
+                                    
+                                    <!-- 轮胎 -->
+                                    <circle cx="400" cy="220" r="55" fill="none" stroke-width="6" stroke="#2c3e50"/>
+                                    
+                                    <!-- 辐条 -->
+                                    <line x1="400" y1="165" x2="400" y2="275" class="assembly-dimension"/>
+                                    <line x1="345" y1="220" x2="455" y2="220" class="assembly-dimension"/>
+                                    
+                                    <!-- 前轮 -->
+                                    <circle cx="80" cy="220" r="50" class="assembly-part"/>
+                                    <circle cx="80" cy="220" r="40" fill="none" stroke-width="4"/>
+                                    <circle cx="80" cy="220" r="10" class="assembly-part"/>
+                                    
+                                    <!-- 前叉 -->
+                                    <line x1="80" y1="170" x2="120" y2="180" class="assembly-part" stroke-width="8"/>
+                                    
+                                    <!-- 车把 -->
+                                    <line x1="115" y1="120" x2="155" y2="125" class="assembly-part" stroke-width="8"/>
+                                    
+                                    <!-- 转把 -->
+                                    <circle cx="145" y="122" r="12" class="assembly-part-highlight"/>
+                                    <text x="145" y="125" class="assembly-label">转把</text>
+                                    
+                                    <!-- 仪表盘 -->
+                                    <rect x="125" y="100" width="35" height="20" class="assembly-part" rx="3"/>
+                                    <text x="142" y="113" class="assembly-label">仪表</text>
+                                    
+                                    <!-- 刹车把 -->
+                                    <line x1="155" y1="125" x2="165" y2="135" class="assembly-connector"/>
+                                    <circle cx="168" cy="138" r="8" class="assembly-part"/>
+                                    
+                                    <!-- 电池盒 -->
+                                    <rect x="200" y="175" width="80" height="30" class="assembly-part-highlight" rx="5"/>
+                                    <text x="240" y="195" class="assembly-label">电池 48V</text>
+                                    
+                                    <!-- 控制器 -->
+                                    <rect x="290" y="180" width="45" height="25" class="assembly-part" rx="3"/>
+                                    <text x="312" y="196" class="assembly-label">控制</text>
+                                    
+                                    <!-- 控制器固定架 -->
+                                    <line x1="290" y1="180" x2="280" y2="175" class="assembly-connector"/>
+                                    <line x1="335" y1="180" x2="345" y2="175" class="assembly-connector"/>
+                                    
+                                    <!-- 链条 -->
+                                    <path d="M110,220 Q180,260 250,220 T390,220" class="power-line" fill="none"/>
+                                    <text x="250" y="250" class="annotation">链条传动</text>
+                                    
+                                    <!-- 牙盘曲柄 -->
+                                    <circle cx="110" cy="220" r="20" class="assembly-part"/>
+                                    <line x1="110" y1="220" x2="90" y2="240" class="assembly-part" stroke-width="4"/>
+                                    <line x1="110" y1="220" x2="90" y2="200" class="assembly-part" stroke-width="4"/>
+                                    
+                                    <!-- 脚踏板 -->
+                                    <rect x="80" y="235" width="20" height="8" class="assembly-part" rx="2"/>
+                                    <rect x="80" y="197" width="20" height="8" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 刹车线（后） -->
+                                    <path d="M168,138 Q200,150 230,180 L380,210" class="assembly-connector"/>
+                                    <text x="280" y="165" class="annotation">刹车线</text>
+                                    
+                                    <!-- 后刹车 -->
+                                    <circle cx="385" cy="210" r="10" class="assembly-part"/>
+                                    
+                                    <!-- 尾灯 -->
+                                    <rect x="435" y="215" width="15" height="12" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 前灯 -->
+                                    <rect x="60" y="210" width="15" height="12" class="assembly-part" rx="2"/>
+                                    
+                                    <!-- 充电接口 -->
+                                    <circle cx="300" y="220" r="6" class="assembly-part"/>
+                                    <text x="300" y="223" class="assembly-label">充电</text>
+                                    
+                                    <!-- 线束走向 -->
+                                    <line x1="240" y1="190" x2="290" y2="192" class="wire"/>
+                                    <line x1="145" y1="122" x2="180" y2="160" class="wire"/>
+                                    <line x1="145" y1="122" x2="150" y2="110" class="wire"/>
+                                    
+                                    <!-- 电机电源线 -->
+                                    <line x1="335" y1="192" x2="360" y2="210" class="power-line"/>
+                                    
+                                    <!-- 霍尔线 -->
+                                    <line x1="360" y1="210" x2="375" y2="200" class="signal-flow"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>常见故障与解决方案</h3>
+                    
+                    <div class="troubleshoot">
+                        <h4>🚫 故障一：车辆无法启动</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>电池电量不足或电池损坏</li>
+                            <li>电池连接线松动或接触不良</li>
+                            <li>控制器故障</li>
+                            <li>转把故障或损坏</li>
+                            <li>刹车断电开关卡住</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查电池电量显示，如电量不足请及时充电</li>
+                            <li>检查电池接线端子是否松动、腐蚀，必要时清洁并紧固</li>
+                            <li>检查转把是否正常工作，可尝试短接转把信号线测试</li>
+                            <li>检查刹车把是否回位，刹车断电开关是否正常</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>⚡ 故障二：电机不转但有异响</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>电机霍尔元件损坏</li>
+                            <li>电机内部绕组故障</li>
+                            <li>控制器输出异常</li>
+                            <li>轴承损坏或齿轮卡住</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>用万用表检测电机霍尔元件是否正常</li>
+                            <li>检查电机绕组电阻是否均衡</li>
+                            <li>检查控制器输出电压是否正常</li>
+                            <li>手动转动电机轮毂，检查是否有卡顿或异响</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>🔋 故障三：电池充电异常</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>充电器故障</li>
+                            <li>电池老化或损坏</li>
+                            <li>充电接口接触不良</li>
+                            <li>电池保护板故障</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查充电器指示灯状态，确认充电器是否正常工作</li>
+                            <li>使用万用表测量充电电压是否符合标准</li>
+                            <li>检查电池接口是否清洁、紧固</li>
+                            <li>测量电池单体电压，判断电池组是否均衡</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>💨 故障四：骑行距离明显缩短</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>电池老化，容量下降</li>
+                            <li>轮胎气压不足</li>
+                            <li>控制器参数漂移</li>
+                            <li>电机效率下降</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>检查电池使用年限，老旧电池建议更换</li>
+                            <li>检查轮胎气压，保持标准胎压可减少阻力</li>
+                            <li>检查控制器参数设置，必要时重新校准</li>
+                            <li>检查电机轴承，润滑或更换损坏的轴承</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>🚨 故障五：车辆发生飞车危险</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>转把信号线短路</li>
+                            <li>控制器失控</li>
+                            <li>转把内部损坏</li>
+                        </ol>
+                        <p><strong>紧急处理：</strong></p>
+                        <ol>
+                            <li>立即捏紧刹车，刹车断电功能会切断电机电源</li>
+                            <li>迅速拔掉电池与控制器之间的连接线</li>
+                            <li>用脚蹬地帮助车辆减速停下</li>
+                            <li>检查转把和控制器，必要时更换故障部件</li>
+                        </ol>
+                        <div class="warning">
+                            <strong>⚠️ 警告：飞车是非常危险的情况，发现后应立即停车检查！</strong>
+                        </div>
+                    </div>
+
+                    <h3>日常维护保养</h3>
+                    
+                    <div class="tip">
+                        <strong>💡 电池保养要点：</strong>
+                        <ul>
+                            <li>避免电池完全放电后再充电，当电量剩余20%-30%时即可充电</li>
+                            <li>长时间不使用时，应每月充电一次，保持电池活性</li>
+                            <li>避免在高温或低温环境下充电，充电环境温度宜在10-35℃</li>
+                            <li>使用原装充电器，不要混用不同规格的充电器</li>
+                            <li>保持电池外壳清洁干燥，避免短路</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 电机保养要点：</strong>
+                        <ul>
+                            <li>避免车辆长时间在水中浸泡，防止电机进水损坏</li>
+                            <li>定期检查电机接线端子是否松动、腐蚀</li>
+                            <li>后轮电机不要承受过大冲击力，防止磁钢脱落</li>
+                            <li>骑行时避免超载运行，减少电机负担</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 控制器保养要点：</strong>
+                        <ul>
+                            <li>控制器应安装在通风干燥的位置，避免受潮</li>
+                            <li>定期检查控制器散热情况，必要时清理灰尘</li>
+                            <li>避免控制器接线端子短路</li>
+                            <li>雨后骑行后应检查控制器是否有进水</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 整车保养要点：</strong>
+                        <ul>
+                            <li>定期检查刹车系统，刹车皮磨损严重时及时更换</li>
+                            <li>保持轮胎气压充足，减少骑行阻力</li>
+                            <li>链条应定期润滑，但不要过量</li>
+                            <li>雨后应及时擦干车身，防止生锈</li>
+                            <li>定期检查各部件螺丝是否紧固</li>
+                        </ul>
+                    </div>
+
+                    <h3>安全骑行注意事项</h3>
+                    
+                    <div class="warning">
+                        <strong>⚠️ 骑行安全须知：</strong>
+                        <ul>
+                            <li>骑行前检查刹车、轮胎、灯光等是否正常</li>
+                            <li>佩戴安全头盔，降低意外伤害风险</li>
+                            <li>遵守交通规则，不逆行、不闯红灯</li>
+                            <li>控制车速，转弯和下坡时减速慢行</li>
+                            <li>避免在恶劣天气骑行，如大风、暴雨、大雪等</li>
+                            <li>夜间骑行应开启灯光，确保视野良好</li>
+                            <li>不要超载运行，遵守车辆载重限制</li>
+                        </ul>
+                    </div>
+
+                    <h3>故障诊断流程图</h3>
+                    <div class="flowchart">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>车辆无法启动</strong>
+                                <p>首先检查电池是否有电，检查电池连接线是否正常</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>电池正常但仍无法启动</strong>
+                                <p>检查转把是否正常，可尝试短接转把信号线测试</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>转把正常但电机不转</strong>
+                                <p>检查控制器输出，用万用表测量电机相线电压</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div>
+                                <strong>控制器输出异常</strong>
+                                <p>检查控制器霍尔线连接，测量霍尔信号是否正常</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div>
+                                <strong>霍尔信号异常</strong>
+                                <p>判断是霍尔元件损坏还是线路问题，必要时更换电机或修复线路</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>常用维修工具</h3>
+                    <ul>
+                        <li><strong>万用表</strong>：测量电压、电流、电阻，诊断电路故障</li>
+                        <li><strong>螺丝刀套装</strong>：拆卸和安装各种螺丝</li>
+                        <li><strong>内六角扳手</strong>：调整和紧固常见规格的螺栓</li>
+                        <li><strong>尖嘴钳</strong>：夹持小物件，弯曲金属丝</li>
+                        <li><strong>剥线钳</strong>：处理电线，剥除绝缘层</li>
+                        <li><strong>热缩管</strong>：绝缘保护修复后的电线连接</li>
+                        <li><strong>绝缘胶带</strong>：临时绝缘处理</li>
+                        <li><strong>润滑脂</strong>：润滑轴承、齿轮等运动部件</li>
+                    </ul>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    const pages = [
+                        'refrigerator.html', 'washing-machine.html', 'air-conditioner.html',
+                        'air-purifier.html', 'range-hood.html', 'electric-fan.html',
+                        'water-dispenser.html', 'rice-cooker.html', 'induction-cooker.html',
+                        'microwave.html', 'television.html', 'water-heater.html',
+                        'dishwasher.html', 'vacuum.html', 'electric-bicycle.html'
+                    ];
+                    
+                    for (let page of pages) {
+                        window.location.href = page;
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

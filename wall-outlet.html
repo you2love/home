@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>墙上插座 - 家用电器维修指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-box {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .appliance-detail {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .appliance-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        .appliance-detail h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .appliance-detail h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.1rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .principle-box h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .principle-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .principle-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshoot {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .troubleshoot h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot ul, .troubleshoot ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #d4edda;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .flowchart {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .flowchart .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart .step-number {
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        /* 原理图和装配图样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .diagram-box {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        /* 原理图组件样式 */
+        .component {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .component-label {
+            font-size: 8px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .wire {
+            stroke: #e74c3c;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .power-line {
+            stroke: #2c3e50;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .ground {
+            stroke: #27ae60;
+            stroke-width: 2;
+        }
+
+        .signal-flow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .annotation {
+            font-size: 7px;
+            fill: #666;
+        }
+
+        /* 装配图样式 */
+        .assembly-part {
+            fill: #ecf0f1;
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .assembly-part-highlight {
+            fill: #3498db;
+            stroke: #2980b9;
+            stroke-width: 2;
+        }
+
+        .assembly-label {
+            font-size: 7px;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .appliance-detail {
+                padding: 1.5rem;
+            }
+
+            .appliance-detail h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电常识</h1>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电器名称或故障..." onkeypress="handleSearch(event)">
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link active">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="appliance-detail">
+                    <h2>🔋 墙上插座安装与维修</h2>
+                    
+                    <h3>插座类型介绍</h3>
+                    <div class="principle-box">
+                        <h3>常见插座类型</h3>
+                        <p>墙上插座是家庭用电取电的核心部件，主要有以下几种类型：</p>
+                        <ol>
+                            <li><strong>三孔插座（10A）</strong>：最常见的家用插座，适用于小功率电器</li>
+                            <li><strong>五孔插座</strong>：二三插孔组合，使用更灵活</li>
+                            <li><strong>三孔插座（16A）</strong>：大功率插座，用于空调、电热水器等</li>
+                            <li><strong>带开关插座</strong>：插座附带开关控制，通断电更方便</li>
+                            <li><strong>USB插座</strong>：集成USB充电口，方便手机等设备充电</li>
+                            <li><strong>防水插座</strong>：带有防溅盒，适用于厨房、卫生间</li>
+                            <li><strong>轨道插座</strong>：可自由移动的轨道式插座，灵活取电</li>
+                            <li><strong>定时插座</strong>：带有定时功能，可设置通断电时间</li>
+                        </ol>
+                    </div>
+
+                    <h3>主要部件</h3>
+                    <ul>
+                        <li><strong>插座面板</strong>：外部可见的塑料面板，保护内部结构</li>
+                        <li><strong>插孔铜片</strong>：与插头接触的弹性铜片，传输电流</li>
+                        <li><strong>接线端子</strong>：连接电源线的金属端子</li>
+                        <li><strong>底盒</strong>：安装在墙内的塑料或金属盒子</li>
+                        <li><strong>保护门</strong>：防止异物进入的安全设计</li>
+                        <li><strong>铜条/铜排</strong>：连接各端子的导体</li>
+                    </ul>
+
+                    <h3>电路原理图及安装图</h3>
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <h4>五孔插座接线原理图</h4>
+                            <svg class="diagram-svg" viewBox="0 0 350 280" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                                    </marker>
+                                </defs>
+                                
+                                <!-- 配电箱 -->
+                                <rect x="20" y="30" width="60" height="40" class="component" rx="3"/>
+                                <text x="50" y="55" class="component-label">配电箱</text>
+                                
+                                <!-- 断路器 -->
+                                <rect x="85" y="35" width="30" height="25" class="component" rx="2"/>
+                                <text x="100" y="52" class="component-label">断路器</text>
+                                
+                                <!-- 火线L -->
+                                <line x1="120" y1="45" x2="150" y2="45" class="power-line"/>
+                                <text x="130" y="38" class="annotation">L</text>
+                                
+                                <!-- 零线N -->
+                                <line x1="120" y1="95" x2="150" y2="95" class="power-line"/>
+                                <text x="130" y="105" class="annotation">N</text>
+                                
+                                <!-- 地线PE -->
+                                <line x1="120" y1="155" x2="150" y2="155" class="ground" stroke-width="2"/>
+                                <text x="130" y="148" class="annotation">PE</text>
+                                
+                                <!-- 插座底盒 -->
+                                <rect x="155" y="25" width="80" height="90" class="assembly-part" rx="3"/>
+                                <text x="195" y="40" class="component-label">86型底盒</text>
+                                
+                                <!-- 插座面板 -->
+                                <rect x="165" y="50" width="60" height="45" class="assembly-part-highlight" rx="2"/>
+                                <text x="195" y="75" class="component-label">插座面板</text>
+                                
+                                <!-- 插孔示意 -->
+                                <ellipse cx="180" cy="70" rx="8" ry="12" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <ellipse cx="180" cy="70" rx="4" ry="8" fill="#2c3e50"/>
+                                <ellipse cx="195" cy="70" rx="6" ry="10" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <ellipse cx="210" cy="70" rx="8" ry="12" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <ellipse cx="210" cy="70" rx="4" ry="8" fill="#27ae60"/>
+                                
+                                <!-- 接线端子标注 -->
+                                <rect x="158" y="55" width="12" height="10" class="component" rx="1"/>
+                                <text x="164" y="63" class="component-label">L</text>
+                                
+                                <rect x="158" y="70" width="12" height="10" class="component" rx="1"/>
+                                <text x="164" y="78" class="component-label">N</text>
+                                
+                                <rect x="158" y="85" width="12" height="10" class="component" rx="1"/>
+                                <text x="164" y="93" class="component-label">E</text>
+                                
+                                <!-- L端子到火线 -->
+                                <line x1="170" y1="60" x2="180" y2="60" class="power-line"/>
+                                
+                                <!-- N端子到零线 -->
+                                <line x1="170" y1="75" x2="180" y2="75" class="power-line"/>
+                                
+                                <!-- E端子到地线 -->
+                                <line x1="170" y1="90" x2="180" y2="90" class="ground" stroke-width="2"/>
+                                
+                                <!-- 插座到负载 -->
+                                <line x1="225" y1="70" x2="260" y2="70" class="power-line"/>
+                                <line x1="260" y1="70" x2="290" y2="70" class="power-line"/>
+                                
+                                <!-- 负载 -->
+                                <rect x="290" y="55" width="40" height="30" class="component" rx="3"/>
+                                <text x="310" y="75" class="component-label">负载</text>
+                                
+                                <!-- 负载零线 -->
+                                <line x1="290" y1="85" x2="290" y2="95" class="power-line"/>
+                                <line x1="290" y1="95" x2="170" y2="95" class="power-line"/>
+                                
+                                <!-- 负载地线 -->
+                                <line x1="310" y1="85" x2="310" y2="95" class="ground" stroke-width="2"/>
+                                <line x1="310" y1="95" x2="170" y2="155" class="ground" stroke-width="2"/>
+                                <line x1="170" y1="155" x2="120" y2="155" class="ground" stroke-width="2"/>
+                                
+                                <!-- 保护门说明 -->
+                                <rect x="235" y="120" width="70" height="35" fill="#e8f6f3" rx="5"/>
+                                <text x="270" y="138" class="annotation" fill="#16a085">保护门设计</text>
+                                <text x="270" y="152" class="annotation" fill="#16a085">单孔无法插入</text>
+                            </svg>
+                        </div>
+                        
+                        <div class="diagram-box">
+                            <h4>16A三孔插座接线图</h4>
+                            <svg class="diagram-svg" viewBox="0 0 350 280" xmlns="http://www.w3.org/2000/svg">
+                                
+                                <!-- 配电箱 -->
+                                <rect x="20" y="30" width="60" height="40" class="component" rx="3"/>
+                                <text x="50" y="55" class="component-label">配电箱</text>
+                                
+                                <!-- 专用断路器 -->
+                                <rect x="85" y="35" width="35" height="25" class="component" rx="2"/>
+                                <text x="102" y="52" class="component-label">20A</text>
+                                
+                                <!-- 火线L -->
+                                <line x1="125" y1="45" x2="155" y2="45" class="power-line"/>
+                                <text x="135" y="38" class="annotation">L</text>
+                                
+                                <!-- 零线N -->
+                                <line x1="125" y1="95" x2="155" y2="95" class="power-line"/>
+                                <text x="135" y="105" class="annotation">N</text>
+                                
+                                <!-- 地线PE -->
+                                <line x1="125" y1="155" x2="155" y2="155" class="ground" stroke-width="2"/>
+                                <text x="135" y="148" class="annotation">PE</text>
+                                
+                                <!-- 16A插座面板 -->
+                                <rect x="165" y="45" width="70" height="60" class="assembly-part-highlight" rx="3"/>
+                                
+                                <!-- 16A三孔插孔 -->
+                                <circle cx="185" cy="70" r="10" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <circle cx="200" cy="70" r="10" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <circle cx="215" cy="70" r="10" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                
+                                <!-- 火线孔（右下） -->
+                                <circle cx="215" cy="70" r="5" fill="#2c3e50"/>
+                                <text x="215" y="88" class="annotation">L</text>
+                                
+                                <!-- 零线孔（左下） -->
+                                <circle cx="185" cy="70" r="5" fill="#27ae60"/>
+                                <text x="185" y="88" class="annotation">N</text>
+                                
+                                <!-- 地线孔（上方） -->
+                                <circle cx="200" cy="55" r="5" fill="#27ae60"/>
+                                <text x="200" y="48" class="annotation">E</text>
+                                
+                                <!-- 接线端子 -->
+                                <rect x="165" y="55" width="15" height="12" class="component" rx="1"/>
+                                <text x="172" y="64" class="component-label" font-size="6">L</text>
+                                
+                                <rect x="165" y="72" width="15" height="12" class="component" rx="1"/>
+                                <text x="172" y="81" class="component-label" font-size="6">N</text>
+                                
+                                <rect x="165" y="89" width="15" height="12" class="component" rx="1"/>
+                                <text x="172" y="98" class="component-label" font-size="6">E</text>
+                                
+                                <!-- 内部连接 -->
+                                <line x1="180" y1="61" x2="200" y2="61" class="power-line"/>
+                                <line x1="200" y1="61" x2="210" y2="55" class="power-line"/>
+                                
+                                <line x1="180" y1="78" x2="190" y2="78" class="power-line"/>
+                                <line x1="190" y1="78" x2="190" y2="70" class="power-line"/>
+                                
+                                <line x1="180" y1="95" x2="200" y2="95" class="ground" stroke-width="2"/>
+                                <line x1="200" y1="95" x2="200" y2="60" class="ground" stroke-width="2"/>
+                                
+                                <!-- 大功率电器 -->
+                                <rect x="260" y="55" width="60" height="50" class="component" rx="5"/>
+                                <text x="290" y="85" class="component-label">空调</text>
+                                <text x="290" y="98" class="component-label">热水器</text>
+                                
+                                <!-- 供电线 -->
+                                <line x1="235" y1="70" x2="260" y2="70" class="power-line"/>
+                                
+                                <!-- 空调/热水器说明 -->
+                                <rect x="260" y="115" width="60" height="40" fill="#fdebd0" rx="5"/>
+                                <text x="290" y="135" class="annotation" fill="#e67e22">功率2000W+</text>
+                                <text x="290" y="150" class="annotation" fill="#e67e22">需专用16A</text>
+                                
+                                <!-- 插座间距 -->
+                                <rect x="165" y="130" width="70" height="25" fill="#e8f8f5" rx="5"/>
+                                <text x="200" y="148" class="annotation" fill="#1abc9c">86型标准</text>
+                                <text x="200" y="160" class="annotation" fill="#1abc9c">孔距60mm</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h3>常见故障与解决方案</h3>
+                    
+                    <div class="troubleshoot">
+                        <h4>🚫 故障一：插座不通电</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>接线端子松动或脱落</li>
+                            <li>铜片失去弹性，无法接触插头</li>
+                            <li>线路中间断路</li>
+                            <li>配电箱断路器跳闸</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>切断电源，用万用表测量插座电压（正常应为220V）</li>
+                            <li>拆开插座面板，检查接线是否牢固</li>
+                            <li>检查铜片是否变形、烧蚀，必要时更换插座</li>
+                            <li>检查配电箱断路器状态，尝试合闸</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>🔥 故障二：插座发热</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>插头与插座接触不良</li>
+                            <li>负载功率超过插座额定功率</li>
+                            <li>接线端子松动，接触电阻增大</li>
+                            <li>插座老化，内部铜片氧化</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>切断电源，检查插头是否变形、烧蚀</li>
+                            <li>检查所用电器功率，更换为额定功率更高的插座</li>
+                            <li>紧固接线端子，清理氧化层</li>
+                            <li>触摸插座外壳温度，超过50℃应立即更换</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>⚡ 故障三：插座冒火花</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>插头插入时电流冲击</li>
+                            <li>插座铜片松动或烧蚀</li>
+                            <li>电器内部短路</li>
+                            <li>插座内部潮湿或进水</li>
+                        </ol>
+                        <p><strong>排查步骤：</strong></p>
+                        <ol>
+                            <li>轻微火花属于正常现象（电弧），无需担心</li>
+                            <li>如果火花过大或频繁出现，立即停止使用</li>
+                            <li>拆开插座检查铜片，必要时更换新插座</li>
+                            <li>检查电器是否短路，排除电器故障</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshoot">
+                        <h4>🔌 故障四：插孔松动</h4>
+                        <p><strong>可能原因：</strong></p>
+                        <ol>
+                            <li>插座使用时间过长，铜片疲劳</li>
+                            <li>频繁插拔导致铜片变形</li>
+                            <li>使用质量差的插座</li>
+                            <li>插头规格不匹配</li>
+                        </ol>
+                        <p><strong>修复方法：</strong></p>
+                        <ol>
+                            <li>更换新的插座，选择优质品牌产品</li>
+                            <li>避免频繁插拔大功率电器插头</li>
+                            <li>使用符合国家标准的插头插座</li>
+                            <li>定期检查插座紧固程度</li>
+                        </ol>
+                    </div>
+
+                    <h3>安装步骤详解</h3>
+                    
+                    <div class="flowchart">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>切断电源</strong>
+                                <p>在配电箱中切断对应回路的空气开关，并使用测电笔确认无电</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>准备工具和材料</strong>
+                                <p>准备螺丝刀、剥线钳、测电笔、86型底盒、1.5mm²铜线</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>确定安装位置</strong>
+                                <p>一般插座距地面30cm，空调插座距地面180cm，厨房操作台上方120cm</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div>
+                                <strong>安装底盒</strong>
+                                <p>将86型底盒嵌入墙内，用水平仪校准，用螺丝或墙塞固定</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div>
+                                <strong>剥线和接线</strong>
+                                <p>剥除电线端部绝缘层约1cm，火线（红/棕）接L端子，零线（蓝）接N端子，地线（黄绿）接E端子</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div>
+                                <strong>固定插座</strong>
+                                <p>将插座面板推入底盒，用水平仪校准，用螺丝固定</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">7</div>
+                            <div>
+                                <strong>安装面板</strong>
+                                <p>扣上面板，确保卡扣到位，检查插座是否平整</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">8</div>
+                            <div>
+                                <strong>测试验收</strong>
+                                <p>合闸后用相位仪或万用表测试各插孔，确保火线、零线、地线连接正确</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>不同房间插座布局建议</h3>
+                    
+                    <div class="tip">
+                        <strong>💡 客厅插座布局：</strong>
+                        <ul>
+                            <li>电视墙：至少4-5个插座，满足电视、机顶盒、路由器等需求</li>
+                            <li>沙发两侧：各2个插座，方便手机充电和落地灯使用</li>
+                            <li>空调：预留专用16A三孔插座</li>
+                            <li>角落：预留1-2个备用插座</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 厨房插座布局：</strong>
+                        <ul>
+                            <li>操作台上方：3-4个插座，用于电饭煲、微波炉等</li>
+                            <li>冰箱：专用插座，距地面50cm以上</li>
+                            <li>油烟机：专用插座，距地面180cm以上</li>
+                            <li>洗碗机、消毒柜：预留专用插座</li>
+                            <li>所有插座需选用带开关的款式，减少插拔次数</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 卧室插座布局：</strong>
+                        <ul>
+                            <li>床头两侧：各2个插座+USB口，方便手机充电</li>
+                            <li>梳妆台：2个插座，用于吹风机、美容电器</li>
+                            <li>书桌下方：3-4个插座，用于电脑、打印机等</li>
+                            <li>空调：预留专用16A插座</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 卫生间插座布局：</strong>
+                        <ul>
+                            <li>洗手台旁：1-2个插座，用于吹风机、电动牙刷</li>
+                            <li>智能马桶：预留专用插座</li>
+                            <li>热水器：专用16A插座</li>
+                            <li>所有插座需选用防水型，并加装防溅盒</li>
+                        </ul>
+                    </div>
+
+                    <h3>日常维护保养</h3>
+                    
+                    <div class="warning">
+                        <strong>⚠️ 安全用电须知：</strong>
+                        <ul>
+                            <li>任何电路维修前必须切断电源</li>
+                            <li>使用测电笔确认无电后再操作</li>
+                            <li>不要用湿手触摸插座</li>
+                            <li>发现插座发黑、变形、发热时立即停止使用</li>
+                            <li>不要在一个插座上连接过多电器</li>
+                            <li>定期检查插座紧固程度和外观状态</li>
+                        </ul>
+                    </div>
+
+                    <h3>选购建议</h3>
+                    <ul>
+                        <li><strong>看品牌</strong>：选择知名品牌，如公牛、西门子、松下等</li>
+                        <li><strong>看材质</strong>：面板选用阻燃PC料，内部铜件选用锡磷青铜</li>
+                        <li><strong>看认证</strong>：必须要有3C强制性认证标志</li>
+                        <li><strong>看结构</strong>：选择一体成型铜条，导电性能更好</li>
+                        <li><strong>看功能</strong>：根据使用场景选择不同功能的插座</li>
+                        <li><strong>看做工</strong>：表面光滑无毛刺，接线端子结实牢固</li>
+                    </ul>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    const pages = [
+                        'refrigerator.html', 'washing-machine.html', 'air-conditioner.html',
+                        'air-purifier.html', 'range-hood.html', 'electric-fan.html',
+                        'water-dispenser.html', 'rice-cooker.html', 'induction-cooker.html',
+                        'microwave.html', 'television.html', 'water-heater.html',
+                        'dishwasher.html', 'vacuum.html', 'electric-bicycle.html',
+                        'wall-switch.html', 'wall-outlet.html'
+                    ];
+                    
+                    for (let page of pages) {
+                        window.location.href = page;
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

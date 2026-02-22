@@ -254,13 +254,13 @@
 }
 
 .chart-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border: none;
     border-radius: 6px;
     background: var(--secondary-color);
     color: var(--white);
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
@@ -284,15 +284,20 @@
     .diagram-container {
         padding: 1rem;
     }
-    
+
     .flowchart-label,
     .sequence-label {
-        font-size: 10px;
+        font-size: 14px;
     }
-    
+
     .chart-controls {
         justify-content: center;
     }
+}
+
+/* SVG 文字通用样式 */
+.diagram-svg text {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 
 /* 暗色模式支持 */

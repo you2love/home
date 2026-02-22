@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>冰箱 - 家用电器维修指南</title>
+    <title>冰箱 - 家用电器运行原理与故障修复指南</title>
+    <link rel="stylesheet" href="css/diagrams.css">
     <style>
         * {
             margin: 0;
@@ -134,7 +135,7 @@
         }
 
         .content-wrapper {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -231,6 +232,74 @@
             border-left: 4px solid #dc3545;
         }
 
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary-color);
+            color: var(--white);
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            background: var(--primary-color);
+            transform: translateX(-5px);
+        }
+
+        /* 图表区域样式 */
+        .diagram-section {
+            margin: 2rem 0;
+        }
+
+        .diagram-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background: var(--secondary-color);
+            color: var(--white);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .chart-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .chart-btn.active {
+            background: var(--accent-color);
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+        }
+
         .flowchart {
             background: var(--light-bg);
             padding: 1.5rem;
@@ -276,122 +345,23 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
-        
-        /* 原理图和装配图样式 */
-        .diagram-section {
-            margin: 2rem 0;
-        }
 
-        .diagram-section h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .diagram-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .diagram-container {
-                grid-template-columns: 1fr;
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
             }
-        }
 
-        .diagram-box {
-            background: var(--white);
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+            .sidebar.open {
+                transform: translateX(0);
+            }
 
-        .diagram-box h4 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 1rem;
-        }
+            .main-content {
+                margin-left: 0;
+            }
 
-        .diagram-svg {
-            width: 100%;
-            height: auto;
-            max-height: 300px;
-        }
-
-        /* 原理图组件样式 */
-        .component {
-            fill: #fff;
-            stroke: #333;
-            stroke-width: 2;
-        }
-
-        .component-label {
-            font-size: 10px;
-            fill: #333;
-            text-anchor: middle;
-        }
-
-        .wire {
-            stroke: #e74c3c;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .power-line {
-            stroke: #2c3e50;
-            stroke-width: 3;
-            fill: none;
-        }
-
-        .ground {
-            fill: #27ae60;
-        }
-
-        .signal-flow {
-            stroke: #3498db;
-            stroke-width: 2;
-            fill: none;
-            marker-end: url(#arrowhead);
-        }
-
-        .annotation {
-            font-size: 9px;
-            fill: #666;
-        }
-
-        /* 装配图样式 */
-        .assembly-part {
-            fill: #ecf0f1;
-            stroke: #2c3e50;
-            stroke-width: 2;
-        }
-
-        .assembly-part-highlight {
-            fill: #3498db;
-            stroke: #2980b9;
-            stroke-width: 2;
-        }
-
-        .assembly-label {
-            font-size: 8px;
-            fill: #2c3e50;
-            text-anchor: middle;
-        }
-
-        .assembly-connector {
-            stroke: #e74c3c;
-            stroke-width: 2;
-            fill: none;
-            stroke-dasharray: 5, 5;
-        }
-
-        .assembly-dimension {
-            stroke: #95a5a6;
-            stroke-width: 1;
-            fill: none;
+            .menu-toggle {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -526,14 +496,25 @@
                         <span class="text">室内布线</span>
                     </a>
                 </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">交互图表</div>
+                </div>
+                <div class="nav-item">
+                    <a href="interactive-diagrams.html" class="nav-link">
+                        <span class="icon">📊</span>
+                        <span class="text">动态图表展示</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="content-wrapper">
+                <a href="index.html" class="back-link">← 返回首页</a>
+                
                 <section class="appliance-detail">
                     <h2>❄️ 冰箱运行原理与故障修复</h2>
-                    
+
                     <h3>运行原理</h3>
                     <div class="principle-box">
                         <h3>制冷循环原理</h3>
@@ -546,6 +527,202 @@
                         </ol>
                     </div>
 
+                    <!-- 制冷循环流程图 -->
+                    <div class="diagram-section">
+                        <h3>📊 制冷循环流程图</h3>
+                        <div class="diagram-wrapper">
+                            <div class="chart-controls">
+                                <button class="chart-btn" onclick="toggleRefrigerantFlow()">显示制冷剂流动</button>
+                                <button class="chart-btn" onclick="toggleTemperature()">显示温度变化</button>
+                                <button class="chart-btn" onclick="resetCycleDiagram()">重置</button>
+                            </div>
+                            <svg id="refrigerationCycleSvg" class="diagram-svg" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrow-cycle" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+                                    </marker>
+                                    <marker id="arrow-cold" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                    </marker>
+                                    <linearGradient id="hotGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.8" />
+                                        <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <linearGradient id="coldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.3" />
+                                        <stop offset="100%" style="stop-color:#3498db;stop-opacity:0.8" />
+                                    </linearGradient>
+                                </defs>
+                                
+                                <!-- 压缩机 -->
+                                <g class="flowchart-node interactive-node" data-id="compressor" data-label="压缩机：将低温低压气体压缩成高温高压气体">
+                                    <circle cx="100" cy="225" r="50" class="flowchart-box" fill="#f39c12"/>
+                                    <text x="100" y="220" class="flowchart-label" font-weight="bold">压缩机</text>
+                                    <text x="100" y="240" class="flowchart-label" font-size="10">Compression</text>
+                                </g>
+                                
+                                <!-- 冷凝器 -->
+                                <g class="flowchart-node interactive-node" data-id="condenser" data-label="冷凝器：高温高压气体散热变成高压液体">
+                                    <rect x="250" y="50" width="150" height="100" class="flowchart-box" fill="#e74c3c"/>
+                                    <text x="325" y="100" class="flowchart-label" fill="white" font-weight="bold">冷凝器</text>
+                                    <text x="325" y="120" class="flowchart-label" fill="white" font-size="10">Condenser</text>
+                                    <!-- 散热片 -->
+                                    <line x1="260" y1="70" x2="390" y2="70" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="260" y1="85" x2="390" y2="85" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="260" y1="100" x2="390" y2="100" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="260" y1="115" x2="390" y2="115" stroke="white" stroke-width="1" opacity="0.5"/>
+                                </g>
+                                
+                                <!-- 膨胀阀 -->
+                                <g class="flowchart-node interactive-node" data-id="expansion-valve" data-label="膨胀阀/毛细管：高压液体节流降压成低温低压液体">
+                                    <path d="M450,200 L500,250 M500,200 L450,250" stroke="#9b59b6" stroke-width="8" stroke-linecap="round"/>
+                                    <rect x="440" y="260" width="70" height="25" fill="#9b59b6" rx="3"/>
+                                    <text x="475" y="277" class="flowchart-label" fill="white" font-size="10">膨胀阀</text>
+                                </g>
+                                
+                                <!-- 蒸发器 -->
+                                <g class="flowchart-node interactive-node" data-id="evaporator" data-label="蒸发器：低温低压液体吸热蒸发实现制冷">
+                                    <rect x="250" y="300" width="150" height="100" class="flowchart-box" fill="#3498db"/>
+                                    <text x="325" y="350" class="flowchart-label" fill="white" font-weight="bold">蒸发器</text>
+                                    <text x="325" y="370" class="flowchart-label" fill="white" font-size="10">Evaporator</text>
+                                    <!-- 吸热示意 -->
+                                    <path d="M270,320 Q280,310 290,320" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+                                    <path d="M310,320 Q320,310 330,320" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+                                    <path d="M350,320 Q360,310 370,320" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+                                </g>
+                                
+                                <!-- 制冷剂管道 - 高温高压侧（红色） -->
+                                <path id="pipe-hot-1" class="refrigerant-flow" d="M150,225 C180,225 200,150 250,100" stroke="url(#hotGrad)" stroke-width="12" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-hot-1" class="flow-arrow" d="M200,150 L210,140 M200,150 L210,160" stroke="#e74c3c" stroke-width="2"/>
+                                
+                                <!-- 冷凝器到膨胀阀 -->
+                                <path id="pipe-hot-2" class="refrigerant-flow" d="M400,100 C450,100 450,180 450,210" stroke="url(#hotGrad)" stroke-width="12" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-hot-2" class="flow-arrow" d="M450,170 L440,180 M450,170 L460,180" stroke="#e74c3c" stroke-width="2"/>
+                                
+                                <!-- 膨胀阀到蒸发器（低温低压侧，蓝色） -->
+                                <path id="pipe-cold-1" class="refrigerant-flow" d="M475,285 C475,320 400,320 400,350" stroke="url(#coldGrad)" stroke-width="12" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-cold-1" class="flow-arrow" d="M450,300 L440,310 M450,300 L460,310" stroke="#3498db" stroke-width="2"/>
+                                
+                                <!-- 蒸发器到压缩机 -->
+                                <path id="pipe-cold-2" class="refrigerant-flow" d="M250,350 C200,350 150,300 100,275" stroke="url(#coldGrad)" stroke-width="12" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-cold-2" class="flow-arrow" d="M200,330 L190,320 M200,330 L210,340" stroke="#3498db" stroke-width="2"/>
+                                
+                                <!-- 温度标注 -->
+                                <g id="temp-labels" class="temp-labels">
+                                    <text x="180" y="180" class="flowchart-label" fill="#e74c3c" font-size="11">高温高压气体</text>
+                                    <text x="420" y="180" class="flowchart-label" fill="#e74c3c" font-size="11">高压液体</text>
+                                    <text x="420" y="320" class="flowchart-label" fill="#3498db" font-size="11">低温低压液体</text>
+                                    <text x="180" y="320" class="flowchart-label" fill="#3498db" font-size="11">低温低压气体</text>
+                                </g>
+                                
+                                <!-- 热交换标注 -->
+                                <g id="heat-labels">
+                                    <text x="325" y="30" class="flowchart-label" fill="#e74c3c">🔥 向外界散热</text>
+                                    <text x="325" y="420" class="flowchart-label" fill="#3498db">❄️ 从冰箱内部吸热</text>
+                                </g>
+                                
+                                <!-- 图例 -->
+                                <g id="cycle-legend">
+                                    <rect x="550" y="50" width="130" height="100" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                    <text x="615" y="70" class="flowchart-label" font-weight="bold">图例</text>
+                                    <line x1="560" y1="90" x2="590" y2="90" stroke="#e74c3c" stroke-width="4"/>
+                                    <text x="600" y="95" class="flowchart-label" text-anchor="start" font-size="9">高温高压</text>
+                                    <line x1="560" y1="110" x2="590" y2="110" stroke="#3498db" stroke-width="4"/>
+                                    <text x="600" y="115" class="flowchart-label" text-anchor="start" font-size="9">低温低压</text>
+                                    <line x1="560" y1="130" x2="590" y2="130" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+                                    <text x="600" y="135" class="flowchart-label" text-anchor="start" font-size="9">制冷剂流向</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- 温度控制序列图 -->
+                    <div class="diagram-section">
+                        <h3>📈 温度控制序列图</h3>
+                        <div class="diagram-wrapper">
+                            <div class="chart-controls">
+                                <button class="chart-btn" onclick="playTemperatureSequence()">播放控制流程</button>
+                                <button class="chart-btn" onclick="resetTemperatureSequence()">重置</button>
+                            </div>
+                            <svg id="temperatureSequenceSvg" class="diagram-svg" viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrow-seq" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50" />
+                                    </marker>
+                                </defs>
+                                
+                                <!-- 生命线 -->
+                                <line x1="100" y1="60" x2="100" y2="320" class="sequence-lifeline"/>
+                                <line x1="250" y1="60" x2="250" y2="320" class="sequence-lifeline"/>
+                                <line x1="400" y1="60" x2="400" y2="320" class="sequence-lifeline"/>
+                                <line x1="550" y1="60" x2="550" y2="320" class="sequence-lifeline"/>
+                                <line x1="650" y1="60" x2="650" y2="320" class="sequence-lifeline"/>
+                                
+                                <!-- 参与者 -->
+                                <g class="sequence-actor">
+                                    <rect x="50" y="40" width="100" height="40" rx="5"/>
+                                    <text x="100" y="65" class="sequence-actor-label">用户</text>
+                                </g>
+                                
+                                <g class="sequence-actor">
+                                    <rect x="200" y="40" width="100" height="40" rx="5"/>
+                                    <text x="250" y="65" class="sequence-actor-label">温控器</text>
+                                </g>
+                                
+                                <g class="sequence-actor">
+                                    <rect x="350" y="40" width="100" height="40" rx="5"/>
+                                    <text x="400" y="65" class="sequence-actor-label">控制器</text>
+                                </g>
+                                
+                                <g class="sequence-actor">
+                                    <rect x="500" y="40" width="100" height="40" rx="5"/>
+                                    <text x="550" y="65" class="sequence-actor-label">压缩机</text>
+                                </g>
+                                
+                                <g class="sequence-actor">
+                                    <rect x="600" y="40" width="100" height="40" rx="5"/>
+                                    <text x="650" y="65" class="sequence-actor-label">制冷系统</text>
+                                </g>
+                                
+                                <!-- 消息箭头 -->
+                                <g class="sequence-message" id="msg1">
+                                    <line x1="100" y1="110" x2="250" y2="110" class="sequence-message"/>
+                                    <text x="175" y="105" class="sequence-label">1. 设定温度 (如 4℃)</text>
+                                </g>
+                                
+                                <g class="sequence-message" id="msg2">
+                                    <line x1="250" y1="150" x2="400" y2="150" class="sequence-message"/>
+                                    <text x="325" y="145" class="sequence-label">2. 检测当前温度</text>
+                                </g>
+                                
+                                <g class="sequence-message" id="msg3">
+                                    <line x1="400" y1="190" x2="550" y2="190" class="sequence-message"/>
+                                    <text x="475" y="185" class="sequence-label">3. 启动压缩机</text>
+                                </g>
+                                
+                                <g class="sequence-message" id="msg4">
+                                    <line x1="550" y1="230" x2="650" y2="230" class="sequence-message"/>
+                                    <text x="600" y="225" class="sequence-label">4. 制冷循环</text>
+                                </g>
+                                
+                                <g class="sequence-return" id="msg5">
+                                    <line x1="650" y1="270" x2="250" y2="270" class="sequence-return"/>
+                                    <text x="450" y="265" class="sequence-label">5. 温度达到设定值</text>
+                                </g>
+                                
+                                <!-- 激活框 -->
+                                <rect x="245" y="110" width="10" height="160" class="sequence-activation" id="activ-thermo"/>
+                                <rect x="395" y="150" width="10" height="120" class="sequence-activation" id="activ-control"/>
+                                <rect x="545" y="190" width="10" height="80" class="sequence-activation" id="activ-compressor"/>
+                                <rect x="645" y="230" width="10" height="40" class="sequence-activation" id="activ-cooling"/>
+                                
+                                <!-- 自循环 -->
+                                <path d="M250,300 Q230,300 230,310 Q230,320 250,320" class="sequence-lifeline"/>
+                                <text x="200" y="315" class="sequence-label" font-size="9">持续监测</text>
+                            </svg>
+                        </div>
+                    </div>
+
                     <h3>主要部件</h3>
                     <ul>
                         <li><strong>压缩机</strong>：制冷系统的心脏，提供动力</li>
@@ -555,98 +732,10 @@
                         <li><strong>温控器</strong>：调节冰箱内部温度</li>
                     </ul>
 
-                    <div class="diagram-section">
-                        <h3>原理图及装配图</h3>
-                        <div class="diagram-container">
-                            <div class="diagram-box">
-                                <h4>制冷循环原理图</h4>
-                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <marker id="arrowhead-refrigerator" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
-                                        </marker>
-                                    </defs>
-                                    <!-- 压缩机 -->
-                                    <rect x="20" y="100" width="70" height="50" class="component" rx="5"/>
-                                    <text x="55" y="130" class="component-label">压缩机</text>
-                                    
-                                    <!-- 冷凝器 -->
-                                    <rect x="120" y="20" width="60" height="80" class="component" rx="5"/>
-                                    <text x="150" y="65" class="component-label">冷凝器</text>
-                                    
-                                    <!-- 膨胀阀 -->
-                                    <circle cx="200" cy="150" r="20" class="component"/>
-                                    <text x="200" y="155" class="component-label">膨胀阀</text>
-                                    
-                                    <!-- 蒸发器 -->
-                                    <rect x="260" y="100" width="70" height="50" class="component" rx="5"/>
-                                    <text x="295" y="130" class="component-label">蒸发器</text>
-                                    
-                                    <!-- 连接管路 - 制冷剂流向 -->
-                                    <path d="M90,125 L120,70" class="power-line" marker-end="url(#arrowhead-refrigerator)"/>
-                                    <path d="M150,20 L150,100 L90,100" class="power-line" marker-end="url(#arrowhead-refrigerator)"/>
-                                    <path d="M200,130 L200,170 L260,150 L260,100" class="power-line" marker-end="url(#arrowhead-refrigerator)"/>
-                                    <path d="M330,125 L370,125" class="power-line" marker-end="url(#arrowhead-refrigerator)"/>
-                                    
-                                    <!-- 温度标注 -->
-                                    <text x="130" y="50" class="annotation">高温高压</text>
-                                    <text x="270" y="90" class="annotation">低温低压</text>
-                                    
-                                    <!-- 热交换标注 -->
-                                    <text x="300" y="50" class="annotation" fill="#e74c3c">放热</text>
-                                    <text x="280" y="170" class="annotation" fill="#3498db">吸热</text>
-                                </svg>
-                            </div>
-                            
-                            <div class="diagram-box">
-                                <h4>冰箱内部装配图</h4>
-                                <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- 冰箱外壳 -->
-                                    <rect x="80" y="30" width="240" height="240" class="assembly-part" rx="10"/>
-                                    <text x="200" y="55" class="assembly-label">外壳</text>
-                                    
-                                    <!-- 冷藏室 -->
-                                    <rect x="100" y="70" width="180" height="100" class="assembly-part" rx="5"/>
-                                    <text x="190" y="125" class="assembly-label">冷藏室</text>
-                                    
-                                    <!-- 冷冻室 -->
-                                    <rect x="100" y="190" width="180" height="60" class="assembly-part-highlight" rx="5"/>
-                                    <text x="190" y="225" class="assembly-label">冷冻室</text>
-                                    
-                                    <!-- 蒸发器（隐藏式） -->
-                                    <rect x="290" y="70" width="15" height="180" class="assembly-part" rx="3"/>
-                                    <text x="297" y="165" class="assembly-label" transform="rotate(90, 297, 165)">蒸发器</text>
-                                    
-                                    <!-- 压缩机位置 -->
-                                    <rect x="100" y="260" width="60" height="25" class="assembly-part-highlight" rx="3"/>
-                                    <text x="130" y="277" class="assembly-label">压缩机</text>
-                                    
-                                    <!-- 冷凝器位置 -->
-                                    <rect x="180" y="260" width="60" height="25" class="assembly-part" rx="3"/>
-                                    <text x="210" y="277" class="assembly-label">冷凝器</text>
-                                    
-                                    <!-- 温控器 -->
-                                    <circle cx="85" y="100" r="8" class="assembly-part-highlight"/>
-                                    <text x="85" y="103" class="assembly-label">温控</text>
-                                    
-                                    <!-- 门封 -->
-                                    <rect x="320" y="70" width="8" height="180" class="assembly-part" fill="#95a5a6"/>
-                                    
-                                    <!-- 隔板 -->
-                                    <line x1="100" y1="180" x2="280" y2="180" class="assembly-connector"/>
-                                    
-                                    <!-- 抽屉 -->
-                                    <rect x="120" y="200" width="60" height="35" class="assembly-part" rx="3"/>
-                                    <rect x="200" y="200" width="60" height="35" class="assembly-part" rx="3"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
                     <h3>常见故障及修复</h3>
-                    
+
                     <div class="troubleshoot">
-                        <h4>故障1：冰箱不制冷</h4>
+                        <h4>故障 1：冰箱不制冷</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
                             <li>电源问题：检查电源线和插座</li>
@@ -662,7 +751,7 @@
                             </div>
                             <div class="step">
                                 <span class="step-number">2</span>
-                                <div>检查温控器：确保温度设置正确（通常2-8℃）</div>
+                                <div>检查温控器：确保温度设置正确（通常 2-8℃）</div>
                             </div>
                             <div class="step">
                                 <span class="step-number">3</span>
@@ -676,7 +765,7 @@
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障2：冰箱结霜严重</h4>
+                        <h4>故障 2：冰箱结霜严重</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
                             <li>门封条老化或损坏</li>
@@ -693,7 +782,7 @@
                     </div>
 
                     <div class="troubleshoot">
-                        <h4>故障3：冰箱噪音过大</h4>
+                        <h4>故障 3：冰箱噪音过大</h4>
                         <p><strong>可能原因：</strong></p>
                         <ul>
                             <li>放置不平稳</li>
@@ -710,46 +799,37 @@
 
                     <h3>最佳使用实践</h3>
                     <div class="tip">
-                        <strong>温度设置：</strong>冷藏室建议设置在2-8℃，冷冻室-18℃左右，过低会浪费电能
+                        <strong>温度设置：</strong>冷藏室建议设置在 2-8℃，冷冻室 -18℃左右，过低会浪费电能
                     </div>
                     <div class="tip">
                         <strong>合理存放：</strong>生熟分开，剩菜剩饭及时密封冷藏，避免交叉污染和串味
                     </div>
                     <div class="tip">
-                        <strong>留有间隙：</strong>冰箱周围留足散热空间，背部至少10cm，两侧5cm以上
+                        <strong>留有间隙：</strong>冰箱周围留足散热空间，背部至少 10cm，两侧 5cm 以上
                     </div>
                     <div class="tip">
                         <strong>减少开门：</strong>开门时间越短、次数越少，耗电量越低，尽量一次性取出所需物品
                     </div>
-                    <div class="tip">
-                        <strong>定期除霜：</strong>霜层超过5mm时及时除霜，霜是热的不良导体，影响制冷效果
-                    </div>
-                    <div class="tip">
-                        <strong>热食冷却：</strong>热的食物先冷却至室温再放入冰箱，避免增加压缩机负担
-                    </div>
-                    <div class="tip">
-                        <strong>定期清洁：</strong>每月清洁一次内部，每季度清理冷凝器灰尘，保持良好散热
-                    </div>
 
                     <h3>维护建议</h3>
                     <div class="tip">
-                        <strong>定期清洁：</strong>每3-6个月清洁一次冷凝器和冷凝器风扇
+                        <strong>定期清洁：</strong>每 3-6 个月清洁一次冷凝器和冷凝器风扇
                     </div>
                     <div class="tip">
                         <strong>检查门封：</strong>定期检查门封条是否严密，可用纸片测试
                     </div>
                     <div class="tip">
-                        <strong>温度设置：</strong>冷藏室2-8℃，冷冻室-18℃左右
+                        <strong>温度设置：</strong>冷藏室 2-8℃，冷冻室 -18℃左右
                     </div>
                     <div class="warning">
                         <strong>安全注意：</strong>清洁前请拔掉电源，涉及制冷剂维修请专业人员处理
                     </div>
                 </section>
-
             </div>
         </main>
     </div>
 
+    <script src="js/diagrams.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -790,6 +870,99 @@
                 }
             }
         }
+
+        // 高亮当前页面导航
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+
+        // 制冷循环动画控制
+        let refrigerantFlowEnabled = false;
+        let temperatureEnabled = false;
+
+        function toggleRefrigerantFlow() {
+            refrigerantFlowEnabled = !refrigerantFlowEnabled;
+            const pipes = document.querySelectorAll('.refrigerant-flow');
+            pipes.forEach(pipe => {
+                if (refrigerantFlowEnabled) {
+                    pipe.style.animation = 'signalFlow 1s linear infinite';
+                } else {
+                    pipe.style.animation = '';
+                }
+            });
+        }
+
+        function toggleTemperature() {
+            temperatureEnabled = !temperatureEnabled;
+            const labels = document.getElementById('temp-labels');
+            if (labels) {
+                labels.style.opacity = temperatureEnabled ? '1' : '0.5';
+            }
+        }
+
+        function resetCycleDiagram() {
+            refrigerantFlowEnabled = false;
+            temperatureEnabled = false;
+            const pipes = document.querySelectorAll('.refrigerant-flow');
+            pipes.forEach(pipe => {
+                pipe.style.animation = '';
+            });
+            const labels = document.getElementById('temp-labels');
+            if (labels) {
+                labels.style.opacity = '1';
+            }
+        }
+
+        // 温度序列图控制
+        function playTemperatureSequence() {
+            const messages = ['msg1', 'msg2', 'msg3', 'msg4', 'msg5'];
+            let index = 0;
+            
+            // 先重置
+            messages.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.opacity = '0.3';
+            });
+            
+            const interval = setInterval(() => {
+                if (index >= messages.length) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                const el = document.getElementById(messages[index]);
+                if (el) {
+                    el.style.opacity = '1';
+                    el.style.stroke = '#e74c3c';
+                    el.style.strokeWidth = '3';
+                }
+                
+                index++;
+            }, 800);
+        }
+
+        function resetTemperatureSequence() {
+            const messages = ['msg1', 'msg2', 'msg3', 'msg4', 'msg5'];
+            messages.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.style.opacity = '1';
+                    el.style.stroke = '';
+                    el.style.strokeWidth = '';
+                }
+            });
+        }
+
+        // 初始化交互图
+        document.addEventListener('DOMContentLoaded', function() {
+            new DiagramControllers.InteractiveDiagramController('refrigerationCycleSvg', {
+                showTooltip: true,
+                highlightConnections: true
+            });
+        });
     </script>
 </body>
 </html>

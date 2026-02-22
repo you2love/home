@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式图表展示 - 家用电器运行原理</title>
+    <link rel="stylesheet" href="css/diagrams.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --sidebar-width: 280px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-tree {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-link .icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .nav-link .text {
+            font-size: 0.95rem;
+        }
+
+        .nav-section {
+            padding: 0.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.8rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+        }
+
+        .diagram-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--light-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .tab-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .diagram-panel {
+            display: none;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .diagram-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .diagram-panel h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .diagram-panel h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .diagram-container {
+            margin: 1.5rem 0;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+        }
+
+        .info-panel {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .info-panel h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-panel ul {
+            margin-left: 1.5rem;
+        }
+
+        .info-panel li {
+            margin-bottom: 0.5rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary-color);
+            color: var(--white);
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            background: var(--primary-color);
+            transform: translateX(-5px);
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .diagram-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🏠 家电常识</h1>
+            </div>
+
+            <nav class="nav-tree">
+                <div class="nav-section">
+                    <div class="nav-section-title">家用电器</div>
+                </div>
+                <div class="nav-item">
+                    <a href="refrigerator.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">冰箱</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="washing-machine.html" class="nav-link">
+                        <span class="icon">🧺</span>
+                        <span class="text">洗衣机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-conditioner.html" class="nav-link">
+                        <span class="icon">❄️</span>
+                        <span class="text">空调</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="microwave.html" class="nav-link">
+                        <span class="icon">📡</span>
+                        <span class="text">微波炉</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="television.html" class="nav-link">
+                        <span class="icon">📺</span>
+                        <span class="text">电视</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-heater.html" class="nav-link">
+                        <span class="icon">🚿</span>
+                        <span class="text">热水器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="dishwasher.html" class="nav-link">
+                        <span class="icon">🍽️</span>
+                        <span class="text">洗碗机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="vacuum.html" class="nav-link">
+                        <span class="icon">🧹</span>
+                        <span class="text">吸尘器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="air-purifier.html" class="nav-link">
+                        <span class="icon">🌬️</span>
+                        <span class="text">空气净化器</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="range-hood.html" class="nav-link">
+                        <span class="icon">🏭</span>
+                        <span class="text">油烟机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-fan.html" class="nav-link">
+                        <span class="icon">🌀</span>
+                        <span class="text">电风扇</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="water-dispenser.html" class="nav-link">
+                        <span class="icon">💧</span>
+                        <span class="text">饮水机</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="rice-cooker.html" class="nav-link">
+                        <span class="icon">🍚</span>
+                        <span class="text">电饭煲</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="induction-cooker.html" class="nav-link">
+                        <span class="icon">🍳</span>
+                        <span class="text">电磁炉</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">出行工具</div>
+                </div>
+                <div class="nav-item">
+                    <a href="electric-bicycle.html" class="nav-link">
+                        <span class="icon">🚲</span>
+                        <span class="text">电动自行车</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">电路照明</div>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-switch.html" class="nav-link">
+                        <span class="icon">🔌</span>
+                        <span class="text">墙上开关</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wall-outlet.html" class="nav-link">
+                        <span class="icon">🔋</span>
+                        <span class="text">墙上插座</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="wiring-diagram.html" class="nav-link">
+                        <span class="icon">📐</span>
+                        <span class="text">室内布线</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">交互图表</div>
+                </div>
+                <div class="nav-item">
+                    <a href="interactive-diagrams.html" class="nav-link active">
+                        <span class="icon">📊</span>
+                        <span class="text">动态图表展示</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <a href="index.html" class="back-link">← 返回首页</a>
+                
+                <div class="page-header">
+                    <h1>📊 交互式图表展示</h1>
+                    <p>点击下方的图表标签，查看各种家用电器的动态工作原理图、流程图和序列图</p>
+                </div>
+
+                <!-- 图表标签页 -->
+                <div class="diagram-tabs">
+                    <button class="tab-btn active" onclick="switchTab('refrigeration')">❄️ 制冷循环</button>
+                    <button class="tab-btn" onclick="switchTab('washing')">🧺 洗衣机流程</button>
+                    <button class="tab-btn" onclick="switchTab('microwave')">📡 微波炉原理</button>
+                    <button class="tab-btn" onclick="switchTab('fan')">🌀 电风扇控制</button>
+                    <button class="tab-btn" onclick="switchTab('rice')">🍚 电饭煲加热</button>
+                    <button class="tab-btn" onclick="switchTab('circuit')">⚡ 家庭电路</button>
+                </div>
+
+                <!-- 制冷循环图 -->
+                <div id="refrigeration-panel" class="diagram-panel active">
+                    <h2>❄️ 制冷循环工作原理</h2>
+                    <p>适用于：冰箱、空调、冷饮机等制冷设备</p>
+                    
+                    <div class="diagram-container">
+                        <div class="chart-controls">
+                            <button class="chart-btn" onclick="toggleRefrigerantFlow()">显示制冷剂流动</button>
+                            <button class="chart-btn" onclick="toggleHeatExchange()">显示热交换</button>
+                            <button class="chart-btn" onclick="resetRefrigeration()">重置</button>
+                        </div>
+                        <svg id="refrigerationSvg" class="diagram-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arrow-ref" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+                                </marker>
+                                <marker id="arrow-ref-cold" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                </marker>
+                                <linearGradient id="hotGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.9" />
+                                    <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:0.4" />
+                                </linearGradient>
+                                <linearGradient id="coldGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#3498db;stop-opacity:0.9" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- 压缩机 -->
+                            <g class="interactive-node" data-id="compressor" data-label="压缩机：将低温低压制冷剂气体压缩成高温高压气体 (70-90℃)">
+                                <circle cx="150" cy="250" r="60" class="flowchart-box" fill="#f39c12" stroke="#d35400" stroke-width="3"/>
+                                <text x="150" y="245" class="flowchart-label" font-weight="bold" font-size="14">压缩机</text>
+                                <text x="150" y="265" class="flowchart-label" font-size="11">Compression</text>
+                                <!-- 振动动画 -->
+                                <circle cx="150" cy="250" r="70" fill="none" stroke="#f39c12" stroke-width="2" opacity="0.3" class="flowchart-animated"/>
+                            </g>
+                            
+                            <!-- 冷凝器 -->
+                            <g class="interactive-node" data-id="condenser" data-label="冷凝器：高温高压气体通过散热片向外界散热，冷凝成高压液体">
+                                <rect x="350" y="80" width="180" height="120" class="flowchart-box" fill="#e74c3c" stroke="#c0392b" stroke-width="3"/>
+                                <text x="440" y="135" class="flowchart-label" fill="white" font-weight="bold" font-size="14">冷凝器</text>
+                                <text x="440" y="155" class="flowchart-label" fill="white" font-size="11">Condenser</text>
+                                <!-- 散热片 -->
+                                <line x1="365" y1="100" x2="515" y2="100" stroke="white" stroke-width="2" opacity="0.4"/>
+                                <line x1="365" y1="120" x2="515" y2="120" stroke="white" stroke-width="2" opacity="0.4"/>
+                                <line x1="365" y1="140" x2="515" y2="140" stroke="white" stroke-width="2" opacity="0.4"/>
+                                <line x1="365" y1="160" x2="515" y2="160" stroke="white" stroke-width="2" opacity="0.4"/>
+                                <line x1="365" y1="180" x2="515" y2="180" stroke="white" stroke-width="2" opacity="0.4"/>
+                            </g>
+                            
+                            <!-- 干燥过滤器 -->
+                            <g class="interactive-node" data-id="filter" data-label="干燥过滤器：过滤杂质，吸收水分，保护系统">
+                                <ellipse cx="560" cy="200" rx="25" ry="40" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+                                <text x="560" y="205" class="flowchart-label" fill="white" font-size="9">过滤器</text>
+                            </g>
+                            
+                            <!-- 膨胀阀/毛细管 -->
+                            <g class="interactive-node" data-id="expansion" data-label="膨胀阀/毛细管：高压液体节流降压，变成低温低压的雾状液体">
+                                <rect x="620" y="220" width="80" height="60" class="flowchart-box" fill="#9b59b6" stroke="#8e44ad" stroke-width="3"/>
+                                <path d="M630,240 L690,260 M690,240 L630,260" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                                <text x="660" y="295" class="flowchart-label" font-size="11">膨胀阀/毛细管</text>
+                            </g>
+                            
+                            <!-- 蒸发器 -->
+                            <g class="interactive-node" data-id="evaporator" data-label="蒸发器：低温低压液体吸收冰箱内部热量，蒸发成气体实现制冷">
+                                <rect x="350" y="320" width="180" height="120" class="flowchart-box" fill="#3498db" stroke="#2980b9" stroke-width="3"/>
+                                <text x="440" y="375" class="flowchart-label" fill="white" font-weight="bold" font-size="14">蒸发器</text>
+                                <text x="440" y="395" class="flowchart-label" fill="white" font-size="11">Evaporator</text>
+                                <!-- 冷气示意 -->
+                                <path d="M370,340 Q380,330 390,340" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+                                <path d="M410,340 Q420,330 430,340" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+                                <path d="M450,340 Q460,330 470,340" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+                                <path d="M490,340 Q500,330 510,340" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+                            </g>
+                            
+                            <!-- 气液分离器 -->
+                            <g class="interactive-node" data-id="separator" data-label="气液分离器：确保只有气体进入压缩机，防止液击">
+                                <rect x="200" y="350" width="50" height="80" fill="#1abc9c" stroke="#16a085" stroke-width="2" rx="5"/>
+                                <text x="225" y="395" class="flowchart-label" fill="white" font-size="9">分离器</text>
+                            </g>
+                            
+                            <!-- 管道 - 高温高压侧 -->
+                            <path id="pipe-hot-1" class="refrigerant-flow" d="M210,250 C280,250 300,180 350,140" stroke="url(#hotGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6" stroke-linecap="round"/>
+                            
+                            <!-- 冷凝器到膨胀阀 -->
+                            <path id="pipe-hot-2" class="refrigerant-flow" d="M530,140 C580,140 560,180 560,200" stroke="url(#hotGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6" stroke-linecap="round"/>
+                            <path id="pipe-hot-3" class="refrigerant-flow" d="M560,240 C580,240 600,240 620,250" stroke="url(#hotGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6" stroke-linecap="round"/>
+                            
+                            <!-- 膨胀阀到蒸发器 -->
+                            <path id="pipe-cold-1" class="refrigerant-flow" d="M700,250 C750,250 750,350 530,380" stroke="url(#coldGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6" stroke-linecap="round"/>
+                            
+                            <!-- 蒸发器到压缩机 -->
+                            <path id="pipe-cold-2" class="refrigerant-flow" d="M350,380 C280,380 250,390 225,390" stroke="url(#coldGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6" stroke-linecap="round"/>
+                            <path id="pipe-cold-3" class="refrigerant-flow" d="M225,390 L225,350" stroke="url(#coldGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6"/>
+                            <path id="pipe-cold-4" class="refrigerant-flow" d="M200,310 C180,300 160,290 150,280" stroke="url(#coldGrad2)" stroke-width="14" fill="none" stroke-dasharray="12,6" stroke-linecap="round"/>
+                            
+                            <!-- 状态标注 -->
+                            <g class="state-labels">
+                                <text x="280" y="200" class="flowchart-label" fill="#e74c3c" font-size="12">🔥 高温高压气体 (70-90℃)</text>
+                                <text x="580" y="180" class="flowchart-label" fill="#e74c3c" font-size="12">高压液体 (常温)</text>
+                                <text x="680" y="320" class="flowchart-label" fill="#3498db" font-size="12">低温低压雾状液体 (-20℃)</text>
+                                <text x="280" y="350" class="flowchart-label" fill="#3498db" font-size="12">低温低压气体</text>
+                            </g>
+                            
+                            <!-- 热交换标注 -->
+                            <g class="heat-labels" opacity="0.5">
+                                <text x="440" y="50" class="flowchart-label" fill="#e74c3c" font-size="13">🔥 向外界散热</text>
+                                <text x="440" y="470" class="flowchart-label" fill="#3498db" font-size="13">❄️ 从内部吸热</text>
+                            </g>
+                            
+                            <!-- 图例 -->
+                            <g>
+                                <rect x="650" y="50" width="130" height="110" fill="#f8f9fa" rx="8" stroke="#ddd" stroke-width="1"/>
+                                <text x="715" y="72" class="flowchart-label" font-weight="bold" font-size="12">图例</text>
+                                <line x1="665" y1="95" x2="695" y2="95" stroke="#e74c3c" stroke-width="5"/>
+                                <text x="705" y="100" class="flowchart-label" text-anchor="start" font-size="10">高温高压</text>
+                                <line x1="665" y1="115" x2="695" y2="115" stroke="#3498db" stroke-width="5"/>
+                                <text x="705" y="120" class="flowchart-label" text-anchor="start" font-size="10">低温低压</text>
+                                <line x1="665" y1="135" x2="695" y2="135" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+                                <text x="705" y="140" class="flowchart-label" text-anchor="start" font-size="10">制冷剂流向</text>
+                                <circle cx="680" cy="155" r="8" fill="#f39c12"/>
+                                <text x="705" y="160" class="flowchart-label" text-anchor="start" font-size="10">压缩机</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <h4>📖 工作原理说明</h4>
+                        <ul>
+                            <li><strong>压缩过程：</strong>压缩机将蒸发器来的低温低压制冷剂气体压缩成高温高压气体</li>
+                            <li><strong>冷凝过程：</strong>高温高压气体在冷凝器中向外界散热，冷凝成高压液体</li>
+                            <li><strong>节流过程：</strong>高压液体经过膨胀阀/毛细管节流降压，变成低温低压的雾状液体</li>
+                            <li><strong>蒸发过程：</strong>低温低压液体在蒸发器中吸收箱内热量，蒸发成气体实现制冷</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 洗衣机流程图 -->
+                <div id="washing-panel" class="diagram-panel">
+                    <h2>🧺 洗衣机工作流程</h2>
+                    <p>展示洗衣机从进水到排水的完整工作流程</p>
+                    
+                    <div class="diagram-container">
+                        <div class="chart-controls">
+                            <button class="chart-btn" onclick="playWashingSequence()">播放工作流程</button>
+                            <button class="chart-btn" onclick="resetWashing()">重置</button>
+                        </div>
+                        <svg id="washingSvg" class="diagram-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arrow-wash" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- 步骤 1: 进水 -->
+                            <g class="flowchart-node interactive-node" data-id="step1" data-label="步骤 1: 进水 - 进水阀打开，水进入洗衣桶">
+                                <rect x="50" y="50" width="120" height="80" class="flowchart-box" fill="#3498db"/>
+                                <text x="110" y="85" class="flowchart-label" fill="white" font-weight="bold">① 进水</text>
+                                <text x="110" y="105" class="flowchart-label" fill="white" font-size="10">Water Inlet</text>
+                                <!-- 水龙头图标 -->
+                                <circle cx="110" cy="65" r="15" fill="white" opacity="0.3"/>
+                                <path d="M105,65 L115,65 M110,60 L110,70" stroke="white" stroke-width="2"/>
+                            </g>
+                            
+                            <!-- 步骤 2: 洗涤 -->
+                            <g class="flowchart-node interactive-node" data-id="step2" data-label="步骤 2: 洗涤 - 电机带动波轮/滚筒旋转，清洗衣物">
+                                <rect x="220" y="50" width="120" height="80" class="flowchart-box" fill="#2ecc71"/>
+                                <text x="280" y="85" class="flowchart-label" fill="white" font-weight="bold">② 洗涤</text>
+                                <text x="280" y="105" class="flowchart-label" fill="white" font-size="10">Washing</text>
+                                <!-- 旋转图标 -->
+                                <circle cx="280" cy="65" r="15" fill="white" opacity="0.3"/>
+                                <path d="M270,65 Q280,55 290,65" stroke="white" stroke-width="2" fill="none"/>
+                            </g>
+                            
+                            <!-- 步骤 3: 排水 -->
+                            <g class="flowchart-node interactive-node" data-id="step3" data-label="步骤 3: 排水 - 排水泵工作，污水排出">
+                                <rect x="390" y="50" width="120" height="80" class="flowchart-box" fill="#e67e22"/>
+                                <text x="450" y="85" class="flowchart-label" fill="white" font-weight="bold">③ 排水</text>
+                                <text x="450" y="105" class="flowchart-label" fill="white" font-size="10">Draining</text>
+                                <!-- 水流图标 -->
+                                <circle cx="450" cy="65" r="15" fill="white" opacity="0.3"/>
+                                <path d="M445,60 Q450,65 445,70 M455,60 Q460,65 455,70" stroke="white" stroke-width="2" fill="none"/>
+                            </g>
+                            
+                            <!-- 步骤 4: 脱水 -->
+                            <g class="flowchart-node interactive-node" data-id="step4" data-label="步骤 4: 脱水 - 内筒高速旋转，离心力脱水">
+                                <rect x="560" y="50" width="120" height="80" class="flowchart-box" fill="#9b59b6"/>
+                                <text x="620" y="85" class="flowchart-label" fill="white" font-weight="bold">④ 脱水</text>
+                                <text x="620" y="105" class="flowchart-label" fill="white" font-size="10">Spinning</text>
+                                <!-- 高速旋转图标 -->
+                                <circle cx="620" cy="65" r="15" fill="white" opacity="0.3"/>
+                                <circle cx="620" cy="65" r="10" stroke="white" stroke-width="2" fill="none"/>
+                                <path d="M620,55 L620,60 M620,70 L620,75 M610,65 L615,65 M625,65 L630,65" stroke="white" stroke-width="2"/>
+                            </g>
+                            
+                            <!-- 步骤 5: 完成 -->
+                            <g class="flowchart-node interactive-node" data-id="step5" data-label="步骤 5: 完成 - 洗涤结束，蜂鸣器提示">
+                                <rect x="50" y="200" width="120" height="80" class="flowchart-start-end" fill="#27ae60"/>
+                                <text x="110" y="235" class="flowchart-label" fill="white" font-weight="bold">✅ 完成</text>
+                                <text x="110" y="255" class="flowchart-label" fill="white" font-size="10">Complete</text>
+                            </g>
+                            
+                            <!-- 连接线 -->
+                            <path class="flowchart-arrow" id="wash-arrow-1" d="M170,90 L220,90" stroke-width="3"/>
+                            <path class="flowchart-arrow" id="wash-arrow-2" d="M340,90 L390,90" stroke-width="3"/>
+                            <path class="flowchart-arrow" id="wash-arrow-3" d="M510,90 L560,90" stroke-width="3"/>
+                            <path class="flowchart-arrow" id="wash-arrow-4" d="M620,130 L620,160 L110,160 L110,200" stroke-width="3"/>
+                            
+                            <!-- 洗衣桶示意图 -->
+                            <g class="washing-tub" transform="translate(250, 200)">
+                                <ellipse cx="150" cy="80" rx="100" ry="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="3"/>
+                                <path d="M50,80 L50,140 A100,30 0 0,0 250,140 L250,80" fill="#3498db" opacity="0.5"/>
+                                <ellipse cx="150" cy="140" rx="100" ry="30" fill="none" stroke="#bdc3c7" stroke-width="3"/>
+                                <!-- 衣物 -->
+                                <circle cx="120" cy="100" r="15" fill="#e74c3c" opacity="0.7"/>
+                                <circle cx="180" cy="110" r="12" fill="#3498db" opacity="0.7"/>
+                                <circle cx="150" cy="125" r="18" fill="#2ecc71" opacity="0.7"/>
+                                <!-- 旋转箭头 -->
+                                <path class="wash-rotate" d="M150,60 A40,40 0 0,1 190,100" stroke="#2c3e50" stroke-width="3" fill="none" marker-end="url(#arrow-wash)"/>
+                            </g>
+                            
+                            <!-- 状态说明 -->
+                            <g id="washing-status" transform="translate(500, 220)">
+                                <rect x="0" y="0" width="250" height="120" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                <text x="125" y="25" class="flowchart-label" font-weight="bold">当前状态</text>
+                                <text id="washing-step-text" x="125" y="60" class="flowchart-label" font-size="12">点击"播放工作流程"开始</text>
+                                <text x="125" y="85" class="flowchart-label" font-size="10" fill="#7f8c8d">总时长：约 30-60 分钟</text>
+                                <text x="125" y="105" class="flowchart-label" font-size="10" fill="#7f8c8d">用水量：约 50-80 升</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <h4>📖 工作流程说明</h4>
+                        <ul>
+                            <li><strong>进水阶段：</strong>进水阀打开，水进入洗衣桶，水位传感器检测水位</li>
+                            <li><strong>洗涤阶段：</strong>电机带动波轮/滚筒正反转，水流冲刷衣物，洗涤剂去污</li>
+                            <li><strong>排水阶段：</strong>排水泵工作，将污水排出，可能包含多次漂洗循环</li>
+                            <li><strong>脱水阶段：</strong>内筒高速旋转（800-1400 转/分），离心力将水分从衣物中甩出</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 微波炉原理图 -->
+                <div id="microwave-panel" class="diagram-panel">
+                    <h2>📡 微波炉加热原理</h2>
+                    <p>展示微波炉如何利用微波加热食物</p>
+                    
+                    <div class="diagram-container">
+                        <svg id="microwaveSvg" class="diagram-svg" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 微波炉外壳 -->
+                            <rect x="50" y="50" width="400" height="280" fill="#ecf0f1" stroke="#7f8c8d" stroke-width="3" rx="10"/>
+                            
+                            <!-- 炉腔 -->
+                            <rect x="80" y="80" width="300" height="200" fill="#bdc3c7" stroke="#95a5a6" stroke-width="2" rx="5"/>
+                            
+                            <!-- 食物 -->
+                            <ellipse cx="230" cy="220" rx="80" ry="30" fill="#e74c3c" opacity="0.8"/>
+                            <text x="230" y="225" class="flowchart-label" fill="white">食物</text>
+                            
+                            <!-- 磁控管 -->
+                            <g class="interactive-node" data-id="magnetron" data-label="磁控管：产生 2.45GHz 的微波">
+                                <rect x="420" y="100" width="80" height="60" fill="#f39c12" stroke="#d35400" stroke-width="2" rx="5"/>
+                                <text x="460" y="130" class="flowchart-label" fill="white" font-size="11">磁控管</text>
+                            </g>
+                            
+                            <!-- 波导 -->
+                            <rect x="380" y="120" width="40" height="20" fill="#95a5a6"/>
+                            
+                            <!-- 微波示意 -->
+                            <g class="microwave-lines">
+                                <path class="microwave-path" d="M420,130 Q350,100 280,130" stroke="#e74c3c" stroke-width="2" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+                                <path class="microwave-path" d="M420,140 Q350,140 280,150" stroke="#e74c3c" stroke-width="2" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+                                <path class="microwave-path" d="M420,150 Q350,180 280,170" stroke="#e74c3c" stroke-width="2" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+                            </g>
+                            
+                            <!-- 搅拌器 -->
+                            <g class="interactive-node" data-id="stirrer" data-label="搅拌器：使微波均匀分布">
+                                <polygon points="230,90 220,110 240,110" fill="#3498db"/>
+                                <text x="230" y="80" class="flowchart-label" font-size="9">搅拌器</text>
+                            </g>
+                            
+                            <!-- 控制电路 -->
+                            <g class="interactive-node" data-id="control" data-label="控制电路：控制功率和时间">
+                                <rect x="50" y="280" width="120" height="60" fill="#34495e" stroke="#2c3e50" stroke-width="2" rx="5"/>
+                                <text x="110" y="310" class="flowchart-label" fill="white" font-size="11">控制电路</text>
+                                <text x="110" y="325" class="flowchart-label" fill="white" font-size="9">变压器/电容</text>
+                            </g>
+                            
+                            <!-- 门开关 -->
+                            <g class="interactive-node" data-id="door-switch" data-label="门开关：安全保护，开门时切断电源">
+                                <rect x="200" y="280" width="100" height="60" fill="#27ae60" stroke="#1e8449" stroke-width="2" rx="5"/>
+                                <text x="250" y="310" class="flowchart-label" fill="white" font-size="11">门开关</text>
+                                <text x="250" y="325" class="flowchart-label" fill="white" font-size="9">安全保护</text>
+                            </g>
+                            
+                            <!-- 转盘电机 -->
+                            <g class="interactive-node" data-id="motor" data-label="转盘电机：带动食物旋转，均匀加热">
+                                <rect x="350" y="280" width="100" height="60" fill="#8e44ad" stroke="#7d3c98" stroke-width="2" rx="5"/>
+                                <text x="400" y="310" class="flowchart-label" fill="white" font-size="11">转盘电机</text>
+                            </g>
+                            
+                            <!-- 连接箭头 -->
+                            <path class="flowchart-arrow" d="M170,310 L200,310" stroke-width="2"/>
+                            <path class="flowchart-arrow" d="M300,310 L350,310" stroke-width="2"/>
+                            <path class="flowchart-arrow" d="M400,280 L460,160" stroke-width="2"/>
+                            
+                            <!-- 说明文字 -->
+                            <text x="230" y="370" class="flowchart-label" fill="#e74c3c">微波频率：2.45GHz</text>
+                            <text x="230" y="390" class="flowchart-label" fill="#7f8c8d" font-size="10">水分子每秒振动约 24.5 亿次，摩擦生热</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <h4>📖 加热原理说明</h4>
+                        <ul>
+                            <li><strong>磁控管：</strong>将电能转换成微波能量，产生频率为 2.45GHz 的微波</li>
+                            <li><strong>微波传播：</strong>微波通过波导传输到炉腔，在金属壁间反射</li>
+                            <li><strong>分子振动：</strong>微波使食物中的水分子高速振动（每秒约 24.5 亿次）</li>
+                            <li><strong>摩擦生热：</strong>水分子振动产生摩擦，将微波能量转换成热能</li>
+                            <li><strong>均匀加热：</strong>搅拌器和转盘使微波分布更均匀，避免局部过热</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 电风扇控制图 -->
+                <div id="fan-panel" class="diagram-panel">
+                    <h2>🌀 电风扇控制系统</h2>
+                    <p>展示电风扇的速度控制和摇头机构</p>
+                    
+                    <div class="diagram-container">
+                        <svg id="fanSvg" class="diagram-svg" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 电源 -->
+                            <g class="interactive-node" data-id="power" data-label="电源：220V/50Hz 交流电">
+                                <circle cx="80" cy="200" r="30" fill="#f39c12" stroke="#d35400" stroke-width="2"/>
+                                <text x="80" y="195" class="flowchart-label" fill="white" font-size="10">电源</text>
+                                <text x="80" y="210" class="flowchart-label" fill="white" font-size="8">220V</text>
+                            </g>
+                            
+                            <!-- 调速开关 -->
+                            <g class="interactive-node" data-id="speed-switch" data-label="调速开关：选择电机转速（高/中/低）">
+                                <rect x="150" y="150" width="100" height="100" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="10"/>
+                                <text x="200" y="185" class="flowchart-label" fill="white" font-weight="bold">调速开关</text>
+                                <text x="200" y="205" class="flowchart-label" fill="white" font-size="9">3 档调速</text>
+                                <text x="200" y="230" class="flowchart-label" fill="white" font-size="11">⚡ 高 | ⚡ 中 | ⚡ 低</text>
+                            </g>
+                            
+                            <!-- 定时器 -->
+                            <g class="interactive-node" data-id="timer" data-label="定时器：设定运行时间（0-60 分钟）">
+                                <rect x="150" y="280" width="100" height="80" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" rx="10"/>
+                                <text x="200" y="315" class="flowchart-label" fill="white" font-weight="bold">定时器</text>
+                                <text x="200" y="335" class="flowchart-label" fill="white" font-size="9">0-60 分钟</text>
+                            </g>
+                            
+                            <!-- 电机 -->
+                            <g class="interactive-node" data-id="motor" data-label="电机：将电能转换成机械能，带动扇叶旋转">
+                                <circle cx="400" cy="200" r="50" fill="#2c3e50" stroke="#1a252f" stroke-width="3"/>
+                                <text x="400" y="205" class="flowchart-label" fill="white" font-weight="bold">电机</text>
+                                <text x="400" y="225" class="flowchart-label" fill="white" font-size="9">AC Motor</text>
+                                <!-- 旋转示意 -->
+                                <circle cx="400" cy="200" r="60" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5" class="fan-rotate"/>
+                            </g>
+                            
+                            <!-- 扇叶 -->
+                            <g class="fan-blades" transform="translate(550, 200)">
+                                <ellipse cx="0" cy="0" rx="80" ry="20" fill="#3498db" opacity="0.6" class="fan-blade-rotate"/>
+                                <ellipse cx="0" cy="0" rx="80" ry="20" fill="#3498db" opacity="0.6" transform="rotate(60)" class="fan-blade-rotate"/>
+                                <ellipse cx="0" cy="0" rx="80" ry="20" fill="#3498db" opacity="0.6" transform="rotate(120)" class="fan-blade-rotate"/>
+                                <circle cx="0" cy="0" r="15" fill="#2c3e50"/>
+                            </g>
+                            
+                            <!-- 摇头机构 -->
+                            <g class="interactive-node" data-id="oscillation" data-label="摇头机构：使风扇左右摆动，扩大送风范围">
+                                <rect x="350" y="320" width="100" height="50" fill="#27ae60" stroke="#1e8449" stroke-width="2" rx="5"/>
+                                <text x="400" y="345" class="flowchart-label" fill="white" font-size="11">摇头机构</text>
+                            </g>
+                            
+                            <!-- 连接线 -->
+                            <path class="flowchart-arrow" d="M110,200 L150,200" stroke-width="3"/>
+                            <path class="flowchart-arrow" d="M250,200 L350,200" stroke-width="3"/>
+                            <path class="flowchart-arrow" d="M200,250 L200,280" stroke-width="2" stroke-dasharray="5,5"/>
+                            <path class="flowchart-arrow" d="M400,250 L400,320" stroke-width="2" stroke-dasharray="5,5"/>
+                            
+                            <!-- 风速指示 -->
+                            <g transform="translate(550, 50)">
+                                <text x="0" y="0" class="flowchart-label" font-weight="bold">风速指示</text>
+                                <rect x="0" y="10" width="80" height="20" fill="#ecf0f1" rx="3"/>
+                                <rect id="wind-level" x="5" y="15" width="20" height="10" fill="#27ae60" rx="2"/>
+                                <text x="90" y="25" class="flowchart-label" text-anchor="start" font-size="10">低</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="chart-controls">
+                        <button class="chart-btn" onclick="toggleFanSpeed()">切换风速</button>
+                        <button class="chart-btn" onclick="toggleOscillation()">摇头开关</button>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <h4>📖 控制系统说明</h4>
+                        <ul>
+                            <li><strong>调速开关：</strong>通过改变电机绕组抽头，调节电机转速，实现高/中/低三档风速</li>
+                            <li><strong>定时器：</strong>机械或电子定时器，设定运行时间后自动切断电源</li>
+                            <li><strong>电机：</strong>单相交流感应电机，转速约 1200-1400 转/分</li>
+                            <li><strong>摇头机构：</strong>通过齿轮组和连杆，使风扇头部左右摆动（约 60-90 度）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 电饭煲加热图 -->
+                <div id="rice-panel" class="diagram-panel">
+                    <h2>🍚 电饭煲加热控制</h2>
+                    <p>展示电饭煲的加热和保温控制原理</p>
+                    
+                    <div class="diagram-container">
+                        <svg id="riceSvg" class="diagram-svg" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 电源 -->
+                            <g class="interactive-node" data-id="power" data-label="电源：220V/50Hz">
+                                <circle cx="80" cy="200" r="30" fill="#f39c12"/>
+                                <text x="80" y="205" class="flowchart-label" fill="white">电源</text>
+                            </g>
+                            
+                            <!-- 煮饭开关 -->
+                            <g class="interactive-node" data-id="cook-switch" data-label="煮饭开关：启动加热程序">
+                                <rect x="150" y="150" width="100" height="60" fill="#e74c3c" rx="8"/>
+                                <text x="200" y="180" class="flowchart-label" fill="white">煮饭开关</text>
+                            </g>
+                            
+                            <!-- 保温开关 -->
+                            <g class="interactive-node" data-id="warm-switch" data-label="保温开关：保持米饭温度在 60-70℃">
+                                <rect x="150" y="240" width="100" height="60" fill="#f39c12" rx="8"/>
+                                <text x="200" y="270" class="flowchart-label" fill="white">保温开关</text>
+                            </g>
+                            
+                            <!-- 温控器 -->
+                            <g class="interactive-node" data-id="thermostat" data-label="温控器/磁钢限温器：检测内锅温度，103℃时自动断开">
+                                <rect x="300" y="180" width="100" height="80" fill="#3498db" rx="8"/>
+                                <text x="350" y="215" class="flowchart-label" fill="white">温控器</text>
+                                <text x="350" y="235" class="flowchart-label" fill="white" font-size="9">103℃断开</text>
+                            </g>
+                            
+                            <!-- 加热盘 -->
+                            <g class="interactive-node" data-id="heater" data-label="加热盘：将电能转换成热能，加热内锅">
+                                <rect x="450" y="150" width="150" height="40" fill="#e74c3c" rx="5"/>
+                                <text x="525" y="175" class="flowchart-label" fill="white">加热盘</text>
+                                <!-- 热气示意 -->
+                                <path class="heat-wave" d="M470,140 Q480,130 490,140" stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.6"/>
+                                <path class="heat-wave" d="M525,140 Q535,130 545,140" stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.6"/>
+                                <path class="heat-wave" d="M580,140 Q590,130 600,140" stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.6"/>
+                            </g>
+                            
+                            <!-- 内锅 -->
+                            <g class="interactive-node" data-id="pot" data-label="内锅：盛放米和水，接受加热">
+                                <path d="M470,110 L480,150 L570,150 L580,110" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="2"/>
+                                <ellipse cx="525" cy="110" rx="55" ry="10" fill="#ecf0f1"/>
+                                <text x="525" y="135" class="flowchart-label">米 + 水</text>
+                            </g>
+                            
+                            <!-- 状态指示 -->
+                            <g transform="translate(450, 250)">
+                                <rect x="0" y="0" width="150" height="100" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                <text x="75" y="25" class="flowchart-label" font-weight="bold">工作状态</text>
+                                <circle id="cook-led" cx="30" cy="55" r="10" fill="#95a5a6"/>
+                                <text x="50" y="60" class="flowchart-label" text-anchor="start" font-size="10">煮饭</text>
+                                <circle id="warm-led" cx="30" cy="85" r="10" fill="#95a5a6"/>
+                                <text x="50" y="90" class="flowchart-label" text-anchor="start" font-size="10">保温</text>
+                            </g>
+                            
+                            <!-- 连接线 -->
+                            <path class="flowchart-arrow" d="M110,200 L150,200" stroke-width="3"/>
+                            <path class="flowchart-arrow" d="M200,210 L200,240" stroke-width="2"/>
+                            <path class="flowchart-arrow" d="M250,180 L300,200" stroke-width="2"/>
+                            <path class="flowchart-arrow" d="M250,270 L300,240" stroke-width="2"/>
+                            <path class="flowchart-arrow" d="M400,220 L450,200" stroke-width="3"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="chart-controls">
+                        <button class="chart-btn" onclick="startCooking()">开始煮饭</button>
+                        <button class="chart-btn" onclick="resetRiceCooker()">重置</button>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <h4>📖 工作原理说明</h4>
+                        <ul>
+                            <li><strong>加热过程：</strong>按下煮饭开关，加热盘通电发热，将内锅中的米和水加热</li>
+                            <li><strong>沸腾阶段：</strong>水温达到 100℃后开始沸腾，水分逐渐被米吸收</li>
+                            <li><strong>自动断电：</strong>水分烧干后，内锅温度升至 103℃，磁钢限温器自动断开</li>
+                            <li><strong>保温状态：</strong>温控器切换到保温电路，保持米饭温度在 60-70℃</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 家庭电路图 -->
+                <div id="circuit-panel" class="diagram-panel">
+                    <h2>⚡ 家庭电路配电系统</h2>
+                    <p>展示家庭电路的配电结构和各回路分配</p>
+                    
+                    <div class="diagram-container">
+                        <svg id="circuitSvg" class="diagram-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 入户电源 -->
+                            <g class="interactive-node" data-id="main-power" data-label="入户电源：220V/50Hz 单相交流电">
+                                <rect x="20" y="220" width="100" height="60" fill="#f39c12" rx="8"/>
+                                <text x="70" y="245" class="flowchart-label" fill="white" font-weight="bold">入户电源</text>
+                                <text x="70" y="265" class="flowchart-label" fill="white" font-size="10">220V/50Hz</text>
+                            </g>
+                            
+                            <!-- 电表 -->
+                            <g class="interactive-node" data-id="meter" data-label="电表：计量用电量">
+                                <rect x="150" y="230" width="70" height="40" fill="#34495e" rx="5"/>
+                                <text x="185" y="255" class="flowchart-label" fill="white" font-size="10">电表</text>
+                            </g>
+                            
+                            <!-- 配电箱 -->
+                            <g class="interactive-node" data-id="distribution" data-label="配电箱：分配电能，提供过载和漏电保护">
+                                <rect x="250" y="180" width="120" height="140" fill="#2c3e50" rx="8"/>
+                                <text x="310" y="210" class="flowchart-label" fill="white" font-weight="bold">配电箱</text>
+                                <text x="310" y="230" class="flowchart-label" fill="white" font-size="9">总开关 63A</text>
+                                <text x="310" y="250" class="flowchart-label" fill="white" font-size="9">漏电保护</text>
+                                <text x="310" y="270" class="flowchart-label" fill="white" font-size="9">分路断路器</text>
+                                <text x="310" y="290" class="flowchart-label" fill="white" font-size="9">接地保护</text>
+                            </g>
+                            
+                            <!-- 照明回路 -->
+                            <g class="interactive-node" data-id="lighting" data-label="照明回路：1.5mm²线，10A 断路器">
+                                <rect x="450" y="50" width="120" height="60" fill="#f1c40f" rx="8"/>
+                                <text x="510" y="75" class="flowchart-label" font-weight="bold">照明回路</text>
+                                <text x="510" y="95" class="flowchart-label" font-size="9">1.5mm² / 10A</text>
+                            </g>
+                            
+                            <!-- 普通插座 -->
+                            <g class="interactive-node" data-id="socket" data-label="普通插座回路：2.5mm²线，16A 断路器">
+                                <rect x="450" y="140" width="120" height="60" fill="#27ae60" rx="8"/>
+                                <text x="510" y="165" class="flowchart-label" fill="white" font-weight="bold">普通插座</text>
+                                <text x="510" y="185" class="flowchart-label" fill="white" font-size="9">2.5mm² / 16A</text>
+                            </g>
+                            
+                            <!-- 空调回路 -->
+                            <g class="interactive-node" data-id="ac" data-label="空调专用回路：4mm²线，25A 断路器">
+                                <rect x="450" y="230" width="120" height="60" fill="#e74c3c" rx="8"/>
+                                <text x="510" y="255" class="flowchart-label" fill="white" font-weight="bold">空调专用</text>
+                                <text x="510" y="275" class="flowchart-label" fill="white" font-size="9">4mm² / 25A</text>
+                            </g>
+                            
+                            <!-- 厨房回路 -->
+                            <g class="interactive-node" data-id="kitchen" data-label="厨房专用回路：4mm²线，25A 断路器">
+                                <rect x="450" y="320" width="120" height="60" fill="#9b59b6" rx="8"/>
+                                <text x="510" y="345" class="flowchart-label" fill="white" font-weight="bold">厨房专用</text>
+                                <text x="510" y="365" class="flowchart-label" fill="white" font-size="9">4mm² / 25A</text>
+                            </g>
+                            
+                            <!-- 卫生间回路 -->
+                            <g class="interactive-node" data-id="bathroom" data-label="卫生间专用回路：4mm²线，25A 断路器带漏保">
+                                <rect x="450" y="410" width="120" height="60" fill="#3498db" rx="8"/>
+                                <text x="510" y="435" class="flowchart-label" fill="white" font-weight="bold">卫生间</text>
+                                <text x="510" y="455" class="flowchart-label" fill="white" font-size="9">4mm² / 25A + 漏保</text>
+                            </g>
+                            
+                            <!-- 接地 -->
+                            <g class="interactive-node" data-id="ground" data-label="接地保护：保护人身安全">
+                                <rect x="650" y="220" width="120" height="60" fill="#27ae60" rx="8"/>
+                                <text x="710" y="250" class="flowchart-label" fill="white" font-weight="bold">🟢 接地</text>
+                                <text x="710" y="270" class="flowchart-label" fill="white" font-size="9">PE 线</text>
+                            </g>
+                            
+                            <!-- 连接线 -->
+                            <path class="flowchart-arrow" d="M120,250 L150,250" stroke-width="4" stroke="#e74c3c"/>
+                            <path class="flowchart-arrow" d="M220,250 L250,250" stroke-width="4" stroke="#e74c3c"/>
+                            
+                            <path class="power-line" d="M310,180 L310,80 L450,80" stroke-width="3"/>
+                            <path class="power-line" d="M330,200 L450,170" stroke-width="3"/>
+                            <path class="power-line" d="M370,250 L450,260" stroke-width="3"/>
+                            <path class="power-line" d="M330,300 L450,350" stroke-width="3"/>
+                            <path class="power-line" d="M310,320 L310,440 L450,440" stroke-width="3"/>
+                            
+                            <path class="flowchart-arrow" d="M570,260 L650,250" stroke-width="2" stroke="#27ae60"/>
+                            
+                            <!-- 图例 -->
+                            <g transform="translate(600, 320)">
+                                <rect x="0" y="0" width="180" height="120" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                <text x="90" y="25" class="flowchart-label" font-weight="bold">线径规格</text>
+                                <text x="10" y="50" class="flowchart-label" text-anchor="start" font-size="10">1.5mm²：照明</text>
+                                <text x="10" y="70" class="flowchart-label" text-anchor="start" font-size="10">2.5mm²：普通插座</text>
+                                <text x="10" y="90" class="flowchart-label" text-anchor="start" font-size="10">4mm²：大功率电器</text>
+                                <text x="10" y="110" class="flowchart-label" text-anchor="start" font-size="10">10mm²：入户主线</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <h4>📖 配电系统说明</h4>
+                        <ul>
+                            <li><strong>入户电源：</strong>220V/50Hz 单相交流电，通过电表进入配电箱</li>
+                            <li><strong>总开关：</strong>63A 断路器，控制整个家庭电路的通断</li>
+                            <li><strong>分路设计：</strong>照明、插座、大功率电器分开回路，互不影响</li>
+                            <li><strong>线径选择：</strong>根据负载电流选择，大功率电器使用 4mm²专线</li>
+                            <li><strong>接地保护：</strong>所有插座必须有接地线，防止漏电事故</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/diagrams.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // 标签页切换
+        function switchTab(tabId) {
+            // 隐藏所有面板
+            document.querySelectorAll('.diagram-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // 取消所有按钮激活状态
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 激活选中的面板和按钮
+            document.getElementById(tabId + '-panel').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 制冷循环动画
+        let refrigerantFlowEnabled = false;
+        let heatExchangeEnabled = false;
+
+        function toggleRefrigerantFlow() {
+            refrigerantFlowEnabled = !refrigerantFlowEnabled;
+            const pipes = document.querySelectorAll('#refrigerationSvg .refrigerant-flow');
+            pipes.forEach(pipe => {
+                if (refrigerantFlowEnabled) {
+                    pipe.style.animation = 'signalFlow 1s linear infinite';
+                } else {
+                    pipe.style.animation = '';
+                }
+            });
+        }
+
+        function toggleHeatExchange() {
+            heatExchangeEnabled = !heatExchangeEnabled;
+            const labels = document.querySelectorAll('#refrigerationSvg .heat-labels');
+            labels.forEach(label => {
+                label.style.opacity = heatExchangeEnabled ? '1' : '0.5';
+            });
+        }
+
+        function resetRefrigeration() {
+            refrigerantFlowEnabled = false;
+            heatExchangeEnabled = false;
+            const pipes = document.querySelectorAll('#refrigerationSvg .refrigerant-flow');
+            pipes.forEach(pipe => {
+                pipe.style.animation = '';
+            });
+            const labels = document.querySelectorAll('#refrigerationSvg .heat-labels');
+            labels.forEach(label => {
+                label.style.opacity = '0.5';
+            });
+        }
+
+        // 洗衣机动画
+        function playWashingSequence() {
+            const steps = [
+                { id: 'step1', text: '① 进水阶段：进水阀打开，水进入洗衣桶（约 5 分钟）' },
+                { id: 'step2', text: '② 洗涤阶段：电机带动波轮旋转，清洗衣物（约 15 分钟）' },
+                { id: 'step3', text: '③ 排水阶段：排水泵工作，污水排出（约 2 分钟）' },
+                { id: 'step4', text: '④ 脱水阶段：内筒高速旋转，离心力脱水（约 5 分钟）' },
+                { id: 'step5', text: '✅ 完成：洗涤结束，蜂鸣器提示' }
+            ];
+            
+            let index = 0;
+            const statusText = document.getElementById('washing-step-text');
+            
+            const interval = setInterval(() => {
+                if (index >= steps.length) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                // 高亮当前步骤
+                document.querySelectorAll('#washingSvg .flowchart-node').forEach((node, i) => {
+                    node.style.opacity = i === index ? '1' : '0.5';
+                });
+                
+                statusText.textContent = steps[index].text;
+                index++;
+            }, 2000);
+        }
+
+        function resetWashing() {
+            document.querySelectorAll('#washingSvg .flowchart-node').forEach(node => {
+                node.style.opacity = '1';
+            });
+            document.getElementById('washing-step-text').textContent = '点击"播放工作流程"开始';
+        }
+
+        // 电风扇控制
+        let fanSpeed = 1;
+        let oscillationOn = false;
+
+        function toggleFanSpeed() {
+            fanSpeed = (fanSpeed % 3) + 1;
+            const windLevel = document.getElementById('wind-level');
+            const widths = [20, 40, 60];
+            const colors = ['#27ae60', '#f39c12', '#e74c3c'];
+            
+            windLevel.style.width = widths[fanSpeed - 1] + 'px';
+            windLevel.style.fill = colors[fanSpeed - 1];
+        }
+
+        function toggleOscillation() {
+            oscillationOn = !oscillationOn;
+            const blades = document.querySelectorAll('.fan-blade-rotate');
+            blades.forEach(blade => {
+                if (oscillationOn) {
+                    blade.style.animation = 'fan-rotate 0.5s linear infinite';
+                } else {
+                    blade.style.animation = '';
+                }
+            });
+        }
+
+        // 电饭煲控制
+        function startCooking() {
+            const cookLed = document.getElementById('cook-led');
+            const warmLed = document.getElementById('warm-led');
+            
+            cookLed.style.fill = '#e74c3c';
+            warmLed.style.fill = '#95a5a6';
+            
+            // 模拟加热动画
+            const heatWaves = document.querySelectorAll('.heat-wave');
+            heatWaves.forEach(wave => {
+                wave.style.opacity = '0.8';
+                wave.style.animation = 'flowPulse 1s ease-in-out infinite';
+            });
+            
+            // 3 秒后切换到保温
+            setTimeout(() => {
+                cookLed.style.fill = '#95a5a6';
+                warmLed.style.fill = '#f39c12';
+                heatWaves.forEach(wave => {
+                    wave.style.opacity = '0.3';
+                    wave.style.animation = '';
+                });
+            }, 3000);
+        }
+
+        function resetRiceCooker() {
+            const cookLed = document.getElementById('cook-led');
+            const warmLed = document.getElementById('warm-led');
+            
+            cookLed.style.fill = '#95a5a6';
+            warmLed.style.fill = '#95a5a6';
+            
+            const heatWaves = document.querySelectorAll('.heat-wave');
+            heatWaves.forEach(wave => {
+                wave.style.opacity = '0.6';
+                wave.style.animation = '';
+            });
+        }
+
+        // 初始化交互图
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有 SVG 图表添加交互控制器
+            document.querySelectorAll('svg').forEach(svg => {
+                new DiagramControllers.InteractiveDiagramController(svg.id, {
+                    showTooltip: true,
+                    highlightConnections: true
+                });
+            });
+        });
+    </script>
+</body>
+</html>

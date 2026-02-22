@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>微波炉 - 家用电器维修指南</title>
+    <link rel="stylesheet" href="css/diagrams.css">
     <style>
         * {
             margin: 0;
@@ -526,14 +527,182 @@
                         <span class="text">室内布线</span>
                     </a>
                 </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">交互图表</div>
+                </div>
+                <div class="nav-item">
+                    <a href="interactive-diagrams.html" class="nav-link">
+                        <span class="icon">📊</span>
+                        <span class="text">动态图表展示</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="content-wrapper">
+                <a href="index.html" class="back-link">← 返回首页</a>
+
                 <section class="appliance-detail">
                     <h2>📡 微波炉运行原理与故障修复</h2>
-                    
+
+                    <!-- 微波炉加热原理图 -->
+                    <div class="diagram-section">
+                        <h3>📊 微波炉加热原理图</h3>
+                        <div class="diagram-wrapper">
+                            <div class="chart-controls">
+                                <button class="chart-btn" onclick="toggleMicrowaveFlow()">显示微波路径</button>
+                                <button class="chart-btn" onclick="toggleMagnetron()">显示磁控管工作</button>
+                                <button class="chart-btn" onclick="resetMicrowaveDiagram()">重置</button>
+                            </div>
+                            <svg id="microwaveSvg" class="diagram-svg" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrow-micro" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+                                    </marker>
+                                    <radialGradient id="waveGrad" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.8" />
+                                        <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:0.2" />
+                                    </radialGradient>
+                                </defs>
+
+                                <!-- 电源输入 -->
+                                <g class="flowchart-node interactive-node" data-id="power-input" data-label="电源输入：220V 交流电输入">
+                                    <rect x="30" y="50" width="100" height="60" class="flowchart-box" fill="#34495e"/>
+                                    <text x="80" y="75" class="flowchart-label" fill="white" font-weight="bold">电源输入</text>
+                                    <text x="80" y="95" class="flowchart-label" fill="white" font-size="10">220V AC</text>
+                                    <!-- 插头图标 -->
+                                    <circle cx="80" cy="60" r="12" fill="white" opacity="0.3"/>
+                                </g>
+
+                                <!-- 高压变压器 -->
+                                <g class="flowchart-node interactive-node" data-id="transformer" data-label="高压变压器：将 220V 升压至约 4000V">
+                                    <rect x="180" y="40" width="120" height="80" class="flowchart-box" fill="#f39c12"/>
+                                    <text x="240" y="75" class="flowchart-label" fill="white" font-weight="bold">高压变压器</text>
+                                    <text x="240" y="95" class="flowchart-label" fill="white" font-size="10">Transformer</text>
+                                    <!-- 线圈示意 -->
+                                    <circle cx="210" cy="65" r="15" fill="white" opacity="0.3" stroke="white" stroke-width="2"/>
+                                    <circle cx="270" cy="65" r="15" fill="white" opacity="0.3" stroke="white" stroke-width="2"/>
+                                </g>
+
+                                <!-- 高压电容 -->
+                                <g class="flowchart-node interactive-node" data-id="capacitor" data-label="高压电容：储存电能，倍压整流">
+                                    <rect x="350" y="50" width="80" height="60" class="flowchart-box" fill="#1abc9c"/>
+                                    <text x="390" y="75" class="flowchart-label" fill="white" font-weight="bold">高压电容</text>
+                                    <text x="390" y="95" class="flowchart-label" fill="white" font-size="10">Capacitor</text>
+                                </g>
+
+                                <!-- 磁控管 -->
+                                <g class="flowchart-node interactive-node" data-id="magnetron" data-label="磁控管：将电能转换为 2450MHz 微波">
+                                    <rect x="480" y="40" width="120" height="80" class="flowchart-box" fill="#e74c3c"/>
+                                    <text x="540" y="75" class="flowchart-label" fill="white" font-weight="bold">磁控管</text>
+                                    <text x="540" y="95" class="flowchart-label" fill="white" font-size="10">Magnetron</text>
+                                    <!-- 天线示意 -->
+                                    <circle cx="540" cy="60" r="20" fill="white" opacity="0.3" stroke="white" stroke-width="2"/>
+                                    <line x1="540" y1="60" x2="540" y2="45" stroke="white" stroke-width="3"/>
+                                </g>
+
+                                <!-- 波导 -->
+                                <g class="flowchart-node interactive-node" data-id="waveguide" data-label="波导：将微波传输到炉腔">
+                                    <rect x="480" y="150" width="120" height="40" class="flowchart-box" fill="#9b59b6"/>
+                                    <text x="540" y="175" class="flowchart-label" fill="white" font-weight="bold">波导</text>
+                                    <text x="540" y="190" class="flowchart-label" fill="white" font-size="10">Waveguide</text>
+                                </g>
+
+                                <!-- 搅拌器/天线 -->
+                                <g class="flowchart-node interactive-node" data-id="stirrer" data-label="搅拌器：使微波均匀分布">
+                                    <circle cx="540" cy="230" r="35" class="flowchart-box" fill="#16a085"/>
+                                    <text x="540" y="225" class="flowchart-label" fill="white" font-weight="bold">搅拌器</text>
+                                    <text x="540" y="245" class="flowchart-label" fill="white" font-size="10">Stirrer</text>
+                                    <!-- 叶片示意 -->
+                                    <line x1="520" y1="230" x2="560" y2="230" stroke="white" stroke-width="2"/>
+                                    <line x1="540" y1="210" x2="540" y2="250" stroke="white" stroke-width="2"/>
+                                </g>
+
+                                <!-- 炉腔 -->
+                                <g class="flowchart-node interactive-node" data-id="cavity" data-label="炉腔：微波加热食物的空间">
+                                    <rect x="200" y="270" width="280" height="140" class="flowchart-box" fill="#2c3e50"/>
+                                    <text x="340" y="340" class="flowchart-label" fill="white" font-weight="bold">炉腔</text>
+                                    <text x="340" y="360" class="flowchart-label" fill="white" font-size="10">Cooking Cavity</text>
+                                    <!-- 微波线示意 -->
+                                    <path d="M220,290 Q250,310 280,290 Q310,270 340,290 Q370,310 400,290 Q430,270 460,290" stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.5"/>
+                                    <path d="M220,320 Q250,340 280,320 Q310,300 340,320 Q370,340 400,320 Q430,300 460,320" stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.5"/>
+                                    <path d="M220,350 Q250,370 280,350 Q310,330 340,350 Q370,370 400,350 Q430,330 460,350" stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.5"/>
+                                </g>
+
+                                <!-- 转盘 -->
+                                <g class="flowchart-node interactive-node" data-id="turntable" data-label="转盘：旋转食物，使加热均匀">
+                                    <ellipse cx="340" cy="380" rx="80" ry="25" class="flowchart-box" fill="#95a5a6"/>
+                                    <text x="340" y="385" class="flowchart-label" fill="white" font-weight="bold">转盘</text>
+                                    <text x="340" y="400" class="flowchart-label" fill="white" font-size="10">Turntable</text>
+                                </g>
+
+                                <!-- 转盘电机 -->
+                                <g class="flowchart-node interactive-node" data-id="turntable-motor" data-label="转盘电机：带动转盘旋转">
+                                    <rect x="300" y="420" width="80" height="30" class="flowchart-box" fill="#27ae60"/>
+                                    <text x="340" y="440" class="flowchart-label" fill="white" font-weight="bold">转盘电机</text>
+                                </g>
+
+                                <!-- 门开关 -->
+                                <g class="flowchart-node interactive-node" data-id="door-switch" data-label="门开关：安全保护，开门断电">
+                                    <circle cx="100" cy="200" r="35" class="flowchart-box" fill="#c0392b"/>
+                                    <text x="100" y="195" class="flowchart-label" fill="white" font-weight="bold">门开关</text>
+                                    <text x="100" y="215" class="flowchart-label" fill="white" font-size="10">Safety</text>
+                                </g>
+
+                                <!-- 控制板 -->
+                                <g class="flowchart-node interactive-node" data-id="control" data-label="控制板：设置时间和功率">
+                                    <rect x="30" y="250" width="100" height="80" class="flowchart-box" fill="#8e44ad"/>
+                                    <text x="80" y="285" class="flowchart-label" fill="white" font-weight="bold">控制板</text>
+                                    <text x="80" y="305" class="flowchart-label" fill="white" font-size="10">Control</text>
+                                    <!-- 按钮示意 -->
+                                    <circle cx="60" cy="315" r="8" fill="white" opacity="0.5"/>
+                                    <circle cx="85" cy="315" r="8" fill="white" opacity="0.5"/>
+                                    <circle cx="110" cy="315" r="8" fill="white" opacity="0.5"/>
+                                </g>
+
+                                <!-- 电力流向 -->
+                                <path id="power-flow-1" class="power-flow-micro" d="M130,80 L180,80" stroke="#f39c12" stroke-width="4" fill="none" stroke-dasharray="8,4"/>
+                                <path id="power-flow-2" class="power-flow-micro" d="M300,80 L350,80" stroke="#f39c12" stroke-width="4" fill="none" stroke-dasharray="8,4"/>
+                                <path id="power-flow-3" class="power-flow-micro" d="M430,80 L480,80" stroke="#f39c12" stroke-width="4" fill="none" stroke-dasharray="8,4"/>
+
+                                <!-- 微波路径 -->
+                                <path id="wave-path" class="wave-path-micro" d="M540,120 L540,150" stroke="#e74c3c" stroke-width="6" fill="none" stroke-dasharray="10,5"/>
+                                <path id="wave-spread" class="wave-path-micro" d="M540,190 L540,230" stroke="#e74c3c" stroke-width="8" fill="none" stroke-dasharray="10,5"/>
+                                <path id="wave-cavity" class="wave-path-micro" d="M540,265 L480,280 L340,280 L200,280" stroke="#e74c3c" stroke-width="6" fill="none" stroke-dasharray="10,5"/>
+
+                                <!-- 微波辐射效果 -->
+                                <g id="wave-effect" class="wave-effect-micro">
+                                    <circle cx="340" cy="340" r="60" fill="url(#waveGrad)" opacity="0.3"/>
+                                    <circle cx="340" cy="340" r="40" fill="url(#waveGrad)" opacity="0.4"/>
+                                    <circle cx="340" cy="340" r="20" fill="url(#waveGrad)" opacity="0.5"/>
+                                </g>
+
+                                <!-- 频率标注 -->
+                                <g id="freq-label">
+                                    <text x="540" y="30" class="flowchart-label" fill="#e74c3c" font-weight="bold">2450 MHz</text>
+                                    <text x="340" y="260" class="flowchart-label" fill="#e74c3c">微波加热食物水分子</text>
+                                </g>
+
+                                <!-- 图例 -->
+                                <g id="micro-legend">
+                                    <rect x="520" y="280" width="160" height="140" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                    <text x="600" y="300" class="flowchart-label" font-weight="bold">图例</text>
+                                    <line x1="530" y1="320" x2="560" y2="320" stroke="#f39c12" stroke-width="4" stroke-dasharray="8,4"/>
+                                    <text x="570" y="325" class="flowchart-label" text-anchor="start" font-size="9">高压电力</text>
+                                    <line x1="530" y1="340" x2="560" y2="340" stroke="#e74c3c" stroke-width="4" stroke-dasharray="10,5"/>
+                                    <text x="570" y="345" class="flowchart-label" text-anchor="start" font-size="9">微波路径</text>
+                                    <circle cx="545" cy="365" r="10" fill="url(#waveGrad)"/>
+                                    <text x="570" y="370" class="flowchart-label" text-anchor="start" font-size="9">微波辐射</text>
+                                    <rect x="530" y="380" width="20" height="20" fill="#e74c3c" rx="3"/>
+                                    <text x="570" y="395" class="flowchart-label" text-anchor="start" font-size="9">磁控管</text>
+                                    <rect x="530" y="400" width="20" height="20" fill="#2c3e50" rx="3"/>
+                                    <text x="570" y="415" class="flowchart-label" text-anchor="start" font-size="9">炉腔</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
                     <h3>运行原理</h3>
                     <div class="principle-box">
                         <h3>微波加热原理</h3>
@@ -789,6 +958,7 @@
         </main>
     </div>
 
+    <script src="js/diagrams.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -829,6 +999,53 @@
                 }
             }
         }
+
+        // 微波炉图表控制
+        let microwaveFlowEnabled = false;
+        let magnetronEnabled = false;
+
+        function toggleMicrowaveFlow() {
+            microwaveFlowEnabled = !microwaveFlowEnabled;
+            const flows = document.querySelectorAll('.power-flow-micro, .wave-path-micro');
+            flows.forEach(flow => {
+                if (microwaveFlowEnabled) {
+                    flow.style.animation = 'signalFlow 1s linear infinite';
+                } else {
+                    flow.style.animation = '';
+                }
+            });
+        }
+
+        function toggleMagnetron() {
+            magnetronEnabled = !magnetronEnabled;
+            const effect = document.getElementById('wave-effect');
+            if (effect) {
+                effect.style.opacity = magnetronEnabled ? '1' : '0.3';
+            }
+        }
+
+        function resetMicrowaveDiagram() {
+            microwaveFlowEnabled = false;
+            magnetronEnabled = false;
+            const flows = document.querySelectorAll('.power-flow-micro, .wave-path-micro');
+            flows.forEach(flow => {
+                flow.style.animation = '';
+            });
+            const effect = document.getElementById('wave-effect');
+            if (effect) {
+                effect.style.opacity = '0.3';
+            }
+        }
+
+        // 初始化交互图
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof DiagramControllers !== 'undefined') {
+                new DiagramControllers.InteractiveDiagramController('microwaveSvg', {
+                    showTooltip: true,
+                    highlightConnections: true
+                });
+            }
+        });
     </script>
 </body>
 </html>

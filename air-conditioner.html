@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>空调 - 家用电器维修指南</title>
+    <link rel="stylesheet" href="css/diagrams.css">
     <style>
         * {
             margin: 0;
@@ -526,14 +527,149 @@
                         <span class="text">室内布线</span>
                     </a>
                 </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">交互图表</div>
+                </div>
+                <div class="nav-item">
+                    <a href="interactive-diagrams.html" class="nav-link">
+                        <span class="icon">📊</span>
+                        <span class="text">动态图表展示</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="content-wrapper">
+                <a href="index.html" class="back-link">← 返回首页</a>
+
                 <section class="appliance-detail">
                     <h2>❄️ 空调运行原理与故障修复</h2>
-                    
+
+                    <!-- 空调制冷/制热循环流程图 -->
+                    <div class="diagram-section">
+                        <h3>📊 制冷/制热循环流程图</h3>
+                        <div class="diagram-wrapper">
+                            <div class="chart-controls">
+                                <button class="chart-btn" onclick="toggleRefrigerantFlowAC()">显示制冷剂流动</button>
+                                <button class="chart-btn" onclick="toggleModeAC()">切换制冷/制热</button>
+                                <button class="chart-btn" onclick="resetACDiagram()">重置</button>
+                            </div>
+                            <svg id="airConditionerSvg" class="diagram-svg" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrow-ac" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+                                    </marker>
+                                    <marker id="arrow-ac-cold" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                    </marker>
+                                    <linearGradient id="hotGradAC" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.8" />
+                                        <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <linearGradient id="coldGradAC" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.3" />
+                                        <stop offset="100%" style="stop-color:#3498db;stop-opacity:0.8" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- 压缩机 -->
+                                <g class="flowchart-node interactive-node" data-id="compressor-ac" data-label="压缩机：将低温低压气体压缩成高温高压气体">
+                                    <circle cx="100" cy="225" r="50" class="flowchart-box" fill="#f39c12"/>
+                                    <text x="100" y="220" class="flowchart-label" font-weight="bold">压缩机</text>
+                                    <text x="100" y="240" class="flowchart-label" font-size="10">Compressor</text>
+                                </g>
+
+                                <!-- 四通阀 -->
+                                <g class="flowchart-node interactive-node" data-id="four-way-valve" data-label="四通阀：切换制冷/制热模式">
+                                    <circle cx="220" cy="225" r="40" class="flowchart-box" fill="#9b59b6"/>
+                                    <text x="220" y="220" class="flowchart-label" fill="white" font-weight="bold">四通阀</text>
+                                    <text x="220" y="240" class="flowchart-label" fill="white" font-size="10">4-Way Valve</text>
+                                    <!-- 阀芯示意 -->
+                                    <rect x="205" y="215" width="30" height="20" fill="white" opacity="0.3" rx="3"/>
+                                </g>
+
+                                <!-- 室外换热器 -->
+                                <g class="flowchart-node interactive-node" data-id="outdoor-coil" data-label="室外换热器：制冷时散热，制热时吸热">
+                                    <rect x="320" y="50" width="140" height="100" class="flowchart-box" fill="#e74c3c"/>
+                                    <text x="390" y="100" class="flowchart-label" fill="white" font-weight="bold">室外换热器</text>
+                                    <text x="390" y="120" class="flowchart-label" fill="white" font-size="10">Outdoor Coil</text>
+                                    <!-- 散热片 -->
+                                    <line x1="330" y1="70" x2="450" y2="70" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="330" y1="85" x2="450" y2="85" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="330" y1="100" x2="450" y2="100" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <!-- 风扇 -->
+                                    <circle cx="390" cy="60" r="15" fill="white" opacity="0.3"/>
+                                </g>
+
+                                <!-- 节流装置 -->
+                                <g class="flowchart-node interactive-node" data-id="expansion" data-label="节流装置/毛细管：控制制冷剂流量">
+                                    <rect x="500" y="200" width="80" height="50" class="flowchart-box" fill="#1abc9c"/>
+                                    <text x="540" y="220" class="flowchart-label" fill="white" font-weight="bold">节流</text>
+                                    <text x="540" y="235" class="flowchart-label" fill="white" font-size="10">Expansion</text>
+                                </g>
+
+                                <!-- 室内换热器 -->
+                                <g class="flowchart-node interactive-node" data-id="indoor-coil" data-label="室内换热器：制冷时吸热，制热时散热">
+                                    <rect x="320" y="300" width="140" height="100" class="flowchart-box" fill="#3498db"/>
+                                    <text x="390" y="350" class="flowchart-label" fill="white" font-weight="bold">室内换热器</text>
+                                    <text x="390" y="370" class="flowchart-label" fill="white" font-size="10">Indoor Coil</text>
+                                    <!-- 散热片 -->
+                                    <line x1="330" y1="320" x2="450" y2="320" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="330" y1="335" x2="450" y2="335" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <line x1="330" y1="350" x2="450" y2="350" stroke="white" stroke-width="1" opacity="0.5"/>
+                                    <!-- 风扇 -->
+                                    <circle cx="390" cy="330" r="15" fill="white" opacity="0.3"/>
+                                </g>
+
+                                <!-- 制冷剂管道 - 制冷模式 -->
+                                <g id="cooling-pipes">
+                                    <!-- 压缩机到四通阀 -->
+                                    <path id="pipe-ac-1" class="refrigerant-flow-ac" d="M150,225 L180,225" stroke="url(#hotGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <!-- 四通阀到室外换热器 -->
+                                    <path id="pipe-ac-2" class="refrigerant-flow-ac" d="M260,225 C290,225 300,150 320,100" stroke="url(#hotGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <!-- 室外换热器到节流 -->
+                                    <path id="pipe-ac-3" class="refrigerant-flow-ac" d="M460,100 C500,100 500,200 500,220" stroke="url(#hotGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <!-- 节流到室内换热器 -->
+                                    <path id="pipe-ac-4" class="refrigerant-flow-ac" d="M540,250 C540,280 480,300 460,320" stroke="url(#coldGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <!-- 室内换热器到四通阀 -->
+                                    <path id="pipe-ac-5" class="refrigerant-flow-ac" d="M320,350 C280,350 260,300 260,250" stroke="url(#coldGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <!-- 四通阀回压缩机 -->
+                                    <path id="pipe-ac-6" class="refrigerant-flow-ac" d="M180,225 L150,225" stroke="url(#coldGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                </g>
+
+                                <!-- 制热模式管道（隐藏） -->
+                                <g id="heating-pipes" style="display:none">
+                                    <path d="M150,225 L180,225" stroke="url(#coldGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <path d="M260,225 C290,225 300,300 320,350" stroke="url(#coldGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <path d="M460,350 C500,350 500,250 500,230" stroke="url(#coldGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <path d="M540,220 C540,180 480,100 460,100" stroke="url(#hotGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                    <path d="M320,100 C280,100 260,150 260,200" stroke="url(#hotGradAC)" stroke-width="10" fill="none" stroke-dasharray="10,5"/>
+                                </g>
+
+                                <!-- 模式标注 -->
+                                <g id="mode-label-ac">
+                                    <text x="390" y="30" class="flowchart-label" fill="#e74c3c" font-weight="bold">🔥 制冷：室外散热</text>
+                                    <text x="390" y="420" class="flowchart-label" fill="#3498db" font-weight="bold">❄️ 制冷：室内吸热</text>
+                                </g>
+
+                                <!-- 图例 -->
+                                <g id="ac-legend">
+                                    <rect x="520" y="50" width="160" height="120" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                    <text x="600" y="70" class="flowchart-label" font-weight="bold">图例</text>
+                                    <line x1="530" y1="90" x2="560" y2="90" stroke="#e74c3c" stroke-width="4"/>
+                                    <text x="570" y="95" class="flowchart-label" text-anchor="start" font-size="9">高温高压</text>
+                                    <line x1="530" y1="110" x2="560" y2="110" stroke="#3498db" stroke-width="4"/>
+                                    <text x="570" y="115" class="flowchart-label" text-anchor="start" font-size="9">低温低压</text>
+                                    <rect x="530" y="130" width="20" height="20" fill="#f39c12" rx="3"/>
+                                    <text x="570" y="145" class="flowchart-label" text-anchor="start" font-size="9">压缩机</text>
+                                    <rect x="530" y="150" width="20" height="20" fill="#9b59b6" rx="3"/>
+                                    <text x="570" y="165" class="flowchart-label" text-anchor="start" font-size="9">四通阀</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
                     <h3>运行原理</h3>
                     <div class="principle-box">
                         <h3>热泵式空调原理</h3>
@@ -772,6 +908,7 @@
         </main>
     </div>
 
+    <script src="js/diagrams.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -812,6 +949,64 @@
                 }
             }
         }
+
+        // 空调图表控制
+        let refrigerantFlowACEnabled = false;
+        let modeAC = 'cooling';
+
+        function toggleRefrigerantFlowAC() {
+            refrigerantFlowACEnabled = !refrigerantFlowACEnabled;
+            const flows = document.querySelectorAll('.refrigerant-flow-ac');
+            flows.forEach(flow => {
+                if (refrigerantFlowACEnabled) {
+                    flow.style.animation = 'signalFlow 1s linear infinite';
+                } else {
+                    flow.style.animation = '';
+                }
+            });
+        }
+
+        function toggleModeAC() {
+            modeAC = modeAC === 'cooling' ? 'heating' : 'cooling';
+            const coolingPipes = document.getElementById('cooling-pipes');
+            const heatingPipes = document.getElementById('heating-pipes');
+            const modeLabel = document.getElementById('mode-label-ac');
+            
+            if (modeAC === 'cooling') {
+                if (coolingPipes) coolingPipes.style.display = 'block';
+                if (heatingPipes) heatingPipes.style.display = 'none';
+                if (modeLabel) modeLabel.innerHTML = '<text x="390" y="30" class="flowchart-label" fill="#e74c3c" font-weight="bold">🔥 制冷：室外散热</text><text x="390" y="420" class="flowchart-label" fill="#3498db" font-weight="bold">❄️ 制冷：室内吸热</text>';
+            } else {
+                if (coolingPipes) coolingPipes.style.display = 'none';
+                if (heatingPipes) heatingPipes.style.display = 'block';
+                if (modeLabel) modeLabel.innerHTML = '<text x="390" y="30" class="flowchart-label" fill="#3498db" font-weight="bold">❄️ 制热：室外吸热</text><text x="390" y="420" class="flowchart-label" fill="#e74c3c" font-weight="bold">🔥 制热：室内散热</text>';
+            }
+        }
+
+        function resetACDiagram() {
+            refrigerantFlowACEnabled = false;
+            modeAC = 'cooling';
+            const flows = document.querySelectorAll('.refrigerant-flow-ac');
+            flows.forEach(flow => {
+                flow.style.animation = '';
+            });
+            const coolingPipes = document.getElementById('cooling-pipes');
+            const heatingPipes = document.getElementById('heating-pipes');
+            const modeLabel = document.getElementById('mode-label-ac');
+            if (coolingPipes) coolingPipes.style.display = 'block';
+            if (heatingPipes) heatingPipes.style.display = 'none';
+            if (modeLabel) modeLabel.innerHTML = '<text x="390" y="30" class="flowchart-label" fill="#e74c3c" font-weight="bold">🔥 制冷：室外散热</text><text x="390" y="420" class="flowchart-label" fill="#3498db" font-weight="bold">❄️ 制冷：室内吸热</text>';
+        }
+
+        // 初始化交互图
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof DiagramControllers !== 'undefined') {
+                new DiagramControllers.InteractiveDiagramController('airConditionerSvg', {
+                    showTooltip: true,
+                    highlightConnections: true
+                });
+            }
+        });
     </script>
 </body>
 </html>

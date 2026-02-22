@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>家用电器运行原理与故障修复指南</title>
+    <link rel="stylesheet" href="css/diagrams.css">
     <style>
         * {
             margin: 0;
@@ -137,7 +138,7 @@
         }
 
         .content-wrapper {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -162,6 +163,92 @@
 
         .intro-section li {
             margin-bottom: 0.5rem;
+        }
+
+        /* 图表展示区 */
+        .diagram-intro {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .diagram-intro h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .diagram-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .diagram-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .diagram-card h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .diagram-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .diagram-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 系统架构图 */
+        .architecture-diagram {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background: var(--secondary-color);
+            color: var(--white);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .chart-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .chart-btn.active {
+            background: var(--accent-color);
         }
 
         /* 电器详情样式 */
@@ -192,102 +279,6 @@
             font-size: 1.3rem;
         }
 
-        .appliance-detail h4 {
-            color: var(--primary-color);
-            margin: 1.5rem 0 0.8rem 0;
-            font-size: 1.1rem;
-        }
-
-        .principle-box {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-        }
-
-        .principle-box h3 {
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        .principle-box ol {
-            margin-left: 1.5rem;
-        }
-
-        .principle-box li {
-            margin-bottom: 0.5rem;
-        }
-
-        .troubleshoot {
-            background: #fff3cd;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #ffc107;
-        }
-
-        .troubleshoot h4 {
-            color: #856404;
-            margin-bottom: 1rem;
-        }
-
-        .troubleshoot ul, .troubleshoot ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .troubleshoot li {
-            margin-bottom: 0.5rem;
-        }
-
-        .tip {
-            background: #d4edda;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin: 0.8rem 0;
-            border-left: 4px solid #28a745;
-        }
-
-        .warning {
-            background: #f8d7da;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin: 0.8rem 0;
-            border-left: 4px solid #dc3545;
-        }
-
-        .flowchart {
-            background: var(--light-bg);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-        }
-
-        .flowchart .step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .flowchart .step-number {
-            background: var(--secondary-color);
-            color: var(--white);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            flex-shrink: 0;
-            font-weight: bold;
-        }
-
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -306,24 +297,6 @@
         }
 
         /* 移动端响应式 */
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
         .menu-toggle {
             display: none;
             position: fixed;
@@ -340,8 +313,24 @@
         }
 
         @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
             .menu-toggle {
                 display: flex;
+            }
+            
+            .diagram-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -477,6 +466,15 @@
                         <span class="text">室内布线</span>
                     </a>
                 </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">交互图表</div>
+                </div>
+                <div class="nav-item">
+                    <a href="interactive-diagrams.html" class="nav-link">
+                        <span class="icon">📊</span>
+                        <span class="text">动态图表展示</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
@@ -484,123 +482,200 @@
             <div class="content-wrapper">
                 <section class="intro-section">
                     <h2>📚 使用说明</h2>
-                    <p>本指南涵盖了家庭中最常见的14种电器的运行原理和故障修复方法。选择左侧导航栏中的电器名称，即可查看详细信息。每个电器的介绍包括：</p>
+                    <p>本指南涵盖了家庭中最常见的 19 种电器的运行原理和故障修复方法。选择左侧导航栏中的电器名称，即可查看详细信息。每个电器的介绍包括：</p>
                     <ul>
                         <li><strong>运行原理</strong>：了解电器的工作机制</li>
+                        <li><strong>流程图</strong>：可视化工作流程和故障排查步骤</li>
+                        <li><strong>序列图</strong>：展示各部件之间的交互时序</li>
+                        <li><strong>交互图</strong>：可点击交互的电路图和结构图</li>
                         <li><strong>常见故障</strong>：识别和理解常见问题</li>
-                        <li><strong>修复方法</strong>：简单易行的DIY维修技巧</li>
-                        <li><strong>原理图及装配图</strong>：详细的电路原理图和部件装配示意图，帮助理解内部结构</li>
+                        <li><strong>修复方法</strong>：简单易行的 DIY 维修技巧</li>
                         <li><strong>维护建议</strong>：预防性维护建议，延长电器寿命</li>
                     </ul>
                 </section>
 
-                <section class="appliance-detail">
-                    <h2>❄️ 冰箱运行原理与故障修复</h2>
-                    
-                    <h3>运行原理</h3>
-                    <div class="principle-box">
-                        <h3>制冷循环原理</h3>
-                        <p>冰箱通过<strong>蒸汽压缩式制冷循环</strong>实现制冷，主要包含以下四个过程：</p>
-                        <ol>
-                            <li><strong>压缩</strong>：压缩机将低温低压的制冷剂气体压缩成高温高压气体</li>
-                            <li><strong>冷凝</strong>：高温高压气体在冷凝器中散热，变成高压液体</li>
-                            <li><strong>节流</strong>：高压液体经过膨胀阀降压，变成低温低压液体</li>
-                            <li><strong>蒸发</strong>：低温低压液体在蒸发器中吸收热量，实现制冷</li>
-                        </ol>
+                <!-- 系统架构图 -->
+                <section class="architecture-diagram">
+                    <h2>🏗️ 家庭电器系统架构</h2>
+                    <div class="chart-controls">
+                        <button class="chart-btn" onclick="togglePowerFlow()">显示电流</button>
+                        <button class="chart-btn" onclick="resetDiagram()">重置</button>
                     </div>
-
-                    <h3>主要部件</h3>
-                    <ul>
-                        <li><strong>压缩机</strong>：制冷系统的心脏，提供动力</li>
-                        <li><strong>冷凝器</strong>：散热部件，将热量释放到空气中</li>
-                        <li><strong>蒸发器</strong>：吸热部件，实现冰箱内部制冷</li>
-                        <li><strong>膨胀阀/毛细管</strong>：控制制冷剂流量</li>
-                        <li><strong>温控器</strong>：调节冰箱内部温度</li>
-                    </ul>
-
-                    <h3>常见故障及修复</h3>
+                    <svg id="architectureSvg" class="diagram-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow-arch" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                            </marker>
+                            <linearGradient id="powerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:0.8" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- 入户电源 -->
+                        <g class="flowchart-node" data-id="power-in">
+                            <rect x="20" y="175" width="80" height="50" class="flowchart-start-end"/>
+                            <text x="60" y="200" class="flowchart-label" fill="white">入户电源</text>
+                            <text x="60" y="215" class="flowchart-label" fill="white" font-size="10">220V/50Hz</text>
+                        </g>
+                        
+                        <!-- 配电箱 -->
+                        <g class="flowchart-node" data-id="distribution-box">
+                            <rect x="150" y="160" width="100" height="80" class="flowchart-box"/>
+                            <text x="200" y="190" class="flowchart-label">配电箱</text>
+                            <text x="200" y="210" class="flowchart-label" font-size="10">断路器/漏保</text>
+                        </g>
+                        
+                        <!-- 照明回路 -->
+                        <g class="flowchart-node" data-id="lighting">
+                            <rect x="320" y="40" width="90" height="50" class="flowchart-box"/>
+                            <text x="365" y="65" class="flowchart-label">照明回路</text>
+                        </g>
+                        
+                        <!-- 普通插座 -->
+                        <g class="flowchart-node" data-id="socket">
+                            <rect x="320" y="110" width="90" height="50" class="flowchart-box"/>
+                            <text x="365" y="135" class="flowchart-label">普通插座</text>
+                        </g>
+                        
+                        <!-- 空调专用 -->
+                        <g class="flowchart-node" data-id="ac-special">
+                            <rect x="320" y="180" width="90" height="50" class="flowchart-box"/>
+                            <text x="365" y="205" class="flowchart-label">空调专用</text>
+                        </g>
+                        
+                        <!-- 厨房专用 -->
+                        <g class="flowchart-node" data-id="kitchen">
+                            <rect x="320" y="250" width="90" height="50" class="flowchart-box"/>
+                            <text x="365" y="275" class="flowchart-label">厨房专用</text>
+                        </g>
+                        
+                        <!-- 卫生间专用 -->
+                        <g class="flowchart-node" data-id="bathroom">
+                            <rect x="320" y="320" width="90" height="50" class="flowchart-box"/>
+                            <text x="365" y="345" class="flowchart-label">卫生间专用</text>
+                        </g>
+                        
+                        <!-- 电器组 -->
+                        <g class="flowchart-node" data-id="appliances">
+                            <rect x="500" y="80" width="120" height="240" class="flowchart-box" fill="#f8f9fa"/>
+                            <text x="560" y="110" class="flowchart-label" font-weight="bold">主要电器</text>
+                            
+                            <!-- 电器列表 -->
+                            <text x="520" y="140" class="flowchart-label" text-anchor="start" font-size="9">❄️ 冰箱/空调</text>
+                            <text x="520" y="160" class="flowchart-label" text-anchor="start" font-size="9">🧺 洗衣机</text>
+                            <text x="520" y="180" class="flowchart-label" text-anchor="start" font-size="9">📺 电视</text>
+                            <text x="520" y="200" class="flowchart-label" text-anchor="start" font-size="9">🍳 厨房电器</text>
+                            <text x="520" y="220" class="flowchart-label" text-anchor="start" font-size="9">🚿 热水器</text>
+                            <text x="520" y="240" class="flowchart-label" text-anchor="start" font-size="9">🌀 其他电器</text>
+                        </g>
+                        
+                        <!-- 接地 -->
+                        <g class="flowchart-node" data-id="ground">
+                            <rect x="500" y="340" width="120" height="40" class="flowchart-box" fill="#d4edda"/>
+                            <text x="560" y="365" class="flowchart-label">🟢 接地保护</text>
+                        </g>
+                        
+                        <!-- 连接线 -->
+                        <path class="flowchart-arrow" d="M100,200 L150,200" stroke-width="3"/>
+                        <path class="flowchart-arrow" d="M250,200 L320,200" stroke-width="2"/>
+                        
+                        <!-- 配电箱到各回路 -->
+                        <path class="power-line" id="power-line-1" d="M365,160 L365,90" stroke-dasharray="5,5"/>
+                        <path class="power-line" id="power-line-2" d="M340,135 L320,135" stroke-dasharray="5,5"/>
+                        <path class="power-line" id="power-line-3" d="M340,205 L320,205" stroke-dasharray="5,5"/>
+                        <path class="power-line" id="power-line-4" d="M340,275 L320,275" stroke-dasharray="5,5"/>
+                        <path class="power-line" id="power-line-5" d="M365,320 L365,345" stroke-dasharray="5,5"/>
+                        
+                        <!-- 回路到电器 -->
+                        <path class="flowchart-arrow" d="M410,65 L500,100" stroke-width="1.5"/>
+                        <path class="flowchart-arrow" d="M410,135 L500,140" stroke-width="1.5"/>
+                        <path class="flowchart-arrow" d="M410,205 L500,180" stroke-width="1.5"/>
+                        <path class="flowchart-arrow" d="M410,275 L500,220" stroke-width="1.5"/>
+                        <path class="flowchart-arrow" d="M410,345 L500,300" stroke-width="1.5"/>
+                        
+                        <!-- 接地连接 -->
+                        <path class="flowchart-arrow" d="M560,320 L560,340" stroke="#27ae60"/>
+                    </svg>
                     
-                    <div class="troubleshoot">
-                        <h4>故障1：冰箱不制冷</h4>
-                        <p><strong>可能原因：</strong></p>
-                        <ul>
-                            <li>电源问题：检查电源线和插座</li>
-                            <li>压缩机故障：听是否有运行声音</li>
-                            <li>制冷剂泄漏：检查是否有油渍</li>
-                            <li>温控器设置不当</li>
-                        </ul>
-                        <p><strong>排查步骤：</strong></p>
-                        <div class="flowchart">
-                            <div class="step">
-                                <span class="step-number">1</span>
-                                <div>检查电源：确认插座有电，电源线完好</div>
-                            </div>
-                            <div class="step">
-                                <span class="step-number">2</span>
-                                <div>检查温控器：确保温度设置正确（通常2-8℃）</div>
-                            </div>
-                            <div class="step">
-                                <span class="step-number">3</span>
-                                <div>听压缩机声音：应有轻微运转声</div>
-                            </div>
-                            <div class="step">
-                                <span class="step-number">4</span>
-                                <div>检查冷凝器：清理背面灰尘</div>
-                            </div>
+                    <div class="legend-container">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #3498db;"></div>
+                            <span>主电源</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #e74c3c;"></div>
+                            <span>火线 (L)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #3498db;"></div>
+                            <span>零线 (N)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #27ae60;"></div>
+                            <span>地线 (PE)</span>
                         </div>
                     </div>
+                </section>
 
-                    <div class="troubleshoot">
-                        <h4>故障2：冰箱结霜严重</h4>
-                        <p><strong>可能原因：</strong></p>
-                        <ul>
-                            <li>门封条老化或损坏</li>
-                            <li>频繁开门或开门时间过长</li>
-                            <li>温控器故障</li>
-                        </ul>
-                        <p><strong>修复方法：</strong></p>
-                        <ol>
-                            <li>用吹风机加热门封条，使其恢复弹性</li>
-                            <li>更换老化的门封条</li>
-                            <li>减少开门次数和时间</li>
-                            <li>检查并调整温控器设置</li>
-                        </ol>
+                <!-- 故障诊断流程图入口 -->
+                <section class="diagram-intro">
+                    <h2>🔧 故障诊断流程图</h2>
+                    <div class="diagram-grid">
+                        <div class="diagram-card" onclick="window.location.href='refrigerator.html'">
+                            <div class="icon">❄️</div>
+                            <h4>冰箱故障诊断</h4>
+                            <p>不制冷、结霜、噪音等问题的排查流程</p>
+                        </div>
+                        <div class="diagram-card" onclick="window.location.href='washing-machine.html'">
+                            <div class="icon">🧺</div>
+                            <h4>洗衣机故障诊断</h4>
+                            <p>不进水、不排水、不转动等问题的排查流程</p>
+                        </div>
+                        <div class="diagram-card" onclick="window.location.href='air-conditioner.html'">
+                            <div class="icon">❄️</div>
+                            <h4>空调故障诊断</h4>
+                            <p>不制冷、漏水、异味等问题的排查流程</p>
+                        </div>
+                        <div class="diagram-card" onclick="window.location.href='interactive-diagrams.html'">
+                            <div class="icon">📊</div>
+                            <h4>交互式图表</h4>
+                            <p>查看所有电器的动态工作原理图</p>
+                        </div>
                     </div>
+                </section>
 
-                    <div class="troubleshoot">
-                        <h4>故障3：冰箱噪音过大</h4>
-                        <p><strong>可能原因：</strong></p>
-                        <ul>
-                            <li>放置不平稳</li>
-                            <li>压缩机减震垫老化</li>
-                            <li>内部零件松动</li>
-                        </ul>
-                        <p><strong>修复方法：</strong></p>
-                        <ol>
-                            <li>调整冰箱底脚，确保水平放置</li>
-                            <li>检查并更换减震垫</li>
-                            <li>紧固内部松动的部件</li>
-                        </ol>
-                    </div>
-
-                    <h3>维护建议</h3>
-                    <div class="tip">
-                        <strong>定期清洁：</strong>每3-6个月清洁一次冷凝器和冷凝器风扇
-                    </div>
-                    <div class="tip">
-                        <strong>检查门封：</strong>定期检查门封条是否严密，可用纸片测试
-                    </div>
-                    <div class="tip">
-                        <strong>温度设置：</strong>冷藏室2-8℃，冷冻室-18℃左右
-                    </div>
-                    <div class="warning">
-                        <strong>安全注意：</strong>清洁前请拔掉电源，涉及制冷剂维修请专业人员处理
+                <!-- 电器快速导航 -->
+                <section class="appliance-detail">
+                    <h2>🔌 电器分类导航</h2>
+                    <div class="diagram-grid">
+                        <div class="diagram-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="window.location.href='refrigerator.html'">
+                            <div class="icon">❄️</div>
+                            <h4>制冷电器</h4>
+                            <p>冰箱、空调、冷饮机等</p>
+                        </div>
+                        <div class="diagram-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);" onclick="window.location.href='washing-machine.html'">
+                            <div class="icon">🧺</div>
+                            <h4>清洁电器</h4>
+                            <p>洗衣机、洗碗机、吸尘器等</p>
+                        </div>
+                        <div class="diagram-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);" onclick="window.location.href='rice-cooker.html'">
+                            <div class="icon">🍳</div>
+                            <h4>厨房电器</h4>
+                            <p>电饭煲、微波炉、电磁炉等</p>
+                        </div>
+                        <div class="diagram-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);" onclick="window.location.href='television.html'">
+                            <div class="icon">📺</div>
+                            <h4>影音电器</h4>
+                            <p>电视、音响、投影仪等</p>
+                        </div>
                     </div>
                 </section>
             </div>
         </main>
     </div>
 
+    <script src="js/diagrams.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -647,6 +722,39 @@
         document.querySelectorAll('.nav-link').forEach(link => {
             if (link.getAttribute('href') === currentPage) {
                 link.classList.add('active');
+            }
+        });
+
+        // 显示电流动画
+        let powerFlowEnabled = false;
+        function togglePowerFlow() {
+            powerFlowEnabled = !powerFlowEnabled;
+            const lines = document.querySelectorAll('.power-line');
+            lines.forEach(line => {
+                if (powerFlowEnabled) {
+                    line.style.animation = 'signalFlow 1s linear infinite';
+                } else {
+                    line.style.animation = '';
+                }
+            });
+        }
+
+        function resetDiagram() {
+            powerFlowEnabled = false;
+            const lines = document.querySelectorAll('.power-line');
+            lines.forEach(line => {
+                line.style.animation = '';
+            });
+        }
+
+        // 初始化架构图交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = document.getElementById('architectureSvg');
+            if (svg) {
+                new DiagramControllers.InteractiveDiagramController('architectureSvg', {
+                    showTooltip: true,
+                    highlightConnections: true
+                });
             }
         });
     </script>

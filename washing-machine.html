@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>洗衣机 - 家用电器维修指南</title>
+    <link rel="stylesheet" href="css/diagrams.css">
     <style>
         * {
             margin: 0;
@@ -526,14 +527,140 @@
                         <span class="text">室内布线</span>
                     </a>
                 </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">交互图表</div>
+                </div>
+                <div class="nav-item">
+                    <a href="interactive-diagrams.html" class="nav-link">
+                        <span class="icon">📊</span>
+                        <span class="text">动态图表展示</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="content-wrapper">
+                <a href="index.html" class="back-link">← 返回首页</a>
+
                 <section class="appliance-detail">
                     <h2>🧺 洗衣机运行原理与故障修复</h2>
-                    
+
+                    <!-- 洗衣机工作流程图 -->
+                    <div class="diagram-section">
+                        <h3>📊 洗衣机工作流程图</h3>
+                        <div class="diagram-wrapper">
+                            <div class="chart-controls">
+                                <button class="chart-btn" onclick="toggleWaterFlow()">显示水流方向</button>
+                                <button class="chart-btn" onclick="toggleWashStages()">显示洗涤阶段</button>
+                                <button class="chart-btn" onclick="resetWashDiagram()">重置</button>
+                            </div>
+                            <svg id="washingMachineSvg" class="diagram-svg" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrow-wash" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                                    </marker>
+                                    <linearGradient id="waterGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.8" />
+                                        <stop offset="100%" style="stop-color:#3498db;stop-opacity:0.3" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- 进水阶段 -->
+                                <g class="flowchart-node interactive-node" data-id="water-inlet" data-label="进水阀：控制自来水进入洗衣机">
+                                    <rect x="50" y="50" width="120" height="80" class="flowchart-box" fill="#3498db"/>
+                                    <text x="110" y="85" class="flowchart-label" fill="white" font-weight="bold">进水阀</text>
+                                    <text x="110" y="105" class="flowchart-label" fill="white" font-size="10">Water Inlet</text>
+                                    <!-- 水龙头图标 -->
+                                    <circle cx="110" cy="65" r="15" fill="white" opacity="0.3"/>
+                                </g>
+
+                                <!-- 水位检测 -->
+                                <g class="flowchart-node interactive-node" data-id="water-level" data-label="水位传感器：检测水位达到设定值">
+                                    <circle cx="250" cy="90" r="45" class="flowchart-box" fill="#9b59b6"/>
+                                    <text x="250" y="85" class="flowchart-label" fill="white" font-weight="bold">水位</text>
+                                    <text x="250" y="105" class="flowchart-label" fill="white" font-size="10">Sensor</text>
+                                </g>
+
+                                <!-- 洗涤阶段 -->
+                                <g class="flowchart-node interactive-node" data-id="wash" data-label="洗涤：滚筒转动，衣物翻滚摔打">
+                                    <rect x="350" y="50" width="120" height="80" class="flowchart-box" fill="#2ecc71"/>
+                                    <text x="410" y="85" class="flowchart-label" fill="white" font-weight="bold">洗涤</text>
+                                    <text x="410" y="105" class="flowchart-label" fill="white" font-size="10">Washing</text>
+                                    <!-- 滚筒示意 -->
+                                    <circle cx="410" cy="70" r="20" fill="white" opacity="0.3" stroke="white" stroke-width="2"/>
+                                </g>
+
+                                <!-- 排水阶段 -->
+                                <g class="flowchart-node interactive-node" data-id="drain" data-label="排水泵：排出污水">
+                                    <rect x="50" y="200" width="120" height="80" class="flowchart-box" fill="#e67e22"/>
+                                    <text x="110" y="235" class="flowchart-label" fill="white" font-weight="bold">排水泵</text>
+                                    <text x="110" y="255" class="flowchart-label" fill="white" font-size="10">Drain Pump</text>
+                                    <!-- 水流图标 -->
+                                    <path d="M90,220 Q100,230 110,220 Q120,230 130,220" stroke="white" stroke-width="2" fill="none" opacity="0.5"/>
+                                </g>
+
+                                <!-- 脱水阶段 -->
+                                <g class="flowchart-node interactive-node" data-id="spin" data-label="脱水：高速旋转，离心力脱水">
+                                    <rect x="350" y="200" width="120" height="80" class="flowchart-box" fill="#e74c3c"/>
+                                    <text x="410" y="235" class="flowchart-label" fill="white" font-weight="bold">脱水</text>
+                                    <text x="410" y="255" class="flowchart-label" fill="white" font-size="10">Spin Dry</text>
+                                    <!-- 旋转示意 -->
+                                    <circle cx="410" cy="225" r="25" fill="white" opacity="0.2" stroke="white" stroke-width="2"/>
+                                    <path d="M395,225 Q410,210 425,225" stroke="white" stroke-width="2" fill="none" opacity="0.5"/>
+                                </g>
+
+                                <!-- 完成 -->
+                                <g class="flowchart-node interactive-node" data-id="complete" data-label="完成：洗涤结束，可取出衣物">
+                                    <circle cx="600" cy="240" r="50" class="flowchart-box" fill="#27ae60"/>
+                                    <text x="600" y="235" class="flowchart-label" fill="white" font-weight="bold">完成</text>
+                                    <text x="600" y="255" class="flowchart-label" fill="white" font-size="10">Complete</text>
+                                </g>
+
+                                <!-- 连接箭头 - 进水到水位 -->
+                                <path id="flow-inlet" class="water-flow" d="M170,90 L205,90" stroke="url(#waterGrad)" stroke-width="8" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-inlet" class="flow-arrow" d="M190,85 L200,90 L190,95" fill="#3498db"/>
+
+                                <!-- 水位到洗涤 -->
+                                <path id="flow-wash" class="water-flow" d="M295,90 L350,90" stroke="url(#waterGrad)" stroke-width="8" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-wash1" class="flow-arrow" d="M335,85 L345,90 L335,95" fill="#3498db"/>
+
+                                <!-- 洗涤到排水 -->
+                                <path id="flow-drain" class="water-flow" d="M410,130 L410,165 L110,165 L110,200" stroke="url(#waterGrad)" stroke-width="8" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-drain" class="flow-arrow" d="M105,185 L110,195 L115,185" fill="#e67e22"/>
+
+                                <!-- 排水到脱水 -->
+                                <path id="flow-spin" class="water-flow" d="M170,240 L350,240" stroke="url(#waterGrad)" stroke-width="8" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-spin" class="flow-arrow" d="M335,235 L345,240 L335,245" fill="#e74c3c"/>
+
+                                <!-- 脱水到完成 -->
+                                <path id="flow-complete" class="water-flow" d="M470,240 L550,240" stroke="url(#waterGrad)" stroke-width="8" fill="none" stroke-dasharray="10,5"/>
+                                <path id="arrow-complete" class="flow-arrow" d="M535,235 L545,240 L535,245" fill="#27ae60"/>
+
+                                <!-- 阶段标注 -->
+                                <g id="stage-labels" class="stage-labels">
+                                    <text x="110" y="35" class="flowchart-label" font-size="11" fill="#3498db">① 进水</text>
+                                    <text x="250" y="35" class="flowchart-label" font-size="11" fill="#9b59b6">② 检测</text>
+                                    <text x="410" y="35" class="flowchart-label" font-size="11" fill="#2ecc71">③ 洗涤</text>
+                                    <text x="110" y="185" class="flowchart-label" font-size="11" fill="#e67e22">④ 排水</text>
+                                    <text x="410" y="185" class="flowchart-label" font-size="11" fill="#e74c3c">⑤ 脱水</text>
+                                </g>
+
+                                <!-- 图例 -->
+                                <g id="wash-legend">
+                                    <rect x="520" y="50" width="160" height="100" fill="#f8f9fa" rx="8" stroke="#ddd"/>
+                                    <text x="600" y="70" class="flowchart-label" font-weight="bold">图例</text>
+                                    <line x1="530" y1="90" x2="560" y2="90" stroke="#3498db" stroke-width="4"/>
+                                    <text x="570" y="95" class="flowchart-label" text-anchor="start" font-size="9">水流</text>
+                                    <rect x="530" y1="110" width="20" height="20" fill="#2ecc71" rx="3"/>
+                                    <text x="570" y="125" class="flowchart-label" text-anchor="start" font-size="9">洗涤阶段</text>
+                                    <rect x="530" y="130" width="20" height="20" fill="#e74c3c" rx="3"/>
+                                    <text x="570" y="145" class="flowchart-label" text-anchor="start" font-size="9">脱水阶段</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
                     <h3>运行原理</h3>
                     <div class="principle-box">
                         <h3>滚筒洗衣机工作原理</h3>
@@ -782,6 +909,7 @@
         </main>
     </div>
 
+    <script src="js/diagrams.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -822,6 +950,53 @@
                 }
             }
         }
+
+        // 洗衣机图表控制
+        let waterFlowEnabled = false;
+        let washStagesEnabled = false;
+
+        function toggleWaterFlow() {
+            waterFlowEnabled = !waterFlowEnabled;
+            const flows = document.querySelectorAll('.water-flow');
+            flows.forEach(flow => {
+                if (waterFlowEnabled) {
+                    flow.style.animation = 'signalFlow 1s linear infinite';
+                } else {
+                    flow.style.animation = '';
+                }
+            });
+        }
+
+        function toggleWashStages() {
+            washStagesEnabled = !washStagesEnabled;
+            const labels = document.getElementById('stage-labels');
+            if (labels) {
+                labels.style.opacity = washStagesEnabled ? '1' : '0.5';
+            }
+        }
+
+        function resetWashDiagram() {
+            waterFlowEnabled = false;
+            washStagesEnabled = false;
+            const flows = document.querySelectorAll('.water-flow');
+            flows.forEach(flow => {
+                flow.style.animation = '';
+            });
+            const labels = document.getElementById('stage-labels');
+            if (labels) {
+                labels.style.opacity = '1';
+            }
+        }
+
+        // 初始化交互图
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof DiagramControllers !== 'undefined') {
+                new DiagramControllers.InteractiveDiagramController('washingMachineSvg', {
+                    showTooltip: true,
+                    highlightConnections: true
+                });
+            }
+        });
     </script>
 </body>
 </html>

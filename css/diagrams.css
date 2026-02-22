@@ -1,0 +1,312 @@
+/* ========================================
+   家用电器网站 - 图表通用样式
+   ======================================== */
+
+/* 图表容器基础样式 */
+.diagram-container {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.diagram-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* SVG 图表通用样式 */
+.diagram-svg {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+}
+
+/* 流程图样式 */
+.flowchart-container {
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+.flowchart-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.flowchart-node:hover {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+}
+
+.flowchart-box {
+    fill: var(--white);
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    rx: 8;
+}
+
+.flowchart-decision {
+    fill: var(--white);
+    stroke: var(--accent-color);
+    stroke-width: 2;
+}
+
+.flowchart-start-end {
+    fill: var(--secondary-color);
+    stroke: none;
+    rx: 20;
+}
+
+.flowchart-arrow {
+    stroke: var(--primary-color);
+    stroke-width: 2;
+    fill: none;
+    marker-end: url(#arrow-default);
+}
+
+.flowchart-label {
+    font-size: 12px;
+    fill: var(--text-color);
+    text-anchor: middle;
+    font-weight: 500;
+}
+
+/* 序列图样式 */
+.sequence-lifeline {
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    stroke-dasharray: 5, 5;
+}
+
+.sequence-actor {
+    fill: var(--light-bg);
+    stroke: var(--primary-color);
+    stroke-width: 2;
+    rx: 5;
+}
+
+.sequence-activation {
+    fill: var(--secondary-color);
+    stroke: var(--primary-color);
+    stroke-width: 1;
+}
+
+.sequence-message {
+    stroke: var(--primary-color);
+    stroke-width: 2;
+    fill: none;
+    marker-end: url(#arrow-message);
+}
+
+.sequence-return {
+    stroke: var(--primary-color);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 5, 5;
+    marker-end: url(#arrow-return);
+}
+
+.sequence-label {
+    font-size: 11px;
+    fill: var(--text-color);
+    text-anchor: middle;
+}
+
+.sequence-actor-label {
+    font-size: 12px;
+    fill: var(--primary-color);
+    text-anchor: middle;
+    font-weight: 600;
+}
+
+/* 交互图样式 */
+.interactive-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.interactive-node:hover {
+    filter: brightness(0.9);
+}
+
+.interactive-node.selected {
+    stroke: var(--accent-color);
+    stroke-width: 3;
+}
+
+.interactive-connection {
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    fill: none;
+    opacity: 0.6;
+}
+
+.interactive-connection.active {
+    stroke: var(--accent-color);
+    stroke-width: 3;
+    opacity: 1;
+}
+
+.interactive-tooltip {
+    fill: var(--white);
+    stroke: var(--primary-color);
+    stroke-width: 1;
+    rx: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.interactive-tooltip-text {
+    font-size: 11px;
+    fill: var(--text-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 状态图样式 */
+.state-node {
+    fill: var(--white);
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    rx: 20;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.state-node.active {
+    fill: var(--secondary-color);
+}
+
+.state-node.active text {
+    fill: var(--white);
+}
+
+.state-transition {
+    stroke: var(--primary-color);
+    stroke-width: 2;
+    fill: none;
+    marker-end: url(#arrow-state);
+}
+
+/* 动画效果 */
+@keyframes flowPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes signalFlow {
+    0% { stroke-dashoffset: 20; }
+    100% { stroke-dashoffset: 0; }
+}
+
+@keyframes nodeHighlight {
+    0%, 100% { stroke: var(--secondary-color); }
+    50% { stroke: var(--accent-color); }
+}
+
+.flowchart-animated {
+    animation: flowPulse 2s infinite;
+}
+
+.signal-animated {
+    animation: signalFlow 1s linear infinite;
+}
+
+.node-highlighted {
+    animation: nodeHighlight 1.5s ease-in-out infinite;
+}
+
+/* 图例样式 */
+.legend-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid var(--primary-color);
+}
+
+/* 控制面板样式 */
+.chart-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.chart-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--secondary-color);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.chart-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.chart-btn.active {
+    background: var(--accent-color);
+}
+
+.chart-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .diagram-container {
+        padding: 1rem;
+    }
+    
+    .flowchart-label,
+    .sequence-label {
+        font-size: 10px;
+    }
+    
+    .chart-controls {
+        justify-content: center;
+    }
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+    .flowchart-box,
+    .flowchart-decision,
+    .state-node,
+    .interactive-tooltip {
+        fill: var(--primary-color);
+    }
+    
+    .flowchart-label,
+    .sequence-label,
+    .sequence-actor-label {
+        fill: #e0e0e0;
+    }
+}
